@@ -1,0 +1,7 @@
+{
+  "name" : "Choose phone",
+  "description" : "Choose phone number",
+  "type" : "PHONE_NUMBER",
+  "variable" : "value",
+  "link" : "element22.json"
+}

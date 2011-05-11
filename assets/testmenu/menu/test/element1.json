@@ -1,0 +1,31 @@
+{
+  "name" : "Choose one of the elements",
+  "description" : "Choose element",
+  "type" : "LIST",
+  "items" : [
+     {
+        "name" : "List: 5",
+        "transaction" : "*145*5#"
+     },
+     {
+        "name" : "List: 10",
+        "transaction" : "*145*10#"
+     },
+     {
+        "name" : "List: 15",
+        "transaction" : "*145*15#"
+     },
+     {
+        "name" : "List: 20",
+        "transaction" : "*145*20#"
+     },
+     {
+        "name" : "List: 25",
+        "transaction" : "*145*25#"
+     },
+     {
+        "name" : "List: 30",
+        "transaction" : "*145*30#"
+     }
+  ]
+}

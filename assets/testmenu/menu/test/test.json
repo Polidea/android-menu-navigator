@@ -1,0 +1,30 @@
+{
+    "name": "Menu test",
+    "description": "Choose from the list",
+    "type" : "LIST",
+    "items" : [
+         {
+            "name" : "Element 1",
+            "description" : "Description of element 1",
+            "icon" : "element1.png",
+            "type" : "MENU_IMPORT",
+            "link" : "element1.json"
+         },
+         {
+            "name" : "Element 2: Phone number",
+            "description" : "Description of element 2",
+            "icon" : "element2.png",
+            "type" : "MENU_IMPORT",
+            "link" : "element2.json"
+         },
+         {
+            "name" : "Element 3 (number)",
+            "description" : "Description of element 3",
+            "icon" : "element3.png",
+            "type" : "NUMBER",
+            "variable" : "number",
+            "maxLength" : "4",
+            "transaction" : "*145*21#"
+         }
+    ]
+}

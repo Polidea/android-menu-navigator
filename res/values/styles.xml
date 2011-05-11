@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BreadCrumbTextViewStyle" parent="@android:style/TextAppearance">
+        <item name="android:layout_margin">2dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lines">1</item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="BreadCrumbLayout">
+        <item name="android:layout_margin">2dip</item>
+        <item name="android:padding">4dip</item>
+        <item name="android:background">@android:color/darker_gray</item>
+    </style>
+    <style name="IconTextViewLayout" parent="@android:style/TextAppearance">
+        <item name="android:padding">1dip</item>
+        <item name="android:textSize">14dip</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="ListTextViewStyle" parent="@android:style/TextAppearance">
+        <item name="android:padding">2dip</item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="ListItemLayout">
+        <item name="android:padding">1dip</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+    <style name="FragmentLayout">
+        <item name="android:background">@android:color/white</item>
+    </style>
+    <style name="LabelTextViewStyle" parent="@android:style/TextAppearance">
+        <item name="android:padding">2dip</item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+</resources>

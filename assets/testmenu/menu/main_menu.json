@@ -1,0 +1,71 @@
+    {
+  "name" : "Main menu",
+  "description" : "Choose menu",
+  "type" : "ICONS",
+  "items" : [
+     {
+        "name" : "Test",
+        "description" : "Menu for testing",
+        "icon" : "test/icon.png",
+        "type" : "MENU_IMPORT",
+        "link" : "test/test.json"
+     },
+     {
+        "name" : "Test2",
+        "description" : "Direct sub-menu",
+        "icon" : "test/icon.png",
+        "type" : "ICONS",
+        "items" : [
+             {
+                "name" : "Test 21",
+                "description" : "Embedded submenu",
+                "icon" : "test/icon.png",
+                "type" : "TRANSACTION",
+                "transaction" : "21"
+             },
+             {
+                "name" : "Test 22",
+                "description" : "Embedded submenu with missing icon",
+                "icon" : "test/icon_missing.png",
+                "type" : "TRANSACTION",
+                "transaction" : "22"
+             }
+        ]
+     },
+     {
+        "name" : "Test3",
+        "description" : "Missing icon",
+        "icon" : "test3/icon.png",
+        "type" : "MENU_IMPORT",
+        "link" : "test3/test3.json"
+     },
+     {
+        "name" : "Test4",
+        "description" : "Missing icon again",
+        "icon" : "test4/icon.png",
+        "type" : "MENU_IMPORT",
+        "link" : "test4/test3.json"
+     },
+     {
+        "name" : "Test5",
+        "description" : "Missing icon",
+        "icon" : "test5/icon.png",
+        "type" : "MENU_IMPORT",
+        "link" : "test5/test5.json"
+     },
+     {
+        "name" : "Test6",
+        "description" : "Missing icon",
+        "icon" : "test6/icon.png",
+        "type" : "MENU_IMPORT",
+        "link" : "test6/test6.json"
+     },
+     {
+        "name" : "Test7",
+        "description" : "Not Missing icon",
+        "icon" : "test/icon.png",
+        "type" : "MENU_IMPORT",
+        "link" : "test7/test7.json"
+     }
+  ]
+}

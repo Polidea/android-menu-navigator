@@ -1,0 +1,31 @@
+{
+  "name" : "Choose one of the elements",
+  "description" : "Choose element",
+  "type" : "LIST",
+  "items" : [
+     {
+        "name" : "List: 5",
+        "transaction" : "ELEMENT:5 {value}"
+     },
+     {
+        "name" : "List: 10",
+        "transaction" : "ELEMENT:10 {value}"
+     },
+     {
+        "name" : "List: 15",
+        "transaction" : "ELEMENT:15 {value}"
+     },
+     {
+        "name" : "List: 20",
+        "transaction" : "ELEMENT:20 {value}"
+     },
+     {
+        "name" : "List: 25",
+        "transaction" : "ELEMENT:25 {value}"
+     },
+     {
+        "name" : "List: 30",
+        "transaction" : "ELEMENT:30 {value}"
+     }
+  ]
+}

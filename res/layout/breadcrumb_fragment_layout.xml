@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="wrap_content" style="@style/BreadCrumbLayout">
+	<LinearLayout android:id="@+id/breadCrumbLayout" android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+		<TextView android:text="Short text" android:id="@+id/textView2" style="@style/BreadCrumbTextViewStyle" />
+		<TextView android:text="&gt;" android:id="@+id/textView3" style="@style/BreadCrumbTextViewStyle" />
+		<TextView android:text="A very long text so that it starts scrolling" android:id="@+id/textView1"
+			style="@style/BreadCrumbTextViewStyle"></TextView>
+		<TextView android:text="&gt;" android:id="@+id/textView4" style="@style/BreadCrumbTextViewStyle" />
+		<TextView android:text="Short text again" android:id="@+id/textView5" style="@style/BreadCrumbTextViewStyle" />
+	</LinearLayout>
+</HorizontalScrollView>
