@@ -42,6 +42,8 @@ public class IconsFragment extends AbstractMenuNavigatorFragment {
             return null;
         }
         final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.icons_fragment_layout, container, false);
+        final TextView header = (TextView) layout.findViewById(R.id.TextViewHeader);
+        header.setText(getNavigationMenu().description);
         tableLayout = (TableLayout) layout.findViewById(R.id.tableIconsLayout);
         tableLayout.removeAllViews();
         TableRow tableRow = null;
