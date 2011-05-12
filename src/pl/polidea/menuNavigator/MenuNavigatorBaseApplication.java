@@ -9,19 +9,19 @@ import android.util.Log;
 
 public class MenuNavigatorBaseApplication extends Application {
     private static final String TAG = MenuNavigatorBaseApplication.class.getSimpleName();
-    private AssetMenuRetriever assetRetriever;
+    private MenuRetriever menuRetriever;
     private AbstractNavigationMenu navigationMenu;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        assetRetriever = new AssetMenuRetriever(this, "testmenu", "menu");
+        menuRetriever = createNewMenuRetriever();
         try {
-            assetRetriever.copyMenu();
+            menuRetriever.copyMenu();
         } catch (final IOException e) {
             Log.w(TAG, "Error when copying standard menu");
         }
-        final JsonMenuReader reader = new JsonMenuReader(new File(assetRetriever.getBaseDirectory(), "menu"),
+        final JsonMenuReader reader = new JsonMenuReader(new File(menuRetriever.getBaseDirectory(), "menu"),
                 "main_menu.json", null);
         reader.createMenu();
         navigationMenu = reader.getMyMenu();
@@ -35,6 +35,10 @@ public class MenuNavigatorBaseApplication extends Application {
     }
 
     public File getBaseDirectory() {
-        return assetRetriever.getBaseDirectory();
+        return menuRetriever.getBaseDirectory();
+    }
+
+    public MenuRetriever createNewMenuRetriever() {
+        return new AssetMenuRetriever(this, "testmenu", "menu");
     }
 }
