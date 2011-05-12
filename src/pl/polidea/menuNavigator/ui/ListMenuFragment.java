@@ -82,6 +82,6 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
         final ViewGroup listViewGroup = (ViewGroup) inflater.inflate(R.layout.list_fragment_layout, container, false);
         final ListView listView = (ListView) listViewGroup.findViewById(R.id.listView);
         listView.setAdapter(new ListMenuAdapter(getNavigationMenu(), inflater));
-        return listView;
+        return listViewGroup;
     }
 }
