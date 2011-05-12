@@ -3,7 +3,7 @@ The markup follows http://txt2tags.org/markup.html
 Do not forget to add TWO empty lines after finishing the list!!! See http://txt2tags.org/tips.html#top-mistakes
 ---------------------------------------------------------
 = Release 0.2 = 
-- test
+- testi 2
 
 
 = Release 0.1 =
