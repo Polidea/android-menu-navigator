@@ -89,7 +89,7 @@ public class AssetMenuRetriever implements MenuRetriever {
                 cleanUpDirectory(f);
             }
             if (!f.delete()) {
-                // we could not delete it - we give up
+                Log.d(TAG, "Could not delete " + f);
                 return;
             }
         }
@@ -108,7 +108,9 @@ public class AssetMenuRetriever implements MenuRetriever {
                 Log.d(TAG, "Copying file from " + newPathIncludingAsset + " to " + destFile);
                 copyFile(assetManager.open(newPathIncludingAsset, AssetManager.ACCESS_STREAMING), destFile);
             } else {
-                destFile.mkdirs();
+                if (!destFile.mkdirs()) {
+                    Log.w(TAG, "Could not create the " + destFile + " directory.");
+                }
                 Log.d(TAG, "Creating dir " + destFile);
                 copyRecursivelyFromAsset(newPath, subdirs);
             }
@@ -208,10 +210,16 @@ public class AssetMenuRetriever implements MenuRetriever {
         saveSignatureToFile(newSignature);
         copyRecursivelyFromAsset(null, null);
         Log.d(TAG, "Renaming " + internalDirectory + " to " + internalOldDirectory);
-        internalDirectory.renameTo(internalOldDirectory);
-        internalTmpDirectory.renameTo(internalDirectory);
+        if (!internalDirectory.renameTo(internalOldDirectory)) {
+            Log.w(TAG, "Could not rename " + internalDirectory + " to " + internalOldDirectory);
+        }
+        if (!internalTmpDirectory.renameTo(internalDirectory)) {
+            Log.w(TAG, "Could not rename " + internalTmpDirectory + " to " + internalDirectory);
+        }
         Log.d(TAG, "Cleaning up " + internalOldDirectory);
         cleanUpDirectory(internalOldDirectory);
-        internalOldDirectory.delete();
+        if (!internalOldDirectory.delete()) {
+            Log.w(TAG, "Could not delete " + internalOldDirectory);
+        }
     }
 }
