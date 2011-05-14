@@ -1,13 +1,13 @@
-package pl.polidea.menuNavigator;
+package pl.polidea.navigator;
 
 import java.io.File;
 
-import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
-import pl.polidea.menuNavigator.menuTypes.IconsMenu;
-import pl.polidea.menuNavigator.menuTypes.ListMenu;
-import pl.polidea.menuNavigator.menuTypes.MenuImport;
-import pl.polidea.menuNavigator.menuTypes.MenuType;
-import pl.polidea.menuNavigator.menuTypes.PhoneNumberMenu;
+import pl.polidea.navigator.menu.AbstractNavigationMenu;
+import pl.polidea.navigator.menu.IconsMenu;
+import pl.polidea.navigator.menu.ListMenu;
+import pl.polidea.navigator.menu.MenuImport;
+import pl.polidea.navigator.menu.MenuType;
+import pl.polidea.navigator.menu.PhoneNumberMenu;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
