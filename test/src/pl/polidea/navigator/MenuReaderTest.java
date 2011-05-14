@@ -34,7 +34,7 @@ public class MenuReaderTest extends ActivityInstrumentationTestCase2<MenuNavigat
     }
 
     public MenuReaderTest() {
-        super("pl.polidea.menuNavigator", MenuNavigatorBaseActivity.class);
+        super("pl.polidea.navigator", MenuNavigatorBaseActivity.class);
     }
 
     public void testPrecondition() {
