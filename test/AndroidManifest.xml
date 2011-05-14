@@ -12,9 +12,9 @@
     <!--
     This declares that this application uses the instrumentation test runner targeting
     the package of pl.polidea.menuNavigator.  To run the tests use the command:
-    "adb shell am instrument -w pl.polidea.menuNavigator/android.test.InstrumentationTestRunner"
+    "adb shell am instrument -w pl.polidea.navigator/android.test.InstrumentationTestRunner"
     -->
-    <instrumentation android:name="android.test.InstrumentationTestRunner"
+    <instrumentation android:name="pl.polidea.instrumentation.PolideaInstrumentationTestRunner"
                      android:targetPackage="pl.polidea.navigator"
                      android:label="Tests for pl.polidea.navigator"/>
 </manifest>
