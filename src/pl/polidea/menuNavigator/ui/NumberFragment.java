@@ -24,7 +24,7 @@ public class NumberFragment extends AbstractMenuNavigatorFragment {
             menuDownListener.onMenuDown(menu.link);
             return true;
         } else if (menu.transaction != null) {
-            onTransactionListener.executeTransaction(menu.transaction);
+            onTransactionListener.handleTransaction(menu.transaction);
             return true;
         }
         return false;

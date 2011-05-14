@@ -1,5 +1,8 @@
 package pl.polidea.menuNavigator;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
 import pl.polidea.menuNavigator.menuTypes.MenuType;
 import pl.polidea.menuNavigator.menuTypes.TransactionMenu;
@@ -12,16 +15,32 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 
-public class MenuNavigatorBaseActivity extends FragmentActivity {
+public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTransactionListener {
+    private final Set<OnTransactionListener> transactionListeners = new HashSet<OnTransactionListener>();
+
+    @Override
+    public boolean handleTransaction(final String transaction) {
+        final HashSet<OnTransactionListener> listenersCopy = new HashSet<OnTransactionListener>();
+        synchronized (this) {
+            listenersCopy.addAll(transactionListeners);
+        }
+        for (final OnTransactionListener listener : listenersCopy) {
+            if (listener.handleTransaction(transaction)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private final OnMenuDownListener menuDownListener = new OnMenuDownListener() {
+
         @Override
         public void onMenuDown(final AbstractNavigationMenu navigationMenu) {
             if (navigationMenu.getMenuType() == MenuType.TRANSACTION) {
-                transactionListener.executeTransaction(((TransactionMenu) navigationMenu).transaction);
+                handleTransaction(((TransactionMenu) navigationMenu).transaction);
             }
             final AbstractMenuNavigatorFragment contentFragment = fragmentsFactory.createFragment(navigationMenu, this,
-                    transactionListener);
+                    MenuNavigatorBaseActivity.this);
             if (contentFragment != null) {
                 breadcrumbFragment.setNavigationMenu(navigationMenu);
                 breadcrumbFragment.updateMenu();
@@ -36,8 +55,6 @@ public class MenuNavigatorBaseActivity extends FragmentActivity {
             }
         }
     };
-
-    private final OnTransactionListener transactionListener = new CallTransactionListener(this);
 
     private final OnBackStackChangedListener backStackChangedListener = new OnBackStackChangedListener() {
         @Override
@@ -67,7 +84,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity {
             breadcrumbFragment = new BreadcrumbFragment();
             final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
             navigationMenu = application.getNavigationMenu();
-            contentFragment = fragmentsFactory.createFragment(navigationMenu, menuDownListener, transactionListener);
+            contentFragment = fragmentsFactory.createFragment(navigationMenu, menuDownListener, this);
             breadcrumbFragment.setNavigationMenu(navigationMenu);
             final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             try {
@@ -93,6 +110,14 @@ public class MenuNavigatorBaseActivity extends FragmentActivity {
         outState.putSerializable("menu", navigationMenu);
         fragmentManager.putFragment(outState, "breadcrumb", breadcrumbFragment);
         fragmentManager.putFragment(outState, "content", contentFragment);
+    }
+
+    protected synchronized void registerTransactionListener(final OnTransactionListener listener) {
+        transactionListeners.add(listener);
+    }
+
+    protected synchronized void unregisterTransactionListener(final OnTransactionListener listener) {
+        transactionListeners.remove(listener);
     }
 
 }

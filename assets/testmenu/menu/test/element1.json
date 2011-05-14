@@ -5,27 +5,27 @@
   "items" : [
      {
         "name" : "List: 5",
-        "transaction" : "*145*5#"
+        "transaction" : "tel:145145*5#"
      },
      {
         "name" : "List: 10",
-        "transaction" : "*145*10#"
+        "transaction""tel:145el:145*10#"
      },
      {
         "name" : "List: 15",
-        "transaction" : "*145*15#"
+        "transacti"tel:145 "tel:145*15#"
      },
      {
         "name" : "List: 20",
-        "transaction" : "*145*20#"
+        "transa"tel:145" : "tel:145*20#"
      },
      {
         "name" : "List: 25",
-        "transaction" : "*145*25#"
+        "tra"tel:145ion" : "tel:145*25#"
      },
      {
         "name" : "List: 30",
-        "transaction" : "*145*30#"
+        ""tel:145action" : "tel:145*30#"
      }
   ]
 }

@@ -1,5 +1,17 @@
 package pl.polidea.menuNavigator;
 
+/**
+ * Listens for the transactions to handle.
+ * 
+ * 
+ */
 public interface OnTransactionListener {
-    void executeTransaction(String transaction);
+    /**
+     * Potentially handle the transaction.
+     * 
+     * @param transaction
+     *            transaction to handle
+     * @return true if transaction was handled by this listener
+     */
+    boolean handleTransaction(String transaction);
 }

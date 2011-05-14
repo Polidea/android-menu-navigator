@@ -24,7 +24,7 @@
             "type" : "NUMBER",
             "variable" : "number",
             "maxLength" : "4",
-            "transaction" : "*145*21#"
+            "transaction" : "tel:145145*21#"
          }
     ]
 }
