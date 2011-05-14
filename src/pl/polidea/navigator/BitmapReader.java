@@ -2,7 +2,6 @@ package pl.polidea.navigator;
 
 import java.io.File;
 
-import pl.polidea.menuNavigator.R;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;

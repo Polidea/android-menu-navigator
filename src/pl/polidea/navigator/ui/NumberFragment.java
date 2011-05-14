@@ -1,6 +1,6 @@
 package pl.polidea.navigator.ui;
 
-import pl.polidea.menuNavigator.R;
+import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.NumberMenu;
 import android.os.Bundle;
 import android.text.InputFilter;

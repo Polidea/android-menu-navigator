@@ -1,6 +1,6 @@
 package pl.polidea.navigator.ui;
 
-import pl.polidea.menuNavigator.R;
+import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.ListMenu;
 import android.graphics.Bitmap;

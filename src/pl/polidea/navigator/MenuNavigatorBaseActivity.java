@@ -3,7 +3,6 @@ package pl.polidea.navigator;
 import java.util.HashSet;
 import java.util.Set;
 
-import pl.polidea.menuNavigator.R;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.MenuType;
 import pl.polidea.navigator.menu.TransactionMenu;
