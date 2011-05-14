@@ -15,6 +15,6 @@
     "adb shell am instrument -w pl.polidea.menuNavigator/android.test.InstrumentationTestRunner"
     -->
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="pl.polidea.menuNavigator"
-                     android:label="Tests for pl.polidea.menuNavigator"/>
+                     android:targetPackage="pl.polidea.navigator"
+                     android:label="Tests for pl.polidea.navigator"/>
 </manifest>
