@@ -16,6 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+/**
+ * Fragment for entering a number.
+ */
 public class NumberFragment extends AbstractMenuNavigatorFragment {
 
     public boolean goNext() {

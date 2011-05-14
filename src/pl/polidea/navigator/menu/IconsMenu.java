@@ -5,6 +5,9 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Menu displaying icons.
+ */
 public class IconsMenu extends AbstractBaseListMenu {
 
     private static final long serialVersionUID = -3924139469870130480L;

@@ -5,6 +5,9 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Menu firing a transaction.
+ */
 public class TransactionMenu extends AbstractNavigationMenu {
 
     private static final long serialVersionUID = 1L;

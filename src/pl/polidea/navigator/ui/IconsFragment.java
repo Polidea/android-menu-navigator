@@ -14,6 +14,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+/**
+ * Icon - displaying fragment.
+ */
 public class IconsFragment extends AbstractMenuNavigatorFragment {
 
     private TableLayout tableLayout;

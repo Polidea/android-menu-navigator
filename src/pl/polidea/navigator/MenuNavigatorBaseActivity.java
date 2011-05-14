@@ -16,8 +16,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 
+/**
+ * Activity that should be used as base for all activities using menu navigator.
+ * 
+ */
 public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTransactionListener {
+
     private final Set<OnTransactionListener> transactionListeners = new HashSet<OnTransactionListener>();
+
+    private FragmentManager fragmentManager;
+    private BaseFragmentFactory fragmentsFactory;
+    private AbstractNavigationMenu navigationMenu;
+    private BreadcrumbFragment breadcrumbFragment;
+    private AbstractMenuNavigatorFragment contentFragment;
 
     @Override
     public boolean handleTransaction(final String transaction) {
@@ -40,15 +51,15 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             if (navigationMenu.getMenuType() == MenuType.TRANSACTION) {
                 handleTransaction(((TransactionMenu) navigationMenu).transaction);
             }
-            final AbstractMenuNavigatorFragment contentFragment = fragmentsFactory.createFragment(navigationMenu, this,
-                    MenuNavigatorBaseActivity.this);
-            if (contentFragment != null) {
+            final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu,
+                    this, MenuNavigatorBaseActivity.this);
+            if (newContentFragment != null) {
                 breadcrumbFragment.setNavigationMenu(navigationMenu);
                 breadcrumbFragment.updateMenu();
                 final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 try {
                     fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    fragmentTransaction.replace(R.id.content_id, contentFragment);
+                    fragmentTransaction.replace(R.id.content_id, newContentFragment);
                     fragmentTransaction.addToBackStack(navigationMenu.name);
                 } finally {
                     fragmentTransaction.commit();
@@ -67,12 +78,6 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             breadcrumbFragment.updateMenu();
         }
     };
-
-    private FragmentManager fragmentManager;
-    private BaseFragmentFactory fragmentsFactory;
-    private AbstractNavigationMenu navigationMenu;
-    private BreadcrumbFragment breadcrumbFragment;
-    private AbstractMenuNavigatorFragment contentFragment;
 
     /** Called when the activity is first created. */
     @Override

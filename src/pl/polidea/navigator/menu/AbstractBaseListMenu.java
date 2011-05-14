@@ -8,11 +8,15 @@ import org.json.JSONObject;
 
 import pl.polidea.navigator.JsonMenuReader;
 
+/**
+ * Base menu class for all kinds of lists.
+ * 
+ */
 public abstract class AbstractBaseListMenu extends AbstractNavigationMenu {
 
     private static final long serialVersionUID = 1L;
 
-    public final AbstractNavigationMenu items[];
+    public final AbstractNavigationMenu[] items;
 
     public AbstractBaseListMenu(final JSONObject jsonMenu, final File directory, final MenuType menuType,
             final AbstractNavigationMenu parent) throws JSONException {

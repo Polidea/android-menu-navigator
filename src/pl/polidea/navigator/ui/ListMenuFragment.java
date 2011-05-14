@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * List displaying fragment.
+ */
 public class ListMenuFragment extends AbstractMenuNavigatorFragment {
 
     private class ListMenuAdapter extends BaseAdapter {

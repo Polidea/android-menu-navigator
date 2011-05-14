@@ -22,6 +22,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+/**
+ * Fragment for entering phone number.
+ */
 public class PhoneNumberFragment extends AbstractMenuNavigatorFragment {
     private static final String TAG = PhoneNumberFragment.class.getSimpleName();
 
@@ -95,6 +98,8 @@ public class PhoneNumberFragment extends AbstractMenuNavigatorFragment {
             case CONTACT_PICKER_RESULT:
                 handleContactResult(data);
                 break;
+            default:
+                // do nothing
             }
         } else {
             // gracefully handle failure

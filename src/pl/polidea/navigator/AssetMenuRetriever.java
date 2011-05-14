@@ -16,7 +16,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 /**
- * Unpacks menu from assets to internal folders
+ * Unpacks menu from assets to internal folders.
  * 
  */
 public class AssetMenuRetriever implements MenuRetriever {
@@ -95,14 +95,14 @@ public class AssetMenuRetriever implements MenuRetriever {
         }
     }
 
-    private void copyRecursivelyFromAsset(final String path, String elements[]) throws IOException {
+    private void copyRecursivelyFromAsset(final String path, String[] elements) throws IOException {
         if (elements == null) {
             elements = assetManager.list(fromAssetLocation + (path == null ? "" : "/" + path));
         }
         for (final String element : elements) {
             final String newPath = (path == null ? "" : path + "/") + element;
             final String newPathIncludingAsset = fromAssetLocation + "/" + newPath;
-            final String subdirs[] = assetManager.list(newPathIncludingAsset);
+            final String[] subdirs = assetManager.list(newPathIncludingAsset);
             final File destFile = new File(internalTmpDirectory, newPath);
             if (subdirs == null || subdirs.length == 0) {
                 Log.d(TAG, "Copying file from " + newPathIncludingAsset + " to " + destFile);
@@ -115,7 +115,7 @@ public class AssetMenuRetriever implements MenuRetriever {
         }
     }
 
-    private void saveSignatureToFile(final String newSignature) throws FileNotFoundException, IOException {
+    private void saveSignatureToFile(final String newSignature) throws IOException {
         final File signatureFile = new File(internalTmpDirectory, "signature.properties");
         Log.d(TAG, "Saving signature " + newSignature + " to " + signatureFile);
         final Properties p = new Properties();
@@ -128,7 +128,7 @@ public class AssetMenuRetriever implements MenuRetriever {
         }
     }
 
-    private String getOldSignature() throws FileNotFoundException, IOException {
+    private String getOldSignature() throws IOException {
         final File signatureFile = new File(internalDirectory, "signature.properties");
         final Properties p = new Properties();
         String oldSignature = null;
@@ -150,7 +150,7 @@ public class AssetMenuRetriever implements MenuRetriever {
         return internalDirectory;
     }
 
-    private void addSignatureRecursivelyFromAsset(final StringBuilder sb, final String path, String elements[])
+    private void addSignatureRecursivelyFromAsset(final StringBuilder sb, final String path, String[] elements)
             throws IOException {
         if (elements == null) {
             elements = assetManager.list(fromAssetLocation + (path == null ? "" : "/" + path));
@@ -158,7 +158,7 @@ public class AssetMenuRetriever implements MenuRetriever {
         for (final String element : elements) {
             final String newPath = (path == null ? "" : path + "/") + element;
             final String newPathIncludingAsset = fromAssetLocation + "/" + newPath;
-            final String subdirs[] = assetManager.list(newPathIncludingAsset);
+            final String[] subdirs = assetManager.list(newPathIncludingAsset);
             if (subdirs == null || subdirs.length == 0) {
                 try {
                     final AssetFileDescriptor fd = assetManager.openFd(newPathIncludingAsset);

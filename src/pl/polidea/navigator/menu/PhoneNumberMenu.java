@@ -5,6 +5,9 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Menu for entering phone neumber.
+ */
 public class PhoneNumberMenu extends AbstractNumberMenu {
 
     private static final long serialVersionUID = 1L;

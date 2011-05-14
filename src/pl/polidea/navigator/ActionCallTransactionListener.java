@@ -31,12 +31,12 @@ public class ActionCallTransactionListener implements OnTransactionListener {
     }
 
     @Override
-    public boolean handleTransaction(String transaction) {
+    public boolean handleTransaction(final String transaction) {
         if (transaction.startsWith(TEL_PREFIX)) {
-            transaction = TEL_PREFIX + Uri.encode(transaction.substring(TEL_PREFIX.length()));
+            final String newTransaction = TEL_PREFIX + Uri.encode(transaction.substring(TEL_PREFIX.length()));
             try {
                 final Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse(transaction));
+                callIntent.setData(Uri.parse(newTransaction));
                 ctx.startActivity(callIntent);
                 return true;
             } catch (final ActivityNotFoundException e) {

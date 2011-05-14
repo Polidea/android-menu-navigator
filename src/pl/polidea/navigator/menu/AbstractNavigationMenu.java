@@ -8,6 +8,10 @@ import org.json.JSONObject;
 
 import pl.polidea.navigator.JsonMenuReader;
 
+/**
+ * Base class for all menu types.
+ * 
+ */
 public abstract class AbstractNavigationMenu implements Serializable {
     private static final long serialVersionUID = 1L;
     public final String name;

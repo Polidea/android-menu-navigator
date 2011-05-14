@@ -5,6 +5,9 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Menu displaying lists.
+ */
 public class ListMenu extends AbstractBaseListMenu {
 
     private static final long serialVersionUID = 1L;

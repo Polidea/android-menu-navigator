@@ -3,7 +3,6 @@ package pl.polidea.navigator;
 import java.io.File;
 
 import pl.polidea.menuNavigator.R;
-
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -14,6 +13,9 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
 
+/**
+ * Reads bitmap from a directory.
+ */
 public class BitmapReader {
     private final File directory;
     private String iconPrefix;

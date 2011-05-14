@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * Breadcrumb - displays the menu path.
+ */
 public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements OnBackStackChangedListener {
     private LinearLayout breadcrumbLayout;
     private LayoutInflater inflater;

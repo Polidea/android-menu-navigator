@@ -11,6 +11,9 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+/**
+ * Base fragment for all menu types.
+ */
 public abstract class AbstractMenuNavigatorFragment extends Fragment {
     protected class MenuNavigatorOnClickListener implements OnClickListener {
         private final AbstractNavigationMenu navigationMenu;

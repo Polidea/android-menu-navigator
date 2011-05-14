@@ -7,6 +7,9 @@ import org.json.JSONObject;
 
 import pl.polidea.navigator.JsonMenuReader;
 
+/**
+ * Menu importing from another file.
+ */
 public class MenuImport extends AbstractNavigationMenu {
     private static final long serialVersionUID = 1L;
 

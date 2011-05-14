@@ -37,7 +37,8 @@ public class BaseFragmentFactory implements FragmentFactoryInterface {
         case MENU_IMPORT:
             fragment = createFragment(((MenuImport) navigationMenu).link, menuDownListener, transactionListener);
             break;
-        // TODO: add more
+        default:
+            // do nothing
         }
         if (fragment != null && menuType != MenuType.MENU_IMPORT) {
             fragment.setNavigationMenu(navigationMenu);

@@ -7,6 +7,9 @@ import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import android.app.Application;
 import android.util.Log;
 
+/**
+ * Application that should be extended by any menu navigation application.
+ */
 public class MenuNavigatorBaseApplication extends Application {
     private static final String TAG = MenuNavigatorBaseApplication.class.getSimpleName();
     private MenuRetriever menuRetriever;

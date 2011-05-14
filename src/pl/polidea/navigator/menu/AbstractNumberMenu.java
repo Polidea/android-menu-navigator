@@ -7,6 +7,10 @@ import org.json.JSONObject;
 
 import pl.polidea.navigator.JsonMenuReader;
 
+/**
+ * Base class for all number menu types.
+ * 
+ */
 public abstract class AbstractNumberMenu extends AbstractNavigationMenu {
 
     private static final long serialVersionUID = 1L;

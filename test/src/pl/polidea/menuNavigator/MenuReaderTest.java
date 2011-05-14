@@ -11,6 +11,9 @@ import pl.polidea.menuNavigator.menuTypes.PhoneNumberMenu;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
+/**
+ * Test for menu reader.
+ */
 public class MenuReaderTest extends ActivityInstrumentationTestCase2<MenuNavigatorBaseActivity> {
 
     private MenuNavigatorBaseActivity mActivity;
