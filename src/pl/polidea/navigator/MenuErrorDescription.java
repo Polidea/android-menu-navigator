@@ -37,7 +37,7 @@ public class MenuErrorDescription {
             exceptionDescription = "\n" + sw.toString();
         }
         return "Menu Error: " + description + " in file \"" + fileName + "\", lineNumber=" + lineNumber
-                + ", columnNumber=" + columnNumber + "" + exceptionDescription;
+                + ", columnNumber=" + columnNumber + ", " + exceptionDescription;
     }
 
 }

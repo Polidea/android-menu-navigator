@@ -46,7 +46,7 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
         tv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-
+                // TODO: implement breadcrumb behaviours
             }
         });
         breadcrumbLayout.addView(tv);

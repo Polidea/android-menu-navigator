@@ -18,7 +18,7 @@ import android.util.DisplayMetrics;
  */
 public class BitmapReader {
     private final File directory;
-    private String iconPrefix;
+    private final String iconPrefix;
     private final Resources resources;
 
     public BitmapReader(final Activity activity, final File directory, final DisplayMetrics displayMetrics) {
@@ -35,7 +35,7 @@ public class BitmapReader {
             iconPrefix = "drawable-ldpi";
             break;
         default:
-            throw new RuntimeException("Unsupported density: " + displayMetrics.densityDpi);
+            throw new IllegalArgumentException("Unsupported density: " + displayMetrics.densityDpi);
         }
     }
 

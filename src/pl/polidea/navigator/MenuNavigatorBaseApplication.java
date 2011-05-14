@@ -29,7 +29,7 @@ public class MenuNavigatorBaseApplication extends Application {
         reader.createMenu();
         navigationMenu = reader.getMyMenu();
         if (navigationMenu == null) {
-            throw new RuntimeException("Menu was not created!");
+            throw new IllegalStateException("Menu was not created!");
         }
     }
 

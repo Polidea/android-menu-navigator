@@ -30,11 +30,13 @@ public class PhoneNumberFragment extends AbstractMenuNavigatorFragment {
 
     public boolean goNext() {
         final PhoneNumberMenu menu = getNavigationMenu();
-        if (menu.link != null) {
+        if (menu.link == null) {
+            if (menu.transaction != null) {
+                onTransactionListener.handleTransaction(menu.transaction);
+                return true;
+            }
+        } else {
             menuDownListener.onMenuDown(menu.link);
-            return true;
-        } else if (menu.transaction != null) {
-            onTransactionListener.handleTransaction(menu.transaction);
             return true;
         }
         return false;

@@ -92,7 +92,7 @@ public class JsonMenuReader {
             // we do not know line and column unfortunately
             errorList.add(new MenuErrorDescription(fileName, "JSon error when reading menu: " + e, 0, 0, e));
         }
-        if (errorList.size() > 0) {
+        if (!errorList.isEmpty()) {
             Log.w(TAG, "Error while reading menu " + fileName + ": " + errorList);
 
         }
@@ -143,8 +143,7 @@ public class JsonMenuReader {
         final File linkedFile = new File(directory, linkedFileName);
         final JsonMenuReader reader = new JsonMenuReader(linkedFile.getParentFile(), linkedFile.getName(), parentMenu);
         reader.createMenu();
-        final AbstractNavigationMenu navigationMenu = reader.getMyMenu();
-        return navigationMenu;
+        return reader.getMyMenu();
     }
 
     public static MenuType decodeType(final String type) {
