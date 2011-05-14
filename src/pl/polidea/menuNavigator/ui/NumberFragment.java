@@ -1,7 +1,7 @@
 package pl.polidea.menuNavigator.ui;
 
 import pl.polidea.menuNavigator.R;
-import pl.polidea.menuNavigator.menuTypes.NumberMenu;
+import pl.polidea.menuNavigator.menu.NumberMenu;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.method.DigitsKeyListener;

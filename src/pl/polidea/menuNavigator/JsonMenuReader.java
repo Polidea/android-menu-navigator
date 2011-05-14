@@ -12,14 +12,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
-import pl.polidea.menuNavigator.menuTypes.IconsMenu;
-import pl.polidea.menuNavigator.menuTypes.ListMenu;
-import pl.polidea.menuNavigator.menuTypes.MenuImport;
-import pl.polidea.menuNavigator.menuTypes.MenuType;
-import pl.polidea.menuNavigator.menuTypes.NumberMenu;
-import pl.polidea.menuNavigator.menuTypes.PhoneNumberMenu;
-import pl.polidea.menuNavigator.menuTypes.TransactionMenu;
+import pl.polidea.menuNavigator.menu.AbstractNavigationMenu;
+import pl.polidea.menuNavigator.menu.IconsMenu;
+import pl.polidea.menuNavigator.menu.ListMenu;
+import pl.polidea.menuNavigator.menu.MenuImport;
+import pl.polidea.menuNavigator.menu.MenuType;
+import pl.polidea.menuNavigator.menu.NumberMenu;
+import pl.polidea.menuNavigator.menu.PhoneNumberMenu;
+import pl.polidea.menuNavigator.menu.TransactionMenu;
 import android.util.Log;
 
 /**

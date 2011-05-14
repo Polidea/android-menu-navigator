@@ -1,7 +1,7 @@
 package pl.polidea.menuNavigator.ui;
 
 import pl.polidea.menuNavigator.R;
-import pl.polidea.menuNavigator.menuTypes.PhoneNumberMenu;
+import pl.polidea.menuNavigator.menu.PhoneNumberMenu;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;

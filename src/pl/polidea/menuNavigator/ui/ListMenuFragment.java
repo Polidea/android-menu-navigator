@@ -1,8 +1,8 @@
 package pl.polidea.menuNavigator.ui;
 
 import pl.polidea.menuNavigator.R;
-import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
-import pl.polidea.menuNavigator.menuTypes.ListMenu;
+import pl.polidea.menuNavigator.menu.AbstractNavigationMenu;
+import pl.polidea.menuNavigator.menu.ListMenu;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;

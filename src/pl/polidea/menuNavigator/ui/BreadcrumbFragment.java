@@ -1,7 +1,7 @@
 package pl.polidea.menuNavigator.ui;
 
 import pl.polidea.menuNavigator.R;
-import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
+import pl.polidea.menuNavigator.menu.AbstractNavigationMenu;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.view.LayoutInflater;

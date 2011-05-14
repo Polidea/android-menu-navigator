@@ -1,4 +1,4 @@
-package pl.polidea.menuNavigator.menuTypes;
+package pl.polidea.menuNavigator.menu;
 
 public enum MenuType {
     ICONS,

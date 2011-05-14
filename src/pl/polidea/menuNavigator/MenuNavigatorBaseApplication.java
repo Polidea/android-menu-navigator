@@ -3,7 +3,7 @@ package pl.polidea.menuNavigator;
 import java.io.File;
 import java.io.IOException;
 
-import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
+import pl.polidea.menuNavigator.menu.AbstractNavigationMenu;
 import android.app.Application;
 import android.util.Log;
 

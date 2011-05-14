@@ -1,4 +1,4 @@
-package pl.polidea.menuNavigator.menuTypes;
+package pl.polidea.menuNavigator.menu;
 
 import java.io.File;
 import java.io.Serializable;

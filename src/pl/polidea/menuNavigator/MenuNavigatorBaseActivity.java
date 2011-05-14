@@ -3,9 +3,9 @@ package pl.polidea.menuNavigator;
 import java.util.HashSet;
 import java.util.Set;
 
-import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
-import pl.polidea.menuNavigator.menuTypes.MenuType;
-import pl.polidea.menuNavigator.menuTypes.TransactionMenu;
+import pl.polidea.menuNavigator.menu.AbstractNavigationMenu;
+import pl.polidea.menuNavigator.menu.MenuType;
+import pl.polidea.menuNavigator.menu.TransactionMenu;
 import pl.polidea.menuNavigator.ui.AbstractMenuNavigatorFragment;
 import pl.polidea.menuNavigator.ui.BreadcrumbFragment;
 import pl.polidea.menuNavigator.ui.OnMenuDownListener;

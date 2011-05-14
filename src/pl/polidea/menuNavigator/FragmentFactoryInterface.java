@@ -1,6 +1,6 @@
 package pl.polidea.menuNavigator;
 
-import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
+import pl.polidea.menuNavigator.menu.AbstractNavigationMenu;
 import pl.polidea.menuNavigator.ui.AbstractMenuNavigatorFragment;
 import pl.polidea.menuNavigator.ui.OnMenuDownListener;
 

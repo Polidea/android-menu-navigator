@@ -1,8 +1,8 @@
 package pl.polidea.menuNavigator;
 
-import pl.polidea.menuNavigator.menuTypes.AbstractNavigationMenu;
-import pl.polidea.menuNavigator.menuTypes.MenuImport;
-import pl.polidea.menuNavigator.menuTypes.MenuType;
+import pl.polidea.menuNavigator.menu.AbstractNavigationMenu;
+import pl.polidea.menuNavigator.menu.MenuImport;
+import pl.polidea.menuNavigator.menu.MenuType;
 import pl.polidea.menuNavigator.ui.AbstractMenuNavigatorFragment;
 import pl.polidea.menuNavigator.ui.IconsFragment;
 import pl.polidea.menuNavigator.ui.ListMenuFragment;
