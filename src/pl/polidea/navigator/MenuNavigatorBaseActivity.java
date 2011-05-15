@@ -120,7 +120,6 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     }
 
     private void setFragmentParameters(final AbstractMenuNavigatorFragment fragment) {
-        fragment.setNavigationMenu(navigationMenu);
         fragment.setOnTransactionListener(this);
         fragment.setMenuDownListener(menuDownListener);
     }

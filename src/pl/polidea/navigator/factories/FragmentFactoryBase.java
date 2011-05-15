@@ -28,7 +28,11 @@ public class FragmentFactoryBase implements FragmentFactoryInterface {
         } else if (BasicMenuTypes.PHONE_NUMBER.equals(menuType)) {
             fragment = new PhoneNumberFragment();
         } else if (BasicMenuTypes.MENU_IMPORT.equals(menuType)) {
-            fragment = createFragment(((MenuImport) navigationMenu).link);
+            // Note! here we call ourselves recursively so we don't want to set
+            // navigation menu (below setNavigationMenu)
+            // It's already done inside recursive call. That's why we return
+            // here
+            return createFragment(((MenuImport) navigationMenu).link);
         }
         fragment.setNavigationMenu(navigationMenu);
         return fragment;
