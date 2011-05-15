@@ -2,6 +2,8 @@ package pl.polidea.navigator.ui;
 
 import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.PhoneNumberMenu;
+import pl.polidea.navigator.transformers.TransformationException;
+import pl.polidea.navigator.transformers.TransformerInterface;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -81,15 +83,19 @@ public class PhoneNumberFragment extends AbstractNumberFragment {
     }
 
     private boolean normaliseAndGoNext(final String text) {
-        final String normalisedText = application.getPhoneNumberNormaliser().normalisePhoneNumber(text);
-        if (normalisedText == null) {
-            final Toast toast = Toast
-                    .makeText(getActivity(), R.string.error_phone_number_not_valid, Toast.LENGTH_SHORT);
-            toast.show();
-            return false;
+        final TransformerInterface normaliser = application.getPhoneNumberNormaliser();
+        String normalisedText = null;
+        if (normaliser == null) {
+            normalisedText = text;
         } else {
-            return goNext(normalisedText);
+            try {
+                normalisedText = normaliser.transformEnteredText(text);
+            } catch (final TransformationException e) {
+                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
+        return goNext(normalisedText);
     }
 
     @Override
