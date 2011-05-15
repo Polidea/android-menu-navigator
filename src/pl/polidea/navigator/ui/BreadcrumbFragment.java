@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,17 +46,25 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
             addItemToBreadcrumb(navigationMenu.parent, false);
         }
         if (!BasicMenuTypes.MENU_IMPORT.equals(navigationMenu.menuType)) {
-            final TextView tv = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
-            tv.setText(navigationMenu.name);
-            tv.setClickable(true);
+            View breadCrumbView = null;
+            if (navigationMenu.breadCrumbIconFile == null) {
+                final TextView tv = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
+                tv.setText(navigationMenu.name);
+                breadCrumbView = tv;
+            } else {
+                final ImageView iv = (ImageView) inflater.inflate(R.layout.breadcrumb_iconview, null);
+                iv.setImageBitmap(bitmapReader.getBitmap(navigationMenu.breadCrumbIconFile));
+                breadCrumbView = iv;
+            }
+            breadCrumbView.setClickable(true);
             final int level = currentLevel;
-            tv.setOnClickListener(new OnClickListener() {
+            breadCrumbView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(final View v) {
                     levelChangeListener.changeLevel(level);
                 }
             });
-            breadcrumbLayout.addView(tv);
+            breadcrumbLayout.addView(breadCrumbView);
             if (!last) {
                 final TextView separator = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
                 separator.setText(getSeparator());

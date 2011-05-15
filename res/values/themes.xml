@@ -8,6 +8,7 @@
         <item name="menuNavigator.breadcrumbTextViewPadding">1dip</item>
         <item name="menuNavigator.breadcrumbTextViewTextColor">@android:color/black</item>
         <item name="menuNavigator.breadcrumbTextViewTextSize">24dip</item>
+        <item name="menuNavigator.breadcrumbImageViewPadding">1dip</item>
         <!-- Icons view -->
         <item name="menuNavigator.iconsTextViewPadding">1dip</item>
         <item name="menuNavigator.iconsTextViewTextColor">@android:color/black</item>

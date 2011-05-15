@@ -8,6 +8,7 @@
     <attr name="menuNavigator.breadcrumbTextViewPadding" format="dimension" />
     <attr name="menuNavigator.breadcrumbTextViewTextColor" format="color" />
     <attr name="menuNavigator.breadcrumbTextViewTextSize" format="dimension" />
+    <attr name="menuNavigator.breadcrumbImageViewPadding" format="dimension" />
 
     <!--  Icon view internals -->
     <attr name="menuNavigator.iconsTextViewPadding" format="dimension" />

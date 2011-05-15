@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="BreadCrumbTextViewStyle" parent="@android:style/TextAppearance">
+	<style name="BreadCrumbTextViewStyle" parent="@android:style/Widget.TextView">
 		<item name="android:padding">?menuNavigator.breadcrumbTextViewPadding</item>
 		<item name="android:textSize">?menuNavigator.breadcrumbTextViewTextSize</item>
 		<item name="android:textColor">?menuNavigator.breadcrumbTextViewTextColor</item>
 	</style>
+
+    <style name="BreadCrumbImageViewStyle">
+        <item name="android:padding">?menuNavigator.breadcrumbImageViewPadding</item>
+    </style>
 
 	<style name="BreadCrumbLayout">
 		<item name="android:padding">?menuNavigator.breadcrumbPadding</item>

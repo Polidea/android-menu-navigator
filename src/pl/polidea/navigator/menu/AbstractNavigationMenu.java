@@ -31,7 +31,7 @@ public abstract class AbstractNavigationMenu implements Serializable {
         name = jsonMenu.getString("name");
         description = JsonMenuReader.getStringOrNull(jsonMenu, "description");
         iconFile = JsonMenuReader.getStringOrNull(jsonMenu, "icon");
-        breadCrumbIconFile = JsonMenuReader.getStringOrNull(jsonMenu, "breadCrumbIcon");
+        breadCrumbIconFile = JsonMenuReader.getStringOrNull(jsonMenu, "breadcrumb_icon");
         this.parent = parent;
     }
 
