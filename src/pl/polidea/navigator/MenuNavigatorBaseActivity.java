@@ -8,6 +8,7 @@ import pl.polidea.navigator.menu.MenuType;
 import pl.polidea.navigator.menu.TransactionMenu;
 import pl.polidea.navigator.ui.AbstractMenuNavigatorFragment;
 import pl.polidea.navigator.ui.BreadcrumbFragment;
+import pl.polidea.navigator.ui.OnLevelChangeListener;
 import pl.polidea.navigator.ui.OnMenuDownListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -19,7 +20,7 @@ import android.support.v4.app.FragmentTransaction;
  * Activity that should be used as base for all activities using menu navigator.
  * 
  */
-public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTransactionListener {
+public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTransactionListener, OnLevelChangeListener {
 
     private final Set<OnTransactionListener> transactionListeners = new HashSet<OnTransactionListener>();
 
@@ -91,6 +92,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             navigationMenu = application.getNavigationMenu();
             contentFragment = fragmentsFactory.createFragment(navigationMenu, menuDownListener, this);
             breadcrumbFragment.setNavigationMenu(navigationMenu);
+            breadcrumbFragment.setLevelChangeListener(this);
             final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             try {
                 fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -105,6 +107,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             contentFragment.setMenuDownListener(menuDownListener);
             breadcrumbFragment = (BreadcrumbFragment) fragmentManager.getFragment(savedInstanceState, "breadcrumb");
             navigationMenu = (AbstractNavigationMenu) savedInstanceState.get("menu");
+            breadcrumbFragment.setLevelChangeListener(this);
         }
         fragmentManager.addOnBackStackChangedListener(backStackChangedListener);
     }
@@ -125,4 +128,11 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         transactionListeners.remove(listener);
     }
 
+    @Override
+    public void changeLevel(final int toLevel) {
+        final int startingLevel = fragmentManager.getBackStackEntryCount();
+        for (int currentLevel = startingLevel; currentLevel >= toLevel + 1; currentLevel--) {
+            fragmentManager.popBackStack();
+        }
+    }
 }

@@ -2,6 +2,7 @@ package pl.polidea.navigator.ui;
 
 import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
+import pl.polidea.navigator.menu.MenuType;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements OnBackStackChangedListener {
     private LinearLayout breadcrumbLayout;
     private LayoutInflater inflater;
+    private int currentLevel;
+    private OnLevelChangeListener levelChangeListener;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
     }
 
     public void updateMenu() {
+        currentLevel = 0;
         if (breadcrumbLayout != null) {
             breadcrumbLayout.removeAllViews();
             if (getNavigationMenu() != null) {
@@ -40,20 +44,24 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
         if (navigationMenu.parent != null) {
             addItemToBreadcrumb(navigationMenu.parent, false);
         }
-        final TextView tv = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
-        tv.setText(navigationMenu.name);
-        tv.setClickable(true);
-        tv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                // TODO: implement breadcrumb behaviours
+        if (navigationMenu.getMenuType() != MenuType.MENU_IMPORT) {
+            final TextView tv = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
+            tv.setText(navigationMenu.name);
+            tv.setClickable(true);
+            final int level = currentLevel;
+            tv.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    levelChangeListener.changeLevel(level);
+                }
+            });
+            breadcrumbLayout.addView(tv);
+            if (!last) {
+                final TextView separator = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
+                separator.setText(getSeparator());
+                breadcrumbLayout.addView(separator);
             }
-        });
-        breadcrumbLayout.addView(tv);
-        if (!last) {
-            final TextView separator = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
-            separator.setText(getSeparator());
-            breadcrumbLayout.addView(separator);
+            currentLevel++;
         }
     }
 
@@ -67,4 +75,7 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
         updateMenu();
     }
 
+    public void setLevelChangeListener(final OnLevelChangeListener onLevelChangeListener) {
+        this.levelChangeListener = onLevelChangeListener;
+    }
 }
