@@ -1,7 +1,5 @@
 package pl.polidea.navigator.menu;
 
-import java.io.File;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,14 +18,14 @@ public abstract class AbstractNumberMenu extends AbstractNavigationMenu {
     public final Integer maxLength;
     public final String transaction;
 
-    public AbstractNumberMenu(final JSONObject jsonMenu, final File directory, final MenuType menuType,
+    public AbstractNumberMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final MenuType menuType,
             final AbstractNavigationMenu parent) throws JSONException {
-        super(jsonMenu, directory, menuType, parent);
+        super(reader, jsonMenu, menuType, parent);
         minLength = JsonMenuReader.getIntOrNull(jsonMenu, "minLength");
         maxLength = JsonMenuReader.getIntOrNull(jsonMenu, "maxLength");
         variable = jsonMenu.getString("variable");
         transaction = JsonMenuReader.getStringOrNull(jsonMenu, "transaction");
-        link = JsonMenuReader.readLink(jsonMenu, directory, this);
+        link = reader.readLink(jsonMenu, directory, this);
         if (link != null && transaction != null) {
             throw new JSONException("Exactly one of \"link\" and \"transaction\" can be defined in " + jsonMenu);
         }

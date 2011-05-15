@@ -1,9 +1,9 @@
 package pl.polidea.navigator.menu;
 
-import java.io.File;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import pl.polidea.navigator.JsonMenuReader;
 
 /**
  * Menu firing a transaction.
@@ -12,9 +12,9 @@ public class TransactionMenu extends AbstractNavigationMenu {
 
     private static final long serialVersionUID = 1L;
 
-    public TransactionMenu(final JSONObject jsonMenu, final File directory, final AbstractNavigationMenu parent)
+    public TransactionMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(jsonMenu, directory, MenuType.TRANSACTION, parent);
+        super(reader, jsonMenu, MenuType.TRANSACTION, parent);
         transaction = jsonMenu.getString("transaction");
     }
 

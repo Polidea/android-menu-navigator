@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.IconsMenu;
 import pl.polidea.navigator.menu.ListMenu;
+import pl.polidea.navigator.menu.MenuContext;
 import pl.polidea.navigator.menu.MenuImport;
 import pl.polidea.navigator.menu.MenuType;
 import pl.polidea.navigator.menu.NumberMenu;
@@ -32,11 +33,12 @@ import android.util.Log;
  */
 public class JsonMenuReader {
     private static final String TAG = JsonMenuReader.class.getSimpleName();
-    private final File directory;
+    public final File directory;
     private final String fileName;
     private final List<MenuErrorDescription> errorList = new LinkedList<MenuErrorDescription>();
     private AbstractNavigationMenu myMenu;
     private final AbstractNavigationMenu parent;
+    public MenuContext menuContext;
 
     public JsonMenuReader(final File directory, final String fileName, final AbstractNavigationMenu parent) {
         this.directory = directory;
@@ -64,7 +66,8 @@ public class JsonMenuReader {
         return myMenu;
     }
 
-    public void createMenu() {
+    public void createMenu(final MenuContext menuContext) {
+        this.menuContext = menuContext;
         Log.d(TAG, "Creating menu");
         try {
             String line;
@@ -98,8 +101,8 @@ public class JsonMenuReader {
         }
     }
 
-    public static AbstractNavigationMenu[] readItems(final JSONObject jsonMenu, final File directory,
-            final AbstractNavigationMenu parentMenu) throws JSONException {
+    public AbstractNavigationMenu[] readItems(final JSONObject jsonMenu, final File directory,
+            final AbstractNavigationMenu parentMenu, final MenuContext menuContext) throws JSONException {
         final JSONArray array = jsonMenu.getJSONArray("items");
         final AbstractNavigationMenu[] items = new AbstractNavigationMenu[array.length()];
         for (int i = 0; i < array.length(); i++) {
@@ -113,28 +116,28 @@ public class JsonMenuReader {
         return items;
     }
 
-    private static AbstractNavigationMenu readMenuFromJsonObject(final JSONObject jsonMenu, final File directory,
+    private AbstractNavigationMenu readMenuFromJsonObject(final JSONObject jsonMenu, final File directory,
             final AbstractNavigationMenu parent) throws JSONException {
         final MenuType type = decodeType(JsonMenuReader.getStringOrNull(jsonMenu, "type"));
         switch (type) {
         case ICONS:
-            return new IconsMenu(jsonMenu, directory, parent);
+            return new IconsMenu(this, jsonMenu, parent);
         case LIST:
-            return new ListMenu(jsonMenu, directory, parent);
+            return new ListMenu(this, jsonMenu, parent);
         case MENU_IMPORT:
-            return new MenuImport(jsonMenu, directory, parent);
+            return new MenuImport(this, jsonMenu, parent);
         case NUMBER:
-            return new NumberMenu(jsonMenu, directory, parent);
+            return new NumberMenu(this, jsonMenu, parent);
         case PHONE_NUMBER:
-            return new PhoneNumberMenu(jsonMenu, directory, parent);
+            return new PhoneNumberMenu(this, jsonMenu, parent);
         case TRANSACTION:
-            return new TransactionMenu(jsonMenu, directory, parent);
+            return new TransactionMenu(this, jsonMenu, parent);
         default:
             return null;
         }
     }
 
-    public static AbstractNavigationMenu readLink(final JSONObject jsonMenu, final File directory,
+    public AbstractNavigationMenu readLink(final JSONObject jsonMenu, final File directory,
             final AbstractNavigationMenu parentMenu) throws JSONException {
         final String linkedFileName = getStringOrNull(jsonMenu, "link");
         if (linkedFileName == null) {
@@ -142,7 +145,7 @@ public class JsonMenuReader {
         }
         final File linkedFile = new File(directory, linkedFileName);
         final JsonMenuReader reader = new JsonMenuReader(linkedFile.getParentFile(), linkedFile.getName(), parentMenu);
-        reader.createMenu();
+        reader.createMenu(menuContext);
         return reader.getMyMenu();
     }
 

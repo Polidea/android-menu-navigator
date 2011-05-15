@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
+import pl.polidea.navigator.menu.MenuContext;
 import android.app.Application;
 import android.util.Log;
 
@@ -26,7 +27,7 @@ public class MenuNavigatorBaseApplication extends Application {
         }
         final JsonMenuReader reader = new JsonMenuReader(new File(menuRetriever.getBaseDirectory(), "menu"),
                 "main_menu.json", null);
-        reader.createMenu();
+        reader.createMenu(new MenuContext());
         navigationMenu = reader.getMyMenu();
         if (navigationMenu == null) {
             throw new IllegalStateException("Menu was not created!");

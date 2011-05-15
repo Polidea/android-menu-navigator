@@ -1,6 +1,5 @@
 package pl.polidea.navigator.menu;
 
-import java.io.File;
 import java.util.Arrays;
 
 import org.json.JSONException;
@@ -18,10 +17,10 @@ public abstract class AbstractBaseListMenu extends AbstractNavigationMenu {
 
     public final AbstractNavigationMenu[] items;
 
-    public AbstractBaseListMenu(final JSONObject jsonMenu, final File directory, final MenuType menuType,
+    public AbstractBaseListMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final MenuType menuType,
             final AbstractNavigationMenu parent) throws JSONException {
-        super(jsonMenu, directory, menuType, parent);
-        items = JsonMenuReader.readItems(jsonMenu, directory, this);
+        super(reader, jsonMenu, menuType, parent);
+        items = reader.readItems(jsonMenu, directory, this, menuContext);
     }
 
     @Override

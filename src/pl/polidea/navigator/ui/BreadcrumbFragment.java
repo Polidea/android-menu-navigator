@@ -44,7 +44,7 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
         if (navigationMenu.parent != null) {
             addItemToBreadcrumb(navigationMenu.parent, false);
         }
-        if (navigationMenu.getMenuType() != MenuType.MENU_IMPORT) {
+        if (navigationMenu.menuType != MenuType.MENU_IMPORT) {
             final TextView tv = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
             tv.setText(navigationMenu.name);
             tv.setClickable(true);

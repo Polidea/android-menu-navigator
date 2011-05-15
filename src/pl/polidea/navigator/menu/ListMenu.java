@@ -1,9 +1,9 @@
 package pl.polidea.navigator.menu;
 
-import java.io.File;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import pl.polidea.navigator.JsonMenuReader;
 
 /**
  * Menu displaying lists.
@@ -12,9 +12,9 @@ public class ListMenu extends AbstractBaseListMenu {
 
     private static final long serialVersionUID = 1L;
 
-    public ListMenu(final JSONObject jsonMenu, final File directory, final AbstractNavigationMenu parent)
+    public ListMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(jsonMenu, directory, MenuType.LIST, parent);
+        super(reader, jsonMenu, MenuType.LIST, parent);
     }
 
     @Override

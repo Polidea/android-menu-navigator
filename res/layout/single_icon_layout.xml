@@ -6,5 +6,5 @@
 	<ImageView android:src="@drawable/icon" android:id="@+id/icon_layout_image" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:scaleType="center" ></ImageView>
 	<TextView android:id="@+id/icon_layout_text" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/default_icon_text" style="@style/IconTextViewLayout"></TextView>
+		android:text="@string/default_icon_text" style="@style/IconTextViewLayout" android:gravity="center_vertical"></TextView>
 </LinearLayout>

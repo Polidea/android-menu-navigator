@@ -25,22 +25,8 @@ import android.widget.TextView.OnEditorActionListener;
 /**
  * Fragment for entering phone number.
  */
-public class PhoneNumberFragment extends AbstractMenuNavigatorFragment {
+public class PhoneNumberFragment extends AbstractNumberFragment {
     private static final String TAG = PhoneNumberFragment.class.getSimpleName();
-
-    public boolean goNext() {
-        final PhoneNumberMenu menu = getNavigationMenu();
-        if (menu.link == null) {
-            if (menu.transaction != null) {
-                onTransactionListener.handleTransaction(menu.transaction);
-                return true;
-            }
-        } else {
-            menuDownListener.onMenuDown(menu.link);
-            return true;
-        }
-        return false;
-    }
 
     protected static final int CONTACT_PICKER_RESULT = 1234;
     private EditText editText;
@@ -66,7 +52,7 @@ public class PhoneNumberFragment extends AbstractMenuNavigatorFragment {
         editText.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
-                return goNext();
+                return goNext(v.getText().toString());
             }
 
         });
@@ -86,7 +72,7 @@ public class PhoneNumberFragment extends AbstractMenuNavigatorFragment {
         nextButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                goNext();
+                goNext(editText.getText().toString());
             }
         });
         // add min length

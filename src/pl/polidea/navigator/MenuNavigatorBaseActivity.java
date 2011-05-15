@@ -1,6 +1,7 @@
 package pl.polidea.navigator;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
@@ -31,7 +32,11 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     private AbstractMenuNavigatorFragment contentFragment;
 
     @Override
-    public boolean handleTransaction(final String transaction) {
+    public boolean handleTransaction(String transaction) {
+        final Map<String, String> map = navigationMenu.menuContext.variables;
+        for (final String key : map.keySet()) {
+            transaction = transaction.replace("{" + key + "}", map.get(key));
+        }
         final HashSet<OnTransactionListener> listenersCopy = new HashSet<OnTransactionListener>();
         synchronized (this) {
             listenersCopy.addAll(transactionListeners);
@@ -48,7 +53,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
 
         @Override
         public void onMenuDown(final AbstractNavigationMenu navigationMenu) {
-            if (navigationMenu.getMenuType() == MenuType.TRANSACTION) {
+            if (navigationMenu.menuType == MenuType.TRANSACTION) {
                 handleTransaction(((TransactionMenu) navigationMenu).transaction);
             }
             final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu,

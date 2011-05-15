@@ -19,21 +19,7 @@ import android.widget.TextView.OnEditorActionListener;
 /**
  * Fragment for entering a number.
  */
-public class NumberFragment extends AbstractMenuNavigatorFragment {
-
-    public boolean goNext() {
-        final NumberMenu menu = getNavigationMenu();
-        if (menu.link == null) {
-            if (menu.transaction != null) {
-                onTransactionListener.handleTransaction(menu.transaction);
-                return true;
-            }
-        } else {
-            menuDownListener.onMenuDown(menu.link);
-            return true;
-        }
-        return false;
-    }
+public class NumberFragment extends AbstractNumberFragment {
 
     @Override
     public NumberMenu getNavigationMenu() {
@@ -55,13 +41,13 @@ public class NumberFragment extends AbstractMenuNavigatorFragment {
         text.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
-                return goNext();
+                return goNext(v.getText().toString());
             }
         });
         nextButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                goNext();
+                goNext(text.getText().toString());
             }
         });
         text.setKeyListener(new DigitsKeyListener());

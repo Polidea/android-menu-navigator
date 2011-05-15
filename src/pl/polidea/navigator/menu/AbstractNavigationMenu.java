@@ -18,14 +18,16 @@ public abstract class AbstractNavigationMenu implements Serializable {
     public final String description;
     public final String iconFile;
     public final String breadCrumbIconFile;
-    protected final File directory;
-    private final MenuType menuType;
+    public final File directory;
+    public final MenuType menuType;
+    public final MenuContext menuContext;
     public final AbstractNavigationMenu parent;
 
-    public AbstractNavigationMenu(final JSONObject jsonMenu, final File directory, final MenuType menuType,
+    public AbstractNavigationMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final MenuType menuType,
             final AbstractNavigationMenu parent) throws JSONException {
-        this.directory = directory;
+        this.directory = reader.directory;
         this.menuType = menuType;
+        this.menuContext = reader.menuContext;
         name = jsonMenu.getString("name");
         description = JsonMenuReader.getStringOrNull(jsonMenu, "description");
         iconFile = JsonMenuReader.getStringOrNull(jsonMenu, "icon");
@@ -34,14 +36,6 @@ public abstract class AbstractNavigationMenu implements Serializable {
     }
 
     public abstract boolean isDisabled();
-
-    public File getDirectory() {
-        return directory;
-    }
-
-    public MenuType getMenuType() {
-        return menuType;
-    }
 
     @Override
     public String toString() {

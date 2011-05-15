@@ -20,7 +20,7 @@ public class BaseFragmentFactory implements FragmentFactoryInterface {
     public AbstractMenuNavigatorFragment createFragment(final AbstractNavigationMenu navigationMenu,
             final OnMenuDownListener menuDownListener, final OnTransactionListener transactionListener) {
         AbstractMenuNavigatorFragment fragment = null;
-        final MenuType menuType = navigationMenu.getMenuType();
+        final MenuType menuType = navigationMenu.menuType;
         switch (menuType) {
         case ICONS:
             fragment = new IconsFragment();
