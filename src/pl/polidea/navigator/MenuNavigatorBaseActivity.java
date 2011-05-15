@@ -33,6 +33,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     private AbstractNavigationMenu navigationMenu;
     private BreadcrumbFragment breadcrumbFragment;
     private AbstractMenuNavigatorFragment contentFragment;
+    private TextView infoTextView;
 
     @Override
     public boolean handleTransaction(String transaction) {
@@ -52,6 +53,21 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         return false;
     }
 
+    private void updateActivityWithCurrentFragment() {
+        contentFragment.setOnTransactionListener(this);
+        contentFragment.setMenuDownListener(menuDownListener);
+        breadcrumbFragment.setLevelChangeListener(this);
+        navigationMenu = contentFragment.getNavigationMenu();
+        breadcrumbFragment.setNavigationMenu(navigationMenu);
+        breadcrumbFragment.updateMenu();
+        if (navigationMenu.description == null) {
+            infoTextView.setVisibility(View.GONE);
+        } else {
+            infoTextView.setVisibility(View.VISIBLE);
+            infoTextView.setText(navigationMenu.description);
+        }
+    }
+
     private final OnMenuDownListener menuDownListener = new OnMenuDownListener() {
         @Override
         public void onMenuDown(final AbstractNavigationMenu navigationMenu) {
@@ -61,78 +77,43 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             }
             final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu);
             if (newContentFragment != null) {
-                setFragmentParameters(newContentFragment);
-                breadcrumbFragment.setNavigationMenu(navigationMenu);
-                breadcrumbFragment.updateMenu();
-                final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                try {
-                    fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    fragmentTransaction.replace(R.id.content_id, newContentFragment);
-                    fragmentTransaction.addToBackStack(navigationMenu.name);
-                } finally {
-                    fragmentTransaction.commit();
-                }
+                contentFragment = newContentFragment;
+                addFragmentToBackStack(navigationMenu);
+                updateActivityWithCurrentFragment();
             }
         }
+
     };
 
     private final OnBackStackChangedListener backStackChangedListener = new OnBackStackChangedListener() {
         @Override
         public void onBackStackChanged() {
-            final AbstractMenuNavigatorFragment currentContentFragment = (AbstractMenuNavigatorFragment) fragmentManager
-                    .findFragmentById(R.id.content_id);
-            navigationMenu = currentContentFragment.getNavigationMenu();
-            breadcrumbFragment.setNavigationMenu(navigationMenu);
-            breadcrumbFragment.updateMenu();
-            if (navigationMenu.description == null) {
-                infoTextView.setVisibility(View.GONE);
-            } else {
-                infoTextView.setVisibility(View.VISIBLE);
-                infoTextView.setText(navigationMenu.description);
-            }
+            contentFragment = (AbstractMenuNavigatorFragment) fragmentManager.findFragmentById(R.id.content_id);
+            updateActivityWithCurrentFragment();
         }
+
     };
 
-    private TextView infoTextView;
-
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity_layout);
-        infoTextView = (TextView) findViewById(R.id.infoTextView);
-        fragmentManager = getSupportFragmentManager();
-        if (savedInstanceState == null) {
-            breadcrumbFragment = new BreadcrumbFragment();
-            final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
-            fragmentsFactory = application.getFragmentFactory();
-            navigationMenu = application.getNavigationMenu();
-            contentFragment = fragmentsFactory.createFragment(navigationMenu);
-            setFragmentParameters(contentFragment);
-            breadcrumbFragment.setNavigationMenu(navigationMenu);
-            breadcrumbFragment.setLevelChangeListener(this);
-            final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            try {
-                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                fragmentTransaction.replace(R.id.content_id, contentFragment);
-                fragmentTransaction.replace(R.id.breadcrumb_id, breadcrumbFragment);
-            } finally {
-                fragmentTransaction.commit();
-            }
-        } else {
-            contentFragment = (AbstractMenuNavigatorFragment) fragmentManager
-                    .getFragment(savedInstanceState, "content");
-            contentFragment.setMenuDownListener(menuDownListener);
-            breadcrumbFragment = (BreadcrumbFragment) fragmentManager.getFragment(savedInstanceState, "breadcrumb");
-            navigationMenu = (AbstractNavigationMenu) savedInstanceState.get("menu");
-            breadcrumbFragment.setLevelChangeListener(this);
+    public void addFragmentToBackStack(final AbstractNavigationMenu navigationMenu) {
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        try {
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.replace(R.id.content_id, contentFragment);
+            fragmentTransaction.addToBackStack(navigationMenu.name);
+        } finally {
+            fragmentTransaction.commit();
         }
-        fragmentManager.addOnBackStackChangedListener(backStackChangedListener);
     }
 
-    private void setFragmentParameters(final AbstractMenuNavigatorFragment fragment) {
-        fragment.setOnTransactionListener(this);
-        fragment.setMenuDownListener(menuDownListener);
+    private void insertNewFragmentToActivity() {
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        try {
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.replace(R.id.content_id, contentFragment);
+            fragmentTransaction.replace(R.id.breadcrumb_id, breadcrumbFragment);
+        } finally {
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -141,6 +122,30 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         outState.putSerializable("menu", navigationMenu);
         fragmentManager.putFragment(outState, "breadcrumb", breadcrumbFragment);
         fragmentManager.putFragment(outState, "content", contentFragment);
+    }
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_activity_layout);
+        infoTextView = (TextView) findViewById(R.id.infoTextView);
+        fragmentManager = getSupportFragmentManager();
+        final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
+        fragmentsFactory = application.getFragmentFactory();
+        if (savedInstanceState == null) {
+            navigationMenu = application.getNavigationMenu();
+            breadcrumbFragment = new BreadcrumbFragment();
+            contentFragment = fragmentsFactory.createFragment(navigationMenu);
+            insertNewFragmentToActivity();
+        } else {
+            navigationMenu = (AbstractNavigationMenu) savedInstanceState.get("menu");
+            breadcrumbFragment = (BreadcrumbFragment) fragmentManager.getFragment(savedInstanceState, "breadcrumb");
+            contentFragment = (AbstractMenuNavigatorFragment) fragmentManager
+                    .getFragment(savedInstanceState, "content");
+        }
+        updateActivityWithCurrentFragment();
+        fragmentManager.addOnBackStackChangedListener(backStackChangedListener);
     }
 
     protected synchronized void registerTransactionListener(final OnTransactionListener listener) {
