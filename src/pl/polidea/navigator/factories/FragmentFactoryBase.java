@@ -4,6 +4,7 @@ import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.BasicMenuTypes;
 import pl.polidea.navigator.menu.MenuImport;
 import pl.polidea.navigator.ui.AbstractMenuNavigatorFragment;
+import pl.polidea.navigator.ui.FloatNumberFragment;
 import pl.polidea.navigator.ui.IconsFragment;
 import pl.polidea.navigator.ui.ListMenuFragment;
 import pl.polidea.navigator.ui.NumberFragment;
@@ -16,7 +17,8 @@ import pl.polidea.navigator.ui.PhoneNumberFragment;
 public class FragmentFactoryBase implements FragmentFactoryInterface {
 
     @Override
-    public AbstractMenuNavigatorFragment createFragment(final AbstractNavigationMenu navigationMenu) {
+    public AbstractMenuNavigatorFragment createFragment(
+            final AbstractNavigationMenu navigationMenu) {
         AbstractMenuNavigatorFragment fragment = null;
         final String menuType = navigationMenu.menuType;
         if (BasicMenuTypes.ICONS.equals(menuType)) {
@@ -27,6 +29,8 @@ public class FragmentFactoryBase implements FragmentFactoryInterface {
             fragment = new NumberFragment();
         } else if (BasicMenuTypes.PHONE_NUMBER.equals(menuType)) {
             fragment = new PhoneNumberFragment();
+        } else if (BasicMenuTypes.FLOAT_NUMBER.equals(menuType)) {
+            fragment = new FloatNumberFragment();
         } else if (BasicMenuTypes.MENU_IMPORT.equals(menuType)) {
             // Note! here we call ourselves recursively so we don't want to set
             // navigation menu (below setNavigationMenu)

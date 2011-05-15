@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import pl.polidea.navigator.JsonMenuReader;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.BasicMenuTypes;
+import pl.polidea.navigator.menu.FloatNumberMenu;
 import pl.polidea.navigator.menu.IconsMenu;
 import pl.polidea.navigator.menu.ListMenu;
 import pl.polidea.navigator.menu.MenuImport;
@@ -18,6 +19,7 @@ import pl.polidea.navigator.menu.TransactionMenu;
  */
 public class NavigationMenuFactoryBase implements NavigationMenuFactoryInterface {
 
+    @Override
     public AbstractNavigationMenu readMenuFromJsonObject(final JsonMenuReader reader, final JSONObject jsonMenu,
             final AbstractNavigationMenu parent) throws JSONException {
         final String type = JsonMenuReader.getStringOrNull(jsonMenu, "type");
@@ -33,6 +35,8 @@ public class NavigationMenuFactoryBase implements NavigationMenuFactoryInterface
             return new NumberMenu(reader, jsonMenu, parent);
         } else if (BasicMenuTypes.PHONE_NUMBER.equals(type)) {
             return new PhoneNumberMenu(reader, jsonMenu, parent);
+        } else if (BasicMenuTypes.FLOAT_NUMBER.equals(type)) {
+            return new FloatNumberMenu(reader, jsonMenu, parent);
         } else {
             return null;
         }

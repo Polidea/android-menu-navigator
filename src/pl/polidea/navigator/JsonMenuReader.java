@@ -84,7 +84,11 @@ public class JsonMenuReader {
             final JSONObject jsonMenu = new JSONObject(builder.toString());
             Log.d(TAG, "Read json object: " + jsonMenu);
             myMenu = jsonMenuFactory.readMenuFromJsonObject(this, jsonMenu, parent);
-            Log.d(TAG, "Created menu" + myMenu);
+            if (myMenu == null) {
+                Log.w(TAG, "The menu is null!!");
+            } else {
+                Log.d(TAG, "Created menu " + myMenu);
+            }
         } catch (final IOException e) {
             errorList
                     .add(new MenuErrorDescription(fileName, "I/O error when reading menu: " + e.getMessage(), 0, 0, e));
