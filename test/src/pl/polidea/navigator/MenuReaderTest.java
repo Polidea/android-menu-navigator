@@ -5,6 +5,7 @@ import java.io.File;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.IconsMenu;
 import pl.polidea.navigator.menu.ListMenu;
+import pl.polidea.navigator.menu.MenuContext;
 import pl.polidea.navigator.menu.MenuImport;
 import pl.polidea.navigator.menu.MenuType;
 import pl.polidea.navigator.menu.PhoneNumberMenu;
@@ -28,7 +29,7 @@ public class MenuReaderTest extends ActivityInstrumentationTestCase2<MenuNavigat
         assetRetriever.copyMenu();
         final JsonMenuReader reader = new JsonMenuReader(new File(assetRetriever.getBaseDirectory(), "menu"),
                 "main_menu.json", null);
-        reader.createMenu();
+        reader.createMenu(new MenuContext());
         navigationMenu = reader.getMyMenu();
         Log.d("MenuReaderTest", navigationMenu.toString());
     }
@@ -44,7 +45,7 @@ public class MenuReaderTest extends ActivityInstrumentationTestCase2<MenuNavigat
     public void testMainMenuReadCorrectly() {
         assertEquals("Main menu", navigationMenu.name);
         assertEquals("Choose menu", navigationMenu.description);
-        assertEquals(MenuType.ICONS, navigationMenu.getMenuType());
+        assertEquals(MenuType.ICONS, navigationMenu.menuType);
         assertTrue(navigationMenu instanceof IconsMenu);
         assertNull(navigationMenu.iconFile);
     }
