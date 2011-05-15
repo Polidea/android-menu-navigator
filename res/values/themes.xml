@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MenuNavigatorTheme" parent="android:Theme">
+    <style name="MenuNavigatorTheme" parent="android:Theme.NoTitleBar">
         <!-- Breadcrumb layout -->
         <item name="menuNavigator.breadcrumbPadding">2dip</item>
         <item name="menuNavigator.breadcrumbBackground">@android:color/darker_gray</item>
@@ -34,6 +34,6 @@
         <item name="menuNavigator.infoTextViewPadding">1dip</item>
         <item name="menuNavigator.infoTextViewTextColor">@android:color/black</item>
         <item name="menuNavigator.infoTextViewTextSize">12dip</item>
-        <item name="menuNavigator.infoTextViewBackground">#10CCCCCC</item>
+        <item name="menuNavigator.infoTextViewBackground">#CCCCCC</item>
     </style>
 </resources>
