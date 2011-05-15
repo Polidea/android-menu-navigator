@@ -1,7 +1,7 @@
 package pl.polidea.navigator.ui;
 
 import pl.polidea.navigator.R;
-import pl.polidea.navigator.menu.NumberMenu;
+import pl.polidea.navigator.menu.FloatNumberMenu;
 import pl.polidea.navigator.transformers.TransformationException;
 import pl.polidea.navigator.transformers.TransformerInterface;
 import android.os.Bundle;
@@ -25,30 +25,24 @@ import android.widget.Toast;
 public class FloatNumberFragment extends AbstractNumberFragment {
 
     @Override
-    public NumberMenu getNavigationMenu() {
-        return (NumberMenu) super.getNavigationMenu();
+    public FloatNumberMenu getNavigationMenu() {
+        return (FloatNumberMenu) super.getNavigationMenu();
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater,
-            final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         if (getNavigationMenu() == null) {
             return null;
         }
-        final ViewGroup layout = (ViewGroup) inflater.inflate(
-                R.layout.number_layout_fragment, container, false);
-        final EditText text = (EditText) layout
-                .findViewById(R.id.provide_number_text);
-        final Button nextButton = (Button) layout
-                .findViewById(R.id.provide_number_button);
-        final NumberMenu menu = getNavigationMenu();
-        text.setImeOptions(EditorInfo.TYPE_CLASS_NUMBER
-                | EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
+        final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.number_layout_fragment, container, false);
+        final EditText text = (EditText) layout.findViewById(R.id.provide_number_text);
+        final Button nextButton = (Button) layout.findViewById(R.id.provide_number_button);
+        final FloatNumberMenu menu = getNavigationMenu();
+        text.setImeOptions(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
                 | EditorInfo.IME_ACTION_NEXT);
         text.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(final TextView v, final int actionId,
-                    final KeyEvent event) {
+            public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
                 return transformAndGoNext(v.getText().toString());
             }
         });
@@ -69,8 +63,7 @@ public class FloatNumberFragment extends AbstractNumberFragment {
     }
 
     public boolean transformAndGoNext(final String transaction) {
-        final TransformerInterface transformer = application
-                .getFloatNumberNormaliser();
+        final TransformerInterface transformer = application.getFloatNumberNormaliser();
         String transformedText = null;
         if (transformer == null) {
             transformedText = transaction;
@@ -78,8 +71,7 @@ public class FloatNumberFragment extends AbstractNumberFragment {
             try {
                 transformedText = transformer.transformEnteredText(transaction);
             } catch (final TransformationException e) {
-                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_SHORT).show();
                 return false;
             }
         }

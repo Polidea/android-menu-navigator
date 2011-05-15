@@ -12,10 +12,9 @@ public class FloatNumberMenu extends AbstractNumberMenu {
 
     private static final long serialVersionUID = 1L;
 
-    public FloatNumberMenu(final JsonMenuReader reader,
-            final JSONObject jsonMenu, final AbstractNavigationMenu parent)
+    public FloatNumberMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(reader, jsonMenu, BasicMenuTypes.NUMBER, parent);
+        super(reader, jsonMenu, BasicMenuTypes.FLOAT_NUMBER, parent);
     }
 
     @Override
