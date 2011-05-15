@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
     android:layout_height="fill_parent" android:orientation="vertical" android:gravity="center|top" style="@style/FragmentLayout">
     <TableLayout android:id="@+id/tableLayout" android:layout_width="fill_parent" android:layout_height="wrap_content"
-        android:stretchColumns="0" android:gravity="center_horizontal">
-        <TableRow style="@style/NumberTableLayout" android:gravity="center_horizontal">
+        android:stretchColumns="0" android:gravity="center_horizontal" style="@style/NumberTableLayout">
+        <TableRow>
             <EditText android:id="@+id/provide_number_text" android:text="" android:layout_width="fill_parent"
                 android:layout_weight="1" style="@style/NumberEditViewLayout" android:hint="@string/provide_number_button_hint"
                 android:layout_height="fill_parent"></EditText>

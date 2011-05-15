@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:orientation="vertical" android:gravity="center|top" style="@style/FragmentLayout">
 	<TableLayout android:id="@+id/tableLayout" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:stretchColumns="1" android:gravity="center_horizontal">
-		<TableRow style="@style/NumberTableLayout" android:gravity="center_horizontal">
+		android:stretchColumns="1" android:gravity="center_horizontal" style="@style/NumberTableLayout">
+		<TableRow>
 			<ImageButton android:id="@+id/select_from_contacts" android:text="Button" android:layout_width="wrap_content"
 				android:scaleType="center" android:src="@drawable/contacts" style="@style/PhoneNumberImageButtonLayout"
 				android:layout_height="fill_parent"></ImageButton>
-			<EditText android:id="@+id/provide_phone_number_text" android:lines="1" android:text="" android:layout_width="fill_parent"
-				android:layout_weight="1" style="@style/NumberEditViewLayout" android:hint="@string/provide_phone_number_button_hint"
+			<EditText android:id="@+id/provide_phone_number_text" android:lines="1" android:text=""
+				android:layout_width="fill_parent" android:layout_weight="1" style="@style/NumberEditViewLayout" android:hint="@string/provide_phone_number_button_hint"
 				android:layout_height="fill_parent"></EditText>
 			<Button android:id="@+id/provide_phone_number_button" android:layout_weight="0" android:layout_width="fill_parent"
 				android:text="@string/provide_number_button_text" style="@style/NumberButtonLayout" android:layout_height="fill_parent"></Button>

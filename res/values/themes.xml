@@ -18,6 +18,7 @@
         <item name="menuNavigator.numberEditTextTextColor">@android:color/black</item>
         <item name="menuNavigator.numberEditTextTextSize">24dip</item>
         <item name="menuNavigator.numberTableMargin">1dip</item>
+        <item name="menuNavigator.numberTablePadding">5dip</item>
         <!-- PhoneNumber view -->
         <item name="menuNavigator.phoneNumberImageButtonPadding">1dip</item>
         <!-- List view -->

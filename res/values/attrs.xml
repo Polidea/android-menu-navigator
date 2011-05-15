@@ -29,6 +29,7 @@
     <attr name="menuNavigator.numberEditTextTextColor" format="color" />
     <attr name="menuNavigator.numberEditTextTextSize" format="dimension" />
     <attr name="menuNavigator.numberTableMargin" format="dimension" />
+    <attr name="menuNavigator.numberTablePadding" format="dimension" />
 
     <!--  Phone Number view internals -->
     <attr name="menuNavigator.phoneNumberImageButtonPadding" format="dimension" />

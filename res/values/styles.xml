@@ -48,6 +48,7 @@
 
 	<style name="NumberTableLayout">
 		<item name="android:layout_margin">?menuNavigator.numberTableMargin</item>
+		<item name="android:padding">?menuNavigator.numberTablePadding</item>
 	</style>
 
 	<style name="NumberButtonLayout" parent="@android:style/Widget.Button">
