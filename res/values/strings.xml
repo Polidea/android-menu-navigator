@@ -7,4 +7,5 @@
     <string name="provide_number_label">Provide number</string>
     <string name="provide_phone_number_button_hint">Enter phone</string>
     <string name="provide_phone_number_label">Enter phone number</string>
+    <string name="error_phone_number_not_valid">Your phone number is not valid!!!</string>
 </resources>

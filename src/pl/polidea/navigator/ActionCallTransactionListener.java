@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Handles transactions resulting in call made.
@@ -23,8 +24,7 @@ import android.util.Log;
 public class ActionCallTransactionListener implements OnTransactionListener {
 
     private static final String TEL_PREFIX = "tel:";
-    private static final String TAG = ActionCallTransactionListener.class
-            .getSimpleName();
+    private static final String TAG = ActionCallTransactionListener.class.getSimpleName();
     private final Context ctx;
 
     public ActionCallTransactionListener(final Context ctx) {
@@ -35,16 +35,17 @@ public class ActionCallTransactionListener implements OnTransactionListener {
     public boolean handleTransaction(final String transaction) {
         if (transaction.startsWith(TEL_PREFIX)) {
             Log.d(TAG, "Sending " + transaction + " to call.");
-            final String newTransaction = TEL_PREFIX
-                    + Uri.encode(transaction.substring(TEL_PREFIX.length()));
+            final String numberToCall = transaction.substring(TEL_PREFIX.length());
+            final Toast toast = Toast.makeText(ctx, numberToCall, Toast.LENGTH_SHORT);
+            toast.show();
+            final String newTransaction = TEL_PREFIX + Uri.encode(numberToCall);
             try {
                 final Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse(newTransaction));
                 ctx.startActivity(callIntent);
                 return true;
             } catch (final ActivityNotFoundException e) {
-                Log.w(TAG,
-                        "Could not make a call - intent is not handled by any activity.");
+                Log.w(TAG, "Could not make a call - intent is not handled by any activity.");
             }
         }
         return false;

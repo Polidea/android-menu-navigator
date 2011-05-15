@@ -8,6 +8,7 @@ import pl.polidea.navigator.factories.FragmentFactoryInterface;
 import pl.polidea.navigator.factories.NavigationMenuFactoryBase;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.MenuContext;
+import pl.polidea.navigator.transformers.PhoneNumberNormaliser;
 import pl.polidea.navigator.ui.BreadcrumbFragment;
 import android.app.Application;
 import android.util.Log;
@@ -22,6 +23,7 @@ public class MenuNavigatorBaseApplication extends Application {
     private NavigationMenuFactoryBase jsonReaderFactory;
     private FragmentFactoryInterface fragmentFactory;
     private BreadcrumbFragment breadcrumbFragment;
+    private PhoneNumberNormaliser phoneNumberNormaliser;
 
     @Override
     public void onCreate() {
@@ -50,6 +52,7 @@ public class MenuNavigatorBaseApplication extends Application {
         jsonReaderFactory = new NavigationMenuFactoryBase();
         fragmentFactory = new FragmentFactoryBase();
         breadcrumbFragment = new BreadcrumbFragment();
+        phoneNumberNormaliser = new PhoneNumberNormaliser(9, 9, "48");
     }
 
     public FragmentFactoryInterface getFragmentFactory() {
@@ -66,5 +69,9 @@ public class MenuNavigatorBaseApplication extends Application {
 
     public MenuRetrieverInterface getMenuRetriever() {
         return menuRetriever;
+    }
+
+    public PhoneNumberNormaliser getPhoneNumberNormaliser() {
+        return phoneNumberNormaliser;
     }
 }
