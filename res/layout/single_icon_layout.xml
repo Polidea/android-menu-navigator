@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:orientation="vertical" android:gravity="center"
-	style="@style/FragmentLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/single_icon_wrapper_layout" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:orientation="vertical" android:gravity="center" style="@style/FragmentLayout"
 	android:clickable="true">
 	<ImageView android:src="@drawable/icon" android:id="@+id/icon_layout_image" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:scaleType="center" ></ImageView>
+		android:layout_height="wrap_content" android:scaleType="center" style="@style/IconsImageViewLayout"></ImageView>
 	<TextView android:id="@+id/icon_layout_text" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="@string/default_icon_text" style="@style/IconTextViewLayout" android:gravity="center_vertical"></TextView>
+		android:text="@string/default_icon_text" style="@style/IconsTextViewLayout" android:gravity="center_vertical"></TextView>
 </LinearLayout>

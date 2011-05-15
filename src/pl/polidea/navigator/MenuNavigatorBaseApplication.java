@@ -25,8 +25,8 @@ public class MenuNavigatorBaseApplication extends Application {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         createBaseFactories();
+        super.onCreate();
         try {
             menuRetriever.copyMenu();
         } catch (final IOException e) {

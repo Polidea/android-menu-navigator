@@ -4,8 +4,7 @@
 	android:stretchColumns="1">
 	<TableRow>
 		<ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:scaleType="centerInside"
-			android:id="@+id/list_item_image" android:src="@drawable/warning_small" android:layout_gravity="center"
-			></ImageView>
+			android:id="@+id/list_item_image" android:src="@drawable/warning_small" android:layout_gravity="center"></ImageView>
 		<TextView android:text="TextView" android:id="@+id/list_item_text" android:layout_width="fill_parent"
 			android:layout_height="wrap_content" style="@style/ListTextViewStyle" android:layout_gravity="center_vertical"></TextView>
 	</TableRow>

@@ -33,10 +33,8 @@ public class NumberFragment extends AbstractNumberFragment {
         }
         final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.number_layout_fragment, container, false);
         final EditText text = (EditText) layout.findViewById(R.id.provide_number_text);
-        final TextView textView = (TextView) layout.findViewById(R.id.provide_number_label);
         final Button nextButton = (Button) layout.findViewById(R.id.provide_number_button);
         final NumberMenu menu = getNavigationMenu();
-        textView.setText(menu.description);
         text.setImeOptions(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.IME_ACTION_NEXT);
         text.setOnEditorActionListener(new OnEditorActionListener() {
             @Override

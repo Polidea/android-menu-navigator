@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -40,13 +41,13 @@ public class IconsFragment extends AbstractMenuNavigatorFragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater,
+            final ViewGroup container, final Bundle savedInstanceState) {
         if (getNavigationMenu() == null) {
             return null;
         }
-        final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.icons_fragment_layout, container, false);
-        final TextView header = (TextView) layout.findViewById(R.id.TextViewHeader);
-        header.setText(getNavigationMenu().description);
+        final ViewGroup layout = (ViewGroup) inflater.inflate(
+                R.layout.icons_fragment_layout, container, false);
         tableLayout = (TableLayout) layout.findViewById(R.id.tableIconsLayout);
         tableLayout.removeAllViews();
         TableRow tableRow = null;
@@ -55,8 +56,12 @@ public class IconsFragment extends AbstractMenuNavigatorFragment {
                 tableRow = new TableRow(this.getActivity());
                 tableLayout.addView(tableRow);
             }
-            final View iconLayout = inflater.inflate(R.layout.single_icon_layout, null);
-            final ImageView imageView = (ImageView) iconLayout.findViewById(R.id.icon_layout_image);
+            final View iconLayout = inflater.inflate(
+                    R.layout.single_icon_layout, null);
+            final LinearLayout iconWrapperLayout = (LinearLayout) iconLayout
+                    .findViewById(R.id.single_icon_wrapper_layout);
+            final ImageView imageView = (ImageView) iconWrapperLayout
+                    .findViewById(R.id.icon_layout_image);
             Bitmap bitmap = null;
             final AbstractNavigationMenu item = getNavigationMenu().items[i];
             if (item.isDisabled()) {
@@ -65,12 +70,15 @@ public class IconsFragment extends AbstractMenuNavigatorFragment {
             } else {
                 iconLayout.setClickable(true);
                 bitmap = bitmapReader.getBitmap(item.iconFile);
-                iconLayout.setOnClickListener(new MenuNavigatorOnClickListener(item));
+                iconLayout.setOnClickListener(new MenuNavigatorOnClickListener(
+                        item));
             }
             imageView.setImageBitmap(bitmap);
-            final TextView textView = (TextView) iconLayout.findViewById(R.id.icon_layout_text);
+            final TextView textView = (TextView) iconLayout
+                    .findViewById(R.id.icon_layout_text);
             textView.setText(item.name);
-            iconLayout.setLayoutParams(new TableRow.LayoutParams(iconWidth, iconWidth));
+            iconLayout.setLayoutParams(new TableRow.LayoutParams(iconWidth,
+                    iconWidth));
             tableRow.addView(iconLayout);
         }
         return layout;

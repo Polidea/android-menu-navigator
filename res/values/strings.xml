@@ -3,6 +3,8 @@
     <string name="app_name">MenuNavigator</string>
     <string name="default_icon_text">&lt;missing&gt;</string>
     <string name="provide_number_button_text">Next</string>
-    <string name="provide_phone_number_button_hint">Choose phone</string>
+    <string name="provide_number_button_hint">Enter number</string>
     <string name="provide_number_label">Provide number</string>
+    <string name="provide_phone_number_button_hint">Enter phone</string>
+    <string name="provide_phone_number_label">Enter phone number</string>
 </resources>

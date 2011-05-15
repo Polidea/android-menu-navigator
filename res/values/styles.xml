@@ -1,36 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="BreadCrumbTextViewStyle" parent="@android:style/TextAppearance">
-        <item name="android:layout_margin">4dip</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:lines">1</item>
-        <item name="android:textSize">24dip</item>
-        <item name="android:textColor">@android:color/black</item>
-    </style>
-    <style name="BreadCrumbLayout">
-        <item name="android:background">@android:color/darker_gray</item>
-    </style>
-    <style name="IconTextViewLayout" parent="@android:style/TextAppearance">
-        <item name="android:padding">1dip</item>
-        <item name="android:textSize">14dip</item>
-        <item name="android:textColor">@android:color/black</item>
-    </style>
-    <style name="ListTextViewStyle" parent="@android:style/TextAppearance">
-        <item name="android:padding">2dip</item>
-        <item name="android:textSize">20dip</item>
-        <item name="android:textColor">@android:color/black</item>
-    </style>
-    <style name="ListItemLayout">
-        <item name="android:padding">1dip</item>
-        <item name="android:background">@android:color/white</item>
-    </style>
-    <style name="FragmentLayout">
-        <item name="android:background">@android:color/white</item>
-    </style>
-    <style name="HeaderTextViewStyle" parent="@android:style/TextAppearance" >
-        <item name="android:background">#CCCCCC</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">12dip</item>
-    </style>
+	<style name="BreadCrumbTextViewStyle" parent="@android:style/TextAppearance">
+		<item name="android:padding">?menuNavigator.breadcrumbTextViewPadding</item>
+		<item name="android:textSize">?menuNavigator.breadcrumbTextViewTextSize</item>
+		<item name="android:textColor">?menuNavigator.breadcrumbTextViewTextColor</item>
+	</style>
+
+	<style name="BreadCrumbLayout">
+		<item name="android:padding">?menuNavigator.breadcrumbPadding</item>
+		<item name="android:background">?menuNavigator.breadcrumbBackground</item>
+	</style>
+
+	<style name="IconsTextViewLayout" parent="@android:style/TextAppearance">
+		<item name="android:padding">?menuNavigator.iconsTextViewPadding</item>
+		<item name="android:textColor">?menuNavigator.iconsTextViewTextColor</item>
+		<item name="android:textSize">?menuNavigator.iconsTextViewTextSize</item>
+	</style>
+
+	<style name="IconsImageViewLayout" parent="@android:style/TextAppearance">
+		<item name="android:padding">?menuNavigator.iconsImageViewPadding</item>
+	</style>
+
+	<style name="ListTextViewStyle" parent="@android:style/Widget.TextView">
+		<item name="android:padding">?menuNavigator.listTextViewPadding</item>
+		<item name="android:textColor">?menuNavigator.listTextViewTextColor</item>
+		<item name="android:textSize">?menuNavigator.listTextViewTextSize</item>
+	</style>
+
+	<style name="ListItemLayout">
+		<item name="android:padding">?menuNavigator.listItemPadding</item>
+		<item name="android:background">?menuNavigator.listItemBackground</item>
+	</style>
+
+	<style name="FragmentLayout">
+		<item name="android:background">?menuNavigator.fragmentBackground</item>
+	</style>
+
+	<style name="NumberEditViewLayout" parent="@android:style/Widget.EditText">
+		<item name="android:padding">?menuNavigator.numberEditTextPadding</item>
+		<item name="android:textColor">?menuNavigator.numberEditTextTextColor</item>
+		<item name="android:textSize">?menuNavigator.numberEditTextTextSize</item>
+	</style>
+
+	<style name="PhoneNumberImageButtonLayout" parent="@android:style/Widget.ImageButton">
+		<item name="android:padding">?menuNavigator.phoneNumberImageButtonPadding</item>
+	</style>
+
+	<style name="NumberTableLayout">
+		<item name="android:layout_margin">?menuNavigator.numberTableMargin</item>
+	</style>
+
+	<style name="NumberButtonLayout" parent="@android:style/Widget.Button">
+	</style>
+
+	<style name="InfoTextViewStyle" parent="@android:style/TextAppearance">
+		<item name="android:padding">?menuNavigator.infoTextViewPadding</item>
+		<item name="android:textColor">?menuNavigator.infoTextViewTextColor</item>
+		<item name="android:textSize">?menuNavigator.infoTextViewTextSize</item>
+		<item name="android:background">?menuNavigator.infoTextViewBackground</item>
+	</style>
 </resources>

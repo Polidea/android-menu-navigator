@@ -43,11 +43,9 @@ public class PhoneNumberFragment extends AbstractNumberFragment {
         }
         final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.phone_number_layout_fragment, container, false);
         editText = (EditText) layout.findViewById(R.id.provide_phone_number_text);
-        final TextView textView = (TextView) layout.findViewById(R.id.provide_phone_number_label);
         final ImageButton contactImage = (ImageButton) layout.findViewById(R.id.select_from_contacts);
         final Button nextButton = (Button) layout.findViewById(R.id.provide_phone_number_button);
         final PhoneNumberMenu menu = getNavigationMenu();
-        textView.setText(menu.description);
         editText.setImeOptions(EditorInfo.TYPE_CLASS_PHONE | EditorInfo.IME_ACTION_NEXT);
         editText.setOnEditorActionListener(new OnEditorActionListener() {
             @Override

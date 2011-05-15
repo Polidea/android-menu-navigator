@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
 	android:layout_height="wrap_content" android:orientation="vertical">
-	<TextView android:text="TextView" android:id="@+id/TextViewHeader" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" style="@style/HeaderTextViewStyle"></TextView>
 	<ListView android:id="@+id/listView" android:layout_width="fill_parent" android:layout_height="fill_parent"
 		style="@style/FragmentLayout">
 	</ListView>

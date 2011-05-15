@@ -17,6 +17,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * Activity that should be used as base for all activities using menu navigator.
@@ -82,14 +84,23 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             navigationMenu = currentContentFragment.getNavigationMenu();
             breadcrumbFragment.setNavigationMenu(navigationMenu);
             breadcrumbFragment.updateMenu();
+            if (navigationMenu.description == null) {
+                infoTextView.setVisibility(View.GONE);
+            } else {
+                infoTextView.setVisibility(View.VISIBLE);
+                infoTextView.setText(navigationMenu.description);
+            }
         }
     };
+
+    private TextView infoTextView;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_layout);
+        infoTextView = (TextView) findViewById(R.id.infoTextView);
         fragmentManager = getSupportFragmentManager();
         if (savedInstanceState == null) {
             breadcrumbFragment = new BreadcrumbFragment();
