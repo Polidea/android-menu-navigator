@@ -66,16 +66,17 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
             });
             breadcrumbLayout.addView(breadCrumbView);
             if (!last) {
-                final TextView separator = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
-                separator.setText(getSeparator());
+                final View separator = createSeparator();
                 breadcrumbLayout.addView(separator);
             }
             currentLevel++;
         }
     }
 
-    protected String getSeparator() {
-        return ">";
+    protected TextView createSeparator() {
+        final TextView separator = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
+        separator.setText(">");
+        return separator;
     }
 
     @Override
