@@ -16,12 +16,12 @@ import android.util.DisplayMetrics;
  * Reads bitmap from a directory.
  */
 public class BitmapReader {
-    private final File directory;
     private final String iconPrefix;
     private final Resources resources;
+    private final MenuRetrieverInterface menuRetriever;
 
-    public BitmapReader(final Activity activity, final File directory, final DisplayMetrics displayMetrics) {
-        this.directory = directory;
+    public BitmapReader(final Activity activity, final MenuRetrieverInterface menuRetriever, final DisplayMetrics displayMetrics) {
+        this.menuRetriever = menuRetriever;
         this.resources = activity.getResources();
         switch (displayMetrics.densityDpi) {
         case DisplayMetrics.DENSITY_HIGH:
@@ -39,7 +39,8 @@ public class BitmapReader {
     }
 
     public Bitmap getBitmap(final String fileName) {
-        final Bitmap bitmap = BitmapFactory.decodeFile(new File(new File(directory, iconPrefix), fileName).getPath());
+        final Bitmap bitmap = BitmapFactory.decodeFile(new File(new File(menuRetriever.getBaseDirectory(), iconPrefix),
+                fileName).getPath());
         if (bitmap == null) {
             return BitmapFactory.decodeResource(resources, R.drawable.warning);
         }

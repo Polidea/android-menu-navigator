@@ -18,7 +18,7 @@ public abstract class AbstractNumberMenu extends AbstractNavigationMenu {
     public final Integer maxLength;
     public final String transaction;
 
-    public AbstractNumberMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final MenuType menuType,
+    public AbstractNumberMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent) throws JSONException {
         super(reader, jsonMenu, menuType, parent);
         minLength = JsonMenuReader.getIntOrNull(jsonMenu, "minLength");

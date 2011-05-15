@@ -19,11 +19,11 @@ public abstract class AbstractNavigationMenu implements Serializable {
     public final String iconFile;
     public final String breadCrumbIconFile;
     public final File directory;
-    public final MenuType menuType;
+    public final String menuType;
     public final MenuContext menuContext;
     public final AbstractNavigationMenu parent;
 
-    public AbstractNavigationMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final MenuType menuType,
+    public AbstractNavigationMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent) throws JSONException {
         this.directory = reader.directory;
         this.menuType = menuType;

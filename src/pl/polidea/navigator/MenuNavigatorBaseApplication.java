@@ -3,8 +3,12 @@ package pl.polidea.navigator;
 import java.io.File;
 import java.io.IOException;
 
+import pl.polidea.navigator.factories.FragmentFactoryBase;
+import pl.polidea.navigator.factories.FragmentFactoryInterface;
+import pl.polidea.navigator.factories.NavigationMenuFactoryBase;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.MenuContext;
+import pl.polidea.navigator.ui.BreadcrumbFragment;
 import android.app.Application;
 import android.util.Log;
 
@@ -13,20 +17,23 @@ import android.util.Log;
  */
 public class MenuNavigatorBaseApplication extends Application {
     private static final String TAG = MenuNavigatorBaseApplication.class.getSimpleName();
-    private MenuRetriever menuRetriever;
+    protected MenuRetrieverInterface menuRetriever;
     private AbstractNavigationMenu navigationMenu;
+    private NavigationMenuFactoryBase jsonReaderFactory;
+    private FragmentFactoryInterface fragmentFactory;
+    private BreadcrumbFragment breadcrumbFragment;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        menuRetriever = createNewMenuRetriever();
+        createBaseFactories();
         try {
             menuRetriever.copyMenu();
         } catch (final IOException e) {
             Log.w(TAG, "Error when copying standard menu");
         }
         final JsonMenuReader reader = new JsonMenuReader(new File(menuRetriever.getBaseDirectory(), "menu"),
-                "main_menu.json", null);
+                "main_menu.json", null, jsonReaderFactory);
         reader.createMenu(new MenuContext());
         navigationMenu = reader.getMyMenu();
         if (navigationMenu == null) {
@@ -38,11 +45,26 @@ public class MenuNavigatorBaseApplication extends Application {
         return navigationMenu;
     }
 
-    public File getBaseDirectory() {
-        return menuRetriever.getBaseDirectory();
+    protected void createBaseFactories() {
+        menuRetriever = new AssetMenuRetriever(this, "testmenu", "menu");
+        jsonReaderFactory = new NavigationMenuFactoryBase();
+        fragmentFactory = new FragmentFactoryBase();
+        breadcrumbFragment = new BreadcrumbFragment();
     }
 
-    public MenuRetriever createNewMenuRetriever() {
-        return new AssetMenuRetriever(this, "testmenu", "menu");
+    public FragmentFactoryInterface getFragmentFactory() {
+        return fragmentFactory;
+    }
+
+    public BreadcrumbFragment getBreadcrumbFragment() {
+        return breadcrumbFragment;
+    }
+
+    public NavigationMenuFactoryBase getJsonReaderFactory() {
+        return jsonReaderFactory;
+    }
+
+    public MenuRetrieverInterface getMenuRetriever() {
+        return menuRetriever;
     }
 }

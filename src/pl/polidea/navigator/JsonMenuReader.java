@@ -12,15 +12,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pl.polidea.navigator.factories.NavigationMenuFactoryInterface;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
-import pl.polidea.navigator.menu.IconsMenu;
-import pl.polidea.navigator.menu.ListMenu;
 import pl.polidea.navigator.menu.MenuContext;
-import pl.polidea.navigator.menu.MenuImport;
-import pl.polidea.navigator.menu.MenuType;
-import pl.polidea.navigator.menu.NumberMenu;
-import pl.polidea.navigator.menu.PhoneNumberMenu;
-import pl.polidea.navigator.menu.TransactionMenu;
 import android.util.Log;
 
 /**
@@ -39,11 +33,14 @@ public class JsonMenuReader {
     private AbstractNavigationMenu myMenu;
     private final AbstractNavigationMenu parent;
     public MenuContext menuContext;
+    private final NavigationMenuFactoryInterface jsonMenuFactory;
 
-    public JsonMenuReader(final File directory, final String fileName, final AbstractNavigationMenu parent) {
+    public JsonMenuReader(final File directory, final String fileName, final AbstractNavigationMenu parent,
+            final NavigationMenuFactoryInterface jsonMenuFactory) {
         this.directory = directory;
         this.fileName = fileName;
         this.parent = parent;
+        this.jsonMenuFactory = jsonMenuFactory;
     }
 
     public static String getStringOrNull(final JSONObject obj, final String name) throws JSONException {
@@ -86,7 +83,7 @@ public class JsonMenuReader {
             Log.d(TAG, "Finished reading file: " + fileToRead);
             final JSONObject jsonMenu = new JSONObject(builder.toString());
             Log.d(TAG, "Read json object: " + jsonMenu);
-            myMenu = readMenuFromJsonObject(jsonMenu, directory, parent);
+            myMenu = jsonMenuFactory.readMenuFromJsonObject(this, jsonMenu, parent);
             Log.d(TAG, "Created menu" + myMenu);
         } catch (final IOException e) {
             errorList
@@ -111,30 +108,9 @@ public class JsonMenuReader {
                 throw new JSONException("The element no. " + i + " in array is null. Possibly coma was "
                         + "left empty at the end of array");
             }
-            items[i] = readMenuFromJsonObject(obj, directory, parentMenu);
+            items[i] = jsonMenuFactory.readMenuFromJsonObject(this, obj, parentMenu);
         }
         return items;
-    }
-
-    private AbstractNavigationMenu readMenuFromJsonObject(final JSONObject jsonMenu, final File directory,
-            final AbstractNavigationMenu parent) throws JSONException {
-        final MenuType type = decodeType(JsonMenuReader.getStringOrNull(jsonMenu, "type"));
-        switch (type) {
-        case ICONS:
-            return new IconsMenu(this, jsonMenu, parent);
-        case LIST:
-            return new ListMenu(this, jsonMenu, parent);
-        case MENU_IMPORT:
-            return new MenuImport(this, jsonMenu, parent);
-        case NUMBER:
-            return new NumberMenu(this, jsonMenu, parent);
-        case PHONE_NUMBER:
-            return new PhoneNumberMenu(this, jsonMenu, parent);
-        case TRANSACTION:
-            return new TransactionMenu(this, jsonMenu, parent);
-        default:
-            return null;
-        }
     }
 
     public AbstractNavigationMenu readLink(final JSONObject jsonMenu, final File directory,
@@ -144,17 +120,10 @@ public class JsonMenuReader {
             return null;
         }
         final File linkedFile = new File(directory, linkedFileName);
-        final JsonMenuReader reader = new JsonMenuReader(linkedFile.getParentFile(), linkedFile.getName(), parentMenu);
+        final JsonMenuReader reader = new JsonMenuReader(linkedFile.getParentFile(), linkedFile.getName(), parentMenu,
+                jsonMenuFactory);
         reader.createMenu(menuContext);
         return reader.getMyMenu();
-    }
-
-    public static MenuType decodeType(final String type) {
-        if (type == null) {
-            return MenuType.TRANSACTION;
-        } else {
-            return MenuType.valueOf(type);
-        }
     }
 
     /**

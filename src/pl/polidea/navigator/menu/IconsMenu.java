@@ -14,7 +14,7 @@ public class IconsMenu extends AbstractBaseListMenu {
 
     public IconsMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(reader, jsonMenu, MenuType.ICONS, parent);
+        super(reader, jsonMenu, BasicMenuTypes.ICONS, parent);
     }
 
     @Override

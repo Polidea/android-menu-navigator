@@ -14,7 +14,7 @@ public class ListMenu extends AbstractBaseListMenu {
 
     public ListMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(reader, jsonMenu, MenuType.LIST, parent);
+        super(reader, jsonMenu, BasicMenuTypes.LIST, parent);
     }
 
     @Override

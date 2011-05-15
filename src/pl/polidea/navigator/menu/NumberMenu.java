@@ -14,7 +14,7 @@ public class NumberMenu extends AbstractNumberMenu {
 
     public NumberMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(reader, jsonMenu, MenuType.NUMBER, parent);
+        super(reader, jsonMenu, BasicMenuTypes.NUMBER, parent);
     }
 
     @Override

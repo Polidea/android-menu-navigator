@@ -13,7 +13,7 @@ public class MenuImport extends AbstractNavigationMenu {
 
     public MenuImport(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(reader, jsonMenu, MenuType.MENU_IMPORT, parent);
+        super(reader, jsonMenu, BasicMenuTypes.MENU_IMPORT, parent);
         link = reader.readLink(jsonMenu, directory, parent);
     }
 

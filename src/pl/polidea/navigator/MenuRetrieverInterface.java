@@ -7,7 +7,7 @@ import java.io.IOException;
  * Interface implemented by a mechanism retrieving menu from a source
  * (assets/zip file etc.).
  */
-public interface MenuRetriever {
+public interface MenuRetrieverInterface {
 
     /**
      * Copy menu from source to destination. This is expensive (in terms of

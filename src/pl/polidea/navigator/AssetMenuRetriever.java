@@ -19,7 +19,7 @@ import android.util.Log;
  * Unpacks menu from assets to internal folders.
  * 
  */
-public class AssetMenuRetriever implements MenuRetriever {
+public class AssetMenuRetriever implements MenuRetrieverInterface {
     private static final String TAG = AssetMenuRetriever.class.getSimpleName();
     private static final int BUFFER_SIZE = 8192;
     private final String fromAssetLocation;

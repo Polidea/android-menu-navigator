@@ -4,8 +4,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import pl.polidea.navigator.factories.FragmentFactoryInterface;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
-import pl.polidea.navigator.menu.MenuType;
+import pl.polidea.navigator.menu.BasicMenuTypes;
 import pl.polidea.navigator.menu.TransactionMenu;
 import pl.polidea.navigator.ui.AbstractMenuNavigatorFragment;
 import pl.polidea.navigator.ui.BreadcrumbFragment;
@@ -26,7 +27,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     private final Set<OnTransactionListener> transactionListeners = new HashSet<OnTransactionListener>();
 
     private FragmentManager fragmentManager;
-    private BaseFragmentFactory fragmentsFactory;
+    private FragmentFactoryInterface fragmentsFactory;
     private AbstractNavigationMenu navigationMenu;
     private BreadcrumbFragment breadcrumbFragment;
     private AbstractMenuNavigatorFragment contentFragment;
@@ -50,15 +51,15 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     }
 
     private final OnMenuDownListener menuDownListener = new OnMenuDownListener() {
-
         @Override
         public void onMenuDown(final AbstractNavigationMenu navigationMenu) {
-            if (navigationMenu.menuType == MenuType.TRANSACTION) {
+            if (BasicMenuTypes.TRANSACTION.equals(navigationMenu.menuType)) {
                 handleTransaction(((TransactionMenu) navigationMenu).transaction);
+                return;
             }
-            final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu,
-                    this, MenuNavigatorBaseActivity.this);
+            final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu);
             if (newContentFragment != null) {
+                setFragmentParameters(newContentFragment);
                 breadcrumbFragment.setNavigationMenu(navigationMenu);
                 breadcrumbFragment.updateMenu();
                 final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -88,14 +89,15 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentsFactory = new BaseFragmentFactory();
         setContentView(R.layout.main_activity_layout);
         fragmentManager = getSupportFragmentManager();
         if (savedInstanceState == null) {
             breadcrumbFragment = new BreadcrumbFragment();
             final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
+            fragmentsFactory = application.getFragmentFactory();
             navigationMenu = application.getNavigationMenu();
-            contentFragment = fragmentsFactory.createFragment(navigationMenu, menuDownListener, this);
+            contentFragment = fragmentsFactory.createFragment(navigationMenu);
+            setFragmentParameters(contentFragment);
             breadcrumbFragment.setNavigationMenu(navigationMenu);
             breadcrumbFragment.setLevelChangeListener(this);
             final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -115,6 +117,12 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             breadcrumbFragment.setLevelChangeListener(this);
         }
         fragmentManager.addOnBackStackChangedListener(backStackChangedListener);
+    }
+
+    private void setFragmentParameters(final AbstractMenuNavigatorFragment fragment) {
+        fragment.setNavigationMenu(navigationMenu);
+        fragment.setOnTransactionListener(this);
+        fragment.setMenuDownListener(menuDownListener);
     }
 
     @Override

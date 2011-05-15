@@ -14,7 +14,7 @@ public class TransactionMenu extends AbstractNavigationMenu {
 
     public TransactionMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(reader, jsonMenu, MenuType.TRANSACTION, parent);
+        super(reader, jsonMenu, BasicMenuTypes.TRANSACTION, parent);
         transaction = jsonMenu.getString("transaction");
     }
 

@@ -2,7 +2,7 @@ package pl.polidea.navigator.ui;
 
 import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
-import pl.polidea.navigator.menu.MenuType;
+import pl.polidea.navigator.menu.BasicMenuTypes;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.view.LayoutInflater;
@@ -44,7 +44,7 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
         if (navigationMenu.parent != null) {
             addItemToBreadcrumb(navigationMenu.parent, false);
         }
-        if (navigationMenu.menuType != MenuType.MENU_IMPORT) {
+        if (!BasicMenuTypes.MENU_IMPORT.equals(navigationMenu.menuType)) {
             final TextView tv = (TextView) inflater.inflate(R.layout.breadcrumb_textview, null);
             tv.setText(navigationMenu.name);
             tv.setClickable(true);

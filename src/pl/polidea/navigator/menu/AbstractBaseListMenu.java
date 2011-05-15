@@ -17,7 +17,7 @@ public abstract class AbstractBaseListMenu extends AbstractNavigationMenu {
 
     public final AbstractNavigationMenu[] items;
 
-    public AbstractBaseListMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final MenuType menuType,
+    public AbstractBaseListMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent) throws JSONException {
         super(reader, jsonMenu, menuType, parent);
         items = reader.readItems(jsonMenu, directory, this, menuContext);
