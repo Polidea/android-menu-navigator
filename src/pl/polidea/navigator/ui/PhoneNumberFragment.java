@@ -2,8 +2,6 @@ package pl.polidea.navigator.ui;
 
 import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.PhoneNumberMenu;
-import pl.polidea.navigator.transformers.TransformationException;
-import pl.polidea.navigator.transformers.TransformerInterface;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 /**
  * Fragment for entering phone number.
@@ -41,20 +38,26 @@ public class PhoneNumberFragment extends AbstractDataEntryFragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater,
+            final ViewGroup container, final Bundle savedInstanceState) {
         if (getNavigationMenu() == null) {
             return null;
         }
-        final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.phone_number_layout_fragment, container, false);
-        editText = (EditText) layout.findViewById(R.id.provide_phone_number_text);
+        final ViewGroup layout = (ViewGroup) inflater.inflate(
+                R.layout.phone_number_layout_fragment, container, false);
+        editText = (EditText) layout
+                .findViewById(R.id.provide_phone_number_text);
         contactImage = layout.findViewById(R.id.select_from_contacts);
-        final Button nextButton = (Button) layout.findViewById(R.id.provide_phone_number_button);
+        final Button nextButton = (Button) layout
+                .findViewById(R.id.provide_phone_number_button);
         final PhoneNumberMenu menu = getNavigationMenu();
-        editText.setImeOptions(EditorInfo.TYPE_CLASS_PHONE | EditorInfo.IME_ACTION_NEXT);
+        editText.setImeOptions(EditorInfo.TYPE_CLASS_PHONE
+                | EditorInfo.IME_ACTION_NEXT);
         editText.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
-                return normaliseAndGoNext(v.getText().toString());
+            public boolean onEditorAction(final TextView v, final int actionId,
+                    final KeyEvent event) {
+                return goNext(v.getText().toString());
             }
 
         });
@@ -68,38 +71,25 @@ public class PhoneNumberFragment extends AbstractDataEntryFragment {
             @Override
             public void onClick(final View v) {
                 v.setEnabled(false);
-                final Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, Phone.CONTENT_URI);
-                startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
+                final Intent contactPickerIntent = new Intent(
+                        Intent.ACTION_PICK, Phone.CONTENT_URI);
+                startActivityForResult(contactPickerIntent,
+                        CONTACT_PICKER_RESULT);
             }
         });
         nextButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                normaliseAndGoNext(editText.getText().toString());
+                goNext(editText.getText().toString());
             }
         });
         // add min length
         return layout;
     }
 
-    private boolean normaliseAndGoNext(final String text) {
-        final TransformerInterface normaliser = application.getPhoneNumberNormaliser();
-        String normalisedText = null;
-        if (normaliser == null) {
-            normalisedText = text;
-        } else {
-            try {
-                normalisedText = normaliser.transformEnteredText(text);
-            } catch (final TransformationException e) {
-                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_LONG).show();
-                return false;
-            }
-        }
-        return goNext(normalisedText);
-    }
-
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode,
+            final Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
             case CONTACT_PICKER_RESULT:
@@ -116,7 +106,8 @@ public class PhoneNumberFragment extends AbstractDataEntryFragment {
 
     private void handleContactResult(final Intent data) {
         final String[] proj = { Phone.NUMBER, Phone.TYPE };
-        final Cursor cursor = getActivity().managedQuery(data.getData(), proj, null, null, null);
+        final Cursor cursor = getActivity().managedQuery(data.getData(), proj,
+                null, null, null);
         if (cursor.moveToFirst()) {
             editText.setText(cursor.getString(0));
         }
