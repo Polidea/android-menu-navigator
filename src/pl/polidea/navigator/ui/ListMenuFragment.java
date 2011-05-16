@@ -51,16 +51,20 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
             final AbstractNavigationMenu menu = getItem(position);
             final ImageView imageView = (ImageView) listItemView.findViewById(R.id.list_item_image);
             final TextView textView = (TextView) listItemView.findViewById(R.id.list_item_text);
-            final Bitmap bitmap = menu.iconFile == null ? null : bitmapReader.getBitmap(menu.iconFile);
-            if (bitmap == null) {
-                imageView.setVisibility(View.GONE);
-            } else {
-                if (menu.isDisabled()) {
-                    final Bitmap bitmapGray = bitmapReader.getGrayBitmap(menu.iconFile);
-                    imageView.setImageBitmap(bitmapGray);
+            if (menu.iconFile != null) {
+                final Bitmap bitmap = menu.iconFile == null ? null : bitmapReader.getBitmap(menu.iconFile);
+                if (bitmap == null) {
+                    imageView.setVisibility(View.GONE);
                 } else {
-                    imageView.setImageBitmap(bitmap);
+                    if (menu.isDisabled()) {
+                        final Bitmap bitmapGray = bitmapReader.getGrayBitmap(menu.iconFile);
+                        imageView.setImageBitmap(bitmapGray);
+                    } else {
+                        imageView.setImageBitmap(bitmap);
+                    }
                 }
+            } else {
+                imageView.setVisibility(View.GONE);
             }
             textView.setText(menu.name);
             if (menu.isDisabled()) {
