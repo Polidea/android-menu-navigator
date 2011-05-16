@@ -27,7 +27,7 @@ import android.widget.Toast;
 /**
  * Fragment for entering phone number.
  */
-public class PhoneNumberFragment extends AbstractNumberFragment {
+public class PhoneNumberFragment extends AbstractDataEntryFragment {
     private static final String TAG = PhoneNumberFragment.class.getSimpleName();
 
     protected static final int CONTACT_PICKER_RESULT = 1234;

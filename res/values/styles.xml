@@ -40,14 +40,14 @@
 		<item name="android:background">?menuNavigator.fragmentBackground</item>
 	</style>
 
+    <style name="PhoneNumberImageButtonLayout" parent="@android:style/Widget.ImageButton">
+        <item name="android:padding">?menuNavigator.phoneNumberImageButtonPadding</item>
+    </style>
+
 	<style name="NumberEditViewLayout" parent="@android:style/Widget.EditText">
 		<item name="android:padding">?menuNavigator.numberEditTextPadding</item>
 		<item name="android:textColor">?menuNavigator.numberEditTextTextColor</item>
 		<item name="android:textSize">?menuNavigator.numberEditTextTextSize</item>
-	</style>
-
-	<style name="PhoneNumberImageButtonLayout" parent="@android:style/Widget.ImageButton">
-		<item name="android:padding">?menuNavigator.phoneNumberImageButtonPadding</item>
 	</style>
 
 	<style name="NumberTableLayout">
@@ -57,6 +57,20 @@
 
 	<style name="NumberButtonLayout" parent="@android:style/Widget.Button">
 	</style>
+
+    <style name="StringEditViewLayout" parent="@android:style/Widget.EditText">
+        <item name="android:padding">?menuNavigator.stringEditTextPadding</item>
+        <item name="android:textColor">?menuNavigator.stringEditTextTextColor</item>
+        <item name="android:textSize">?menuNavigator.stringEditTextTextSize</item>
+    </style>
+
+    <style name="StringTableLayout">
+        <item name="android:layout_margin">?menuNavigator.stringTableMargin</item>
+        <item name="android:padding">?menuNavigator.stringTablePadding</item>
+    </style>
+
+    <style name="StringButtonLayout" parent="@android:style/Widget.Button">
+    </style>
 
 	<style name="InfoTextViewStyle" parent="@android:style/TextAppearance">
 		<item name="android:padding">?menuNavigator.infoTextViewPadding</item>

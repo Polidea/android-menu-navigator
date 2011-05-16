@@ -8,18 +8,18 @@ import pl.polidea.navigator.JsonMenuReader;
 /**
  * Menu asking for a number.
  */
-public class FloatNumberMenu extends AbstractDataEntryMenu {
+public class StringMenu extends AbstractDataEntryMenu {
 
     private static final long serialVersionUID = 1L;
 
-    public FloatNumberMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
+    public StringMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
             throws JSONException {
-        super(reader, jsonMenu, BasicMenuTypes.FLOAT_NUMBER, parent);
+        super(reader, jsonMenu, BasicMenuTypes.STRING, parent);
     }
 
     @Override
     public String toString() {
-        return "FloatNumberMenu [" + super.toString() + "]";
+        return "StringMenu [" + super.toString() + "]";
     }
 
 }

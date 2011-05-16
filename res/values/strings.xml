@@ -8,5 +8,8 @@
     <string name="provide_phone_number_button_hint">Enter phone</string>
     <string name="provide_phone_number_label">Enter phone number</string>
     <string name="error_phone_number_not_valid">Your phone number is not valid!!!</string>
-    <string name="error_number_too_short">Number too short (min. %1$d characters required)</string>
+    <string name="error_too_short">Too short (min. %1$d characters required)</string>
+    <string name="provide_string_button_text">Next</string>
+    <string name="provide_string_button_hint">Enter text</string>
+    <string name="provide_string_label">Provide text</string>
 </resources>

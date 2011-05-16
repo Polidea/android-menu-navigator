@@ -22,7 +22,7 @@ import android.widget.Toast;
 /**
  * Fragment for entering a number.
  */
-public class FloatNumberFragment extends AbstractNumberFragment {
+public class FloatNumberFragment extends AbstractDataEntryFragment {
 
     @Override
     public FloatNumberMenu getNavigationMenu() {

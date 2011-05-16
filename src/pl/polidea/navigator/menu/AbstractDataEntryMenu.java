@@ -9,7 +9,7 @@ import pl.polidea.navigator.JsonMenuReader;
  * Base class for all number menu types.
  * 
  */
-public abstract class AbstractNumberMenu extends AbstractNavigationMenu {
+public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
 
     private static final long serialVersionUID = 1L;
     public final String variable;
@@ -18,7 +18,7 @@ public abstract class AbstractNumberMenu extends AbstractNavigationMenu {
     public final Integer maxLength;
     public final String transaction;
 
-    public AbstractNumberMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
+    public AbstractDataEntryMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent) throws JSONException {
         super(reader, jsonMenu, menuType, parent);
         minLength = JsonMenuReader.getIntOrNull(jsonMenu, "minLength");

@@ -25,6 +25,13 @@
     <attr name="menuNavigator.listItemPadding" format="dimension" />
     <attr name="menuNavigator.listItemBackground" format="color|reference" />
 
+    <!--  String view internals -->
+    <attr name="menuNavigator.stringEditTextPadding" format="dimension" />
+    <attr name="menuNavigator.stringEditTextTextColor" format="color" />
+    <attr name="menuNavigator.stringEditTextTextSize" format="dimension" />
+    <attr name="menuNavigator.stringTableMargin" format="dimension" />
+    <attr name="menuNavigator.stringTablePadding" format="dimension" />
+
     <!--  Number view internals -->
     <attr name="menuNavigator.numberEditTextPadding" format="dimension" />
     <attr name="menuNavigator.numberEditTextTextColor" format="color" />

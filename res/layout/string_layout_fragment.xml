@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:orientation="vertical" android:gravity="center|top" style="@style/FragmentLayout">
+    <TableLayout android:id="@+id/tableLayout" android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:stretchColumns="0" android:gravity="center_horizontal" style="@style/StringTableLayout">
+        <TableRow>
+            <EditText android:id="@+id/provide_string_text" android:text="" android:layout_width="fill_parent"
+                android:layout_weight="1" style="@style/StringEditViewLayout" android:hint="@string/provide_string_button_hint"
+                android:layout_height="fill_parent"></EditText>
+            <Button android:id="@+id/provide_string_button" android:layout_weight="0" android:layout_width="fill_parent"
+                android:text="@string/provide_string_button_text" style="@style/StringButtonLayout" android:layout_height="fill_parent"></Button>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
+

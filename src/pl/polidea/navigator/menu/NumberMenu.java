@@ -8,7 +8,7 @@ import pl.polidea.navigator.JsonMenuReader;
 /**
  * Menu asking for a number.
  */
-public class NumberMenu extends AbstractNumberMenu {
+public class NumberMenu extends AbstractDataEntryMenu {
 
     private static final long serialVersionUID = 1L;
 

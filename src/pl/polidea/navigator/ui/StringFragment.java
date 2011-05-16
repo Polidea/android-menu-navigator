@@ -19,7 +19,7 @@ import android.widget.TextView.OnEditorActionListener;
 /**
  * Fragment for entering a number.
  */
-public class NumberFragment extends AbstractDataEntryFragment {
+public class StringFragment extends AbstractDataEntryFragment {
 
     @Override
     public NumberMenu getNavigationMenu() {
@@ -31,11 +31,11 @@ public class NumberFragment extends AbstractDataEntryFragment {
         if (getNavigationMenu() == null) {
             return null;
         }
-        final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.number_layout_fragment, container, false);
-        final EditText text = (EditText) layout.findViewById(R.id.provide_number_text);
-        final Button nextButton = (Button) layout.findViewById(R.id.provide_number_button);
+        final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.string_layout_fragment, container, false);
+        final EditText text = (EditText) layout.findViewById(R.id.provide_string_text);
+        final Button nextButton = (Button) layout.findViewById(R.id.provide_string_button);
         final NumberMenu menu = getNavigationMenu();
-        text.setImeOptions(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.IME_ACTION_NEXT);
+        text.setImeOptions(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.IME_ACTION_NEXT);
         text.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
