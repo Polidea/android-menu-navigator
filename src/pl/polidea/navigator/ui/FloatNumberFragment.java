@@ -71,7 +71,7 @@ public class FloatNumberFragment extends AbstractNumberFragment {
             try {
                 transformedText = transformer.transformEnteredText(transaction);
             } catch (final TransformationException e) {
-                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_LONG).show();
                 return false;
             }
         }

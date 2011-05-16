@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -105,16 +106,18 @@ public class JsonMenuReader {
     public AbstractNavigationMenu[] readItems(final JSONObject jsonMenu, final File directory,
             final AbstractNavigationMenu parentMenu, final MenuContext menuContext) throws JSONException {
         final JSONArray array = jsonMenu.getJSONArray("items");
-        final AbstractNavigationMenu[] items = new AbstractNavigationMenu[array.length()];
+        final List<AbstractNavigationMenu> items = new ArrayList<AbstractNavigationMenu>(array.length());
         for (int i = 0; i < array.length(); i++) {
             final JSONObject obj = array.optJSONObject(i);
             if (obj == null) {
-                throw new JSONException("The element no. " + i + " in array is null. Possibly coma was "
-                        + "left empty at the end of array");
+                Log.w(TAG, "The element no. " + i + " in the array " + array + " is null. Possibly coma was "
+                        + " left empty");
+            } else {
+                items.add(jsonMenuFactory.readMenuFromJsonObject(this, obj, parentMenu));
             }
-            items[i] = jsonMenuFactory.readMenuFromJsonObject(this, obj, parentMenu);
+
         }
-        return items;
+        return items.toArray(new AbstractNavigationMenu[items.size()]);
     }
 
     public AbstractNavigationMenu readLink(final JSONObject jsonMenu, final File directory,

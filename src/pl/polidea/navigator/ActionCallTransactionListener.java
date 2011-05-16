@@ -36,7 +36,7 @@ public class ActionCallTransactionListener implements OnTransactionListener {
         if (transaction.startsWith(TEL_PREFIX)) {
             Log.d(TAG, "Sending " + transaction + " to call.");
             final String numberToCall = transaction.substring(TEL_PREFIX.length());
-            final Toast toast = Toast.makeText(ctx, numberToCall, Toast.LENGTH_SHORT);
+            final Toast toast = Toast.makeText(ctx, numberToCall, Toast.LENGTH_LONG);
             toast.show();
             final String newTransaction = TEL_PREFIX + Uri.encode(numberToCall);
             try {

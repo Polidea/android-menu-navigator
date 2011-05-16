@@ -91,7 +91,7 @@ public class PhoneNumberFragment extends AbstractNumberFragment {
             try {
                 normalisedText = normaliser.transformEnteredText(text);
             } catch (final TransformationException e) {
-                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_LONG).show();
                 return false;
             }
         }

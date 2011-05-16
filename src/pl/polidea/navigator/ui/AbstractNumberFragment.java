@@ -1,6 +1,9 @@
 package pl.polidea.navigator.ui;
 
+import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.AbstractNumberMenu;
+import android.content.res.Resources;
+import android.widget.Toast;
 
 /**
  * Abstract navigable number fragment - works for all numeric types.
@@ -17,6 +20,13 @@ public abstract class AbstractNumberFragment extends AbstractMenuNavigatorFragme
     }
 
     public boolean goNext(final String text) {
+        if (getNavigationMenu().minLength != null && getNavigationMenu().minLength > text.length()) {
+            final Resources resources = getActivity().getResources();
+            final String toastText = String.format(resources.getString(R.string.error_number_too_short),
+                    getNavigationMenu().minLength);
+            Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG);
+            return false;
+        }
         final AbstractNumberMenu menu = getNavigationMenu();
         if (menu.variable != null) {
             menu.menuContext.variables.put(menu.variable, text);
@@ -32,5 +42,4 @@ public abstract class AbstractNumberFragment extends AbstractMenuNavigatorFragme
         }
         return false;
     }
-
 }
