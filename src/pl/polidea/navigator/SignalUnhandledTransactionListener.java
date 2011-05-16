@@ -21,9 +21,8 @@ public class SignalUnhandledTransactionListener implements
     @Override
     public boolean handleTransaction(final String transaction) {
         Log.w(TAG, "Unhandled transaction: " + transaction);
-        final Toast toast = Toast.makeText(ctx, "UNHANDLED:" + transaction,
-                Toast.LENGTH_SHORT);
-        toast.show();
+        Toast.makeText(ctx, "UNHANDLED:" + transaction, Toast.LENGTH_SHORT)
+                .show();
         return true;
     }
 

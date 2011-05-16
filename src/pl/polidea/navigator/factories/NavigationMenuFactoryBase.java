@@ -12,6 +12,7 @@ import pl.polidea.navigator.menu.ListMenu;
 import pl.polidea.navigator.menu.MenuImport;
 import pl.polidea.navigator.menu.NumberMenu;
 import pl.polidea.navigator.menu.PhoneNumberMenu;
+import pl.polidea.navigator.menu.StringMenu;
 import pl.polidea.navigator.menu.TransactionMenu;
 
 /**
@@ -31,6 +32,8 @@ public class NavigationMenuFactoryBase implements NavigationMenuFactoryInterface
             return new ListMenu(reader, jsonMenu, parent);
         } else if (BasicMenuTypes.MENU_IMPORT.equals(type)) {
             return new MenuImport(reader, jsonMenu, parent);
+        } else if (BasicMenuTypes.STRING.equals(type)) {
+            return new StringMenu(reader, jsonMenu, parent);
         } else if (BasicMenuTypes.NUMBER.equals(type)) {
             return new NumberMenu(reader, jsonMenu, parent);
         } else if (BasicMenuTypes.PHONE_NUMBER.equals(type)) {
@@ -38,8 +41,7 @@ public class NavigationMenuFactoryBase implements NavigationMenuFactoryInterface
         } else if (BasicMenuTypes.FLOAT_NUMBER.equals(type)) {
             return new FloatNumberMenu(reader, jsonMenu, parent);
         } else {
-            return null;
+            throw new IllegalArgumentException("Type " + type + " is undefined!");
         }
     }
-
 }

@@ -24,7 +24,7 @@ public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFra
             final Resources resources = getActivity().getResources();
             final String toastText = String.format(resources.getString(R.string.error_too_short),
                     getNavigationMenu().minLength);
-            Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG);
+            Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
             return false;
         }
         final AbstractDataEntryMenu menu = getNavigationMenu();

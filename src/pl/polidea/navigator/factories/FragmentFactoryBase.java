@@ -9,6 +9,7 @@ import pl.polidea.navigator.ui.IconsFragment;
 import pl.polidea.navigator.ui.ListMenuFragment;
 import pl.polidea.navigator.ui.NumberFragment;
 import pl.polidea.navigator.ui.PhoneNumberFragment;
+import pl.polidea.navigator.ui.StringFragment;
 
 /**
  * Creates appropriate fragment depending on the menu item passed.
@@ -17,8 +18,7 @@ import pl.polidea.navigator.ui.PhoneNumberFragment;
 public class FragmentFactoryBase implements FragmentFactoryInterface {
 
     @Override
-    public AbstractMenuNavigatorFragment createFragment(
-            final AbstractNavigationMenu navigationMenu) {
+    public AbstractMenuNavigatorFragment createFragment(final AbstractNavigationMenu navigationMenu) {
         AbstractMenuNavigatorFragment fragment = null;
         final String menuType = navigationMenu.menuType;
         if (BasicMenuTypes.ICONS.equals(menuType)) {
@@ -27,6 +27,8 @@ public class FragmentFactoryBase implements FragmentFactoryInterface {
             fragment = new ListMenuFragment();
         } else if (BasicMenuTypes.NUMBER.equals(menuType)) {
             fragment = new NumberFragment();
+        } else if (BasicMenuTypes.STRING.equals(menuType)) {
+            fragment = new StringFragment();
         } else if (BasicMenuTypes.PHONE_NUMBER.equals(menuType)) {
             fragment = new PhoneNumberFragment();
         } else if (BasicMenuTypes.FLOAT_NUMBER.equals(menuType)) {
@@ -37,6 +39,8 @@ public class FragmentFactoryBase implements FragmentFactoryInterface {
             // It's already done inside recursive call. That's why we return
             // here
             return createFragment(((MenuImport) navigationMenu).link);
+        } else {
+            throw new IllegalArgumentException("Type " + menuType + " is undefined!");
         }
         fragment.setNavigationMenu(navigationMenu);
         return fragment;
