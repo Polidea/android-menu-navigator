@@ -17,27 +17,23 @@ import android.util.Log;
  * Application that should be extended by any menu navigation application.
  */
 public class MenuNavigatorBaseApplication extends Application {
-    private static final String TAG = MenuNavigatorBaseApplication.class
-            .getSimpleName();
+    private static final String TAG = MenuNavigatorBaseApplication.class.getSimpleName();
     private MenuRetrieverInterface menuRetriever;
     private AbstractNavigationMenu navigationMenu;
     private NavigationMenuFactoryInterface navigationMenuFactory;
     private FragmentFactoryInterface fragmentFactory;
-    private BreadcrumbFragment breadcrumbFragment;
 
     @Override
     public void onCreate() {
         createBaseFactories();
-        breadcrumbFragment = createBreadcrumbFragment();
         super.onCreate();
         try {
             menuRetriever.copyMenu();
         } catch (final IOException e) {
             Log.w(TAG, "Error when copying standard menu");
         }
-        final JsonMenuReader reader = new JsonMenuReader(new File(
-                menuRetriever.getBaseDirectory(), "menu"), "main_menu.json",
-                null, navigationMenuFactory);
+        final JsonMenuReader reader = new JsonMenuReader(new File(menuRetriever.getBaseDirectory(), "menu"),
+                "main_menu.json", null, navigationMenuFactory);
         reader.createMenu(new MenuContext());
         navigationMenu = reader.getMyMenu();
         if (navigationMenu == null) {
@@ -67,10 +63,6 @@ public class MenuNavigatorBaseApplication extends Application {
         return menuRetriever;
     }
 
-    public final BreadcrumbFragment getBreadcrumbFragment() {
-        return breadcrumbFragment;
-    }
-
     protected MenuRetrieverInterface createMenuRetriever() {
         return new AssetMenuRetriever(this, "testmenu", "menu");
     }
@@ -83,7 +75,7 @@ public class MenuNavigatorBaseApplication extends Application {
         return new NavigationMenuFactoryBase();
     }
 
-    protected BreadcrumbFragment createBreadcrumbFragment() {
+    public BreadcrumbFragment createBreadcrumbFragment() {
         return new BreadcrumbFragment();
     }
 

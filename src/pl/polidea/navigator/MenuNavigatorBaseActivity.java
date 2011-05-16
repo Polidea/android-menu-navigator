@@ -135,7 +135,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         fragmentsFactory = application.getFragmentFactory();
         if (savedInstanceState == null) {
             navigationMenu = application.getNavigationMenu();
-            breadcrumbFragment = application.getBreadcrumbFragment();
+            breadcrumbFragment = application.createBreadcrumbFragment();
             contentFragment = fragmentsFactory.createFragment(navigationMenu);
             insertNewFragmentToActivity();
         } else {
