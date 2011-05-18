@@ -2,8 +2,8 @@ package pl.polidea.navigator.menu;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +31,11 @@ public abstract class AbstractNavigationMenu implements Serializable {
         this.directory = reader.directory;
         this.menuType = menuType;
         this.menuContext = reader.menuContext;
-        this.parameters = new HashMap<String, String>();
+        // Note. Tree Map here is because hashmap has a weird bug/feature which
+        // results in lots of "loadFactor"
+        // related logs to be printed to log file when serializing/deserializing
+        // TreeMap has no such problem
+        this.parameters = new TreeMap<String, String>();
         name = jsonMenu.getString("name");
         description = JsonMenuReader.getStringOrNull(jsonMenu, "description");
         iconFile = JsonMenuReader.getStringOrNull(jsonMenu, "icon");

@@ -221,6 +221,7 @@ public class AssetMenuRetriever implements MenuRetrieverInterface {
         if (!internalOldDirectory.delete()) {
             Log.w(TAG, "Could not delete " + internalOldDirectory);
         }
+        Log.d(TAG, "Copied menu to " + internalTmpDirectory);
         return true;
     }
 }
