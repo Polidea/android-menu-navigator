@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -131,6 +132,19 @@ public class JsonMenuReader {
                 jsonMenuFactory);
         reader.createMenu(menuContext);
         return reader.getMyMenu();
+    }
+
+    public static void readParameters(final Map<String, String> parameters, final JSONObject jsonMenu, final String name)
+            throws JSONException {
+        if (!jsonMenu.has(name)) {
+            return;
+        }
+        final JSONObject parametersObject = jsonMenu.getJSONObject(name);
+        final JSONArray namesArray = parametersObject.names();
+        for (int i = 0; i < namesArray.length(); i++) {
+            final String parameterName = namesArray.getString(i);
+            parameters.put(parameterName, parametersObject.getString(parameterName));
+        }
     }
 
     /**

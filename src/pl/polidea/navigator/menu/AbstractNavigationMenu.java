@@ -2,6 +2,8 @@ package pl.polidea.navigator.menu;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +22,7 @@ public abstract class AbstractNavigationMenu implements Serializable {
     public final String breadCrumbIconFile;
     public final File directory;
     public final String menuType;
+    public final Map<String, String> parameters;
     public final MenuContext menuContext;
     public final AbstractNavigationMenu parent;
 
@@ -28,10 +31,12 @@ public abstract class AbstractNavigationMenu implements Serializable {
         this.directory = reader.directory;
         this.menuType = menuType;
         this.menuContext = reader.menuContext;
+        this.parameters = new HashMap<String, String>();
         name = jsonMenu.getString("name");
         description = JsonMenuReader.getStringOrNull(jsonMenu, "description");
         iconFile = JsonMenuReader.getStringOrNull(jsonMenu, "icon");
         breadCrumbIconFile = JsonMenuReader.getStringOrNull(jsonMenu, "breadcrumb_icon");
+        JsonMenuReader.readParameters(this.parameters, jsonMenu, "parameters");
         this.parent = parent;
     }
 
