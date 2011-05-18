@@ -3,8 +3,11 @@ package pl.polidea.navigator;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +32,7 @@ import android.util.Log;
  */
 public class JsonMenuReader {
     private static final String TAG = JsonMenuReader.class.getSimpleName();
+    private static final String CACHE_FILE_NAME = "cached_menu.obj";
     public final File directory;
     private final String fileName;
     private final List<MenuErrorDescription> errorList = new LinkedList<MenuErrorDescription>();
@@ -68,6 +72,59 @@ public class JsonMenuReader {
     public void createMenu(final MenuContext menuContext) {
         this.menuContext = menuContext;
         Log.d(TAG, "Creating menu");
+        boolean menuRead = false;
+        if (new File(directory, CACHE_FILE_NAME).exists()) {
+            menuRead = readMenuFromCache();
+        }
+        if (!menuRead) {
+            readMenuFromJsonFiles();
+            writeMenuToCache();
+        }
+        if (!errorList.isEmpty()) {
+            Log.w(TAG, "Error while reading menu " + fileName + ": " + errorList);
+        }
+        Log.d(TAG, "Menu created");
+    }
+
+    private void writeMenuToCache() {
+        Log.d(TAG, "Writing menu to cache.");
+        ObjectOutputStream outputStream;
+        try {
+            outputStream = new ObjectOutputStream(new FileOutputStream(new File(directory, CACHE_FILE_NAME)));
+            try {
+                outputStream.writeObject(myMenu);
+            } finally {
+                outputStream.close();
+            }
+        } catch (final IOException e) {
+            Log.w(TAG, "Error when writing to cache. Skipping this step ", e);
+        }
+        Log.d(TAG, "Wrote menu to cache.");
+    }
+
+    private boolean readMenuFromCache() {
+        Log.d(TAG, "Reading menu from cache.");
+        ObjectInputStream inputStream;
+        try {
+            inputStream = new ObjectInputStream(new FileInputStream(new File(directory, CACHE_FILE_NAME)));
+            try {
+                myMenu = (AbstractNavigationMenu) inputStream.readObject();
+            } catch (final ClassNotFoundException e) {
+                Log.w(TAG, "Error reading from cache. Deleting the cache and fallback to normal reading.", e);
+                return false;
+            } finally {
+                inputStream.close();
+            }
+            myMenu.updateTransientAttributes(new MenuContext(), null);
+        } catch (final IOException e) {
+            Log.w(TAG, "Error reading from cache. Deleting the cache and fallback to normal reading.", e);
+            return false;
+        }
+        Log.d(TAG, "Read menu from cache.");
+        return true;
+    }
+
+    protected void readMenuFromJsonFiles() {
         try {
             String line;
             final StringBuilder builder = new StringBuilder();
@@ -97,10 +154,6 @@ public class JsonMenuReader {
         } catch (final JSONException e) {
             // we do not know line and column unfortunately
             errorList.add(new MenuErrorDescription(fileName, "JSon error when reading menu: " + e, 0, 0, e));
-        }
-        if (!errorList.isEmpty()) {
-            Log.w(TAG, "Error while reading menu " + fileName + ": " + errorList);
-
         }
     }
 

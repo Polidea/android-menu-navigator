@@ -197,13 +197,13 @@ public class AssetMenuRetriever implements MenuRetrieverInterface {
     }
 
     @Override
-    public void copyMenu() throws IOException {
+    public boolean copyMenu() throws IOException {
         final String oldSignature = getOldSignature();
         final String newSignature = getMenuSignature();
         Log.d(TAG, "Comparing " + oldSignature + " with " + newSignature);
         if (newSignature.equals(oldSignature)) {
             Log.d(TAG, "Already initialized with same signature" + oldSignature + " : skipping copying");
-            return;
+            return false;
         }
         Log.d(TAG, "Cleaning up " + internalTmpDirectory);
         cleanUpDirectory(internalTmpDirectory);
@@ -221,5 +221,6 @@ public class AssetMenuRetriever implements MenuRetrieverInterface {
         if (!internalOldDirectory.delete()) {
             Log.w(TAG, "Could not delete " + internalOldDirectory);
         }
+        return true;
     }
 }

@@ -13,9 +13,11 @@ public interface MenuRetrieverInterface {
      * Copy menu from source to destination. This is expensive (in terms of
      * performance).
      * 
+     * @return true if copy occured, false if cached version was used actually
+     * 
      * @throws IOException
      */
-    void copyMenu() throws IOException;
+    boolean copyMenu() throws IOException;
 
     /**
      * Retrieves signature of the menu without actual menu retrieval (this is

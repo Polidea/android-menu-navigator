@@ -33,4 +33,12 @@ public abstract class AbstractBaseListMenu extends AbstractNavigationMenu {
         return "AbstractBaseListMenu [items=" + Arrays.toString(items) + ", " + super.toString() + "]";
     }
 
+    @Override
+    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent) {
+        super.updateTransientAttributes(menuContext, parent);
+        for (final AbstractNavigationMenu item : items) {
+            item.updateTransientAttributes(menuContext, this);
+        }
+    }
+
 }

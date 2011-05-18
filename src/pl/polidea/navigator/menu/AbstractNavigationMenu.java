@@ -23,8 +23,8 @@ public abstract class AbstractNavigationMenu implements Serializable {
     public final File directory;
     public final String menuType;
     public final Map<String, String> parameters;
-    public final MenuContext menuContext;
-    public final AbstractNavigationMenu parent;
+    public transient MenuContext menuContext;
+    public transient AbstractNavigationMenu parent;
 
     public AbstractNavigationMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent) throws JSONException {
@@ -49,4 +49,8 @@ public abstract class AbstractNavigationMenu implements Serializable {
                 + ", parent=" + (parent == null ? "null" : parent.getClass()) + ", " + super.toString() + "]";
     }
 
+    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent) {
+        this.parent = parent;
+        this.menuContext = menuContext;
+    }
 }

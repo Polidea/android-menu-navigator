@@ -18,7 +18,8 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
     public final Integer maxLength;
     public final String transaction;
 
-    public AbstractDataEntryMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
+    public AbstractDataEntryMenu(final JsonMenuReader reader,
+            final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent) throws JSONException {
         super(reader, jsonMenu, menuType, parent);
         minLength = JsonMenuReader.getIntOrNull(jsonMenu, "minLength");
@@ -27,7 +28,9 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
         transaction = JsonMenuReader.getStringOrNull(jsonMenu, "transaction");
         link = reader.readLink(jsonMenu, directory, this);
         if (link != null && transaction != null) {
-            throw new JSONException("Exactly one of \"link\" and \"transaction\" can be defined in " + jsonMenu);
+            throw new JSONException(
+                    "Exactly one of \"link\" and \"transaction\" can be defined in "
+                            + jsonMenu);
         }
     }
 
@@ -38,8 +41,19 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
 
     @Override
     public String toString() {
-        return "AbstractNumberMenu [variable=" + variable + ", link=" + link + ", minLength=" + minLength
-                + ", maxLength=" + maxLength + ", transaction=" + transaction + ", " + super.toString() + "]";
+        return "AbstractNumberMenu [variable=" + variable + ", link=" + link
+                + ", minLength=" + minLength + ", maxLength=" + maxLength
+                + ", transaction=" + transaction + ", " + super.toString()
+                + "]";
+    }
+
+    @Override
+    public void updateTransientAttributes(final MenuContext menuContext,
+            final AbstractNavigationMenu parent) {
+        super.updateTransientAttributes(menuContext, parent);
+        if (link != null) {
+            link.updateTransientAttributes(menuContext, this);
+        }
     }
 
 }
