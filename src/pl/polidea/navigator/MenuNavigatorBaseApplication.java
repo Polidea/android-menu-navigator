@@ -33,7 +33,7 @@ public class MenuNavigatorBaseApplication extends Application {
             Log.w(TAG, "Error when copying standard menu");
         }
         final JsonMenuReader reader = new JsonMenuReader(new File(menuRetriever.getBaseDirectory(), "menu"),
-                "main_menu.json", null, navigationMenuFactory);
+                "main_menu.json", null, navigationMenuFactory, true);
         reader.createMenu(new MenuContext());
         navigationMenu = reader.getMyMenu();
         if (navigationMenu == null) {

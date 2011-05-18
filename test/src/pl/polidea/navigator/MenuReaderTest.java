@@ -29,7 +29,7 @@ public class MenuReaderTest extends ActivityInstrumentationTestCase2<MenuNavigat
         assetRetriever = new AssetMenuRetriever(mActivity, "testmenu", "menu");
         assetRetriever.copyMenu();
         final JsonMenuReader reader = new JsonMenuReader(new File(assetRetriever.getBaseDirectory(), "menu"),
-                "main_menu.json", null, new NavigationMenuFactoryBase());
+                "main_menu.json", null, new NavigationMenuFactoryBase(), true);
         reader.createMenu(new MenuContext());
         navigationMenu = reader.getMyMenu();
         Log.d("MenuReaderTest", navigationMenu.toString());

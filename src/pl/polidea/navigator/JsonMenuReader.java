@@ -40,13 +40,15 @@ public class JsonMenuReader {
     private final AbstractNavigationMenu parent;
     public MenuContext menuContext;
     private final NavigationMenuFactoryInterface jsonMenuFactory;
+    private final boolean topLevelMenu;
 
     public JsonMenuReader(final File directory, final String fileName, final AbstractNavigationMenu parent,
-            final NavigationMenuFactoryInterface jsonMenuFactory) {
+            final NavigationMenuFactoryInterface jsonMenuFactory, final boolean topLevelMenu) {
         this.directory = directory;
         this.fileName = fileName;
         this.parent = parent;
         this.jsonMenuFactory = jsonMenuFactory;
+        this.topLevelMenu = topLevelMenu;
     }
 
     public static String getStringOrNull(final JSONObject obj, final String name) throws JSONException {
@@ -72,16 +74,18 @@ public class JsonMenuReader {
     public void createMenu(final MenuContext menuContext) {
         this.menuContext = menuContext;
         Log.d(TAG, "Creating menu");
-        boolean menuRead = false;
-        if (new File(directory, CACHE_FILE_NAME).exists()) {
-            menuRead = readMenuFromCache();
+        boolean menuReadFromCache = false;
+        if (topLevelMenu && new File(directory, CACHE_FILE_NAME).exists()) {
+            menuReadFromCache = readMenuFromCache();
         }
-        if (!menuRead) {
+        if (!menuReadFromCache) {
             readMenuFromJsonFiles();
-            writeMenuToCache();
         }
         if (!errorList.isEmpty()) {
             Log.w(TAG, "Error while reading menu " + fileName + ": " + errorList);
+        }
+        if (!menuReadFromCache && topLevelMenu) {
+            writeMenuToCache();
         }
         Log.d(TAG, "Menu created");
     }
@@ -182,7 +186,7 @@ public class JsonMenuReader {
         }
         final File linkedFile = new File(directory, linkedFileName);
         final JsonMenuReader reader = new JsonMenuReader(linkedFile.getParentFile(), linkedFile.getName(), parentMenu,
-                jsonMenuFactory);
+                jsonMenuFactory, false);
         reader.createMenu(menuContext);
         return reader.getMyMenu();
     }
