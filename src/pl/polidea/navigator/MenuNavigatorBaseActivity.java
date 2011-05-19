@@ -132,7 +132,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            setContentView(R.layout.splashscreen);
+            getSplashScreen();
             final AssetMenuRetrieverAsyncTask task = new AssetMenuRetrieverAsyncTask(
                     (MenuNavigatorBaseApplication) this.getApplication(), this);
             task.execute((Void[]) null);
@@ -147,6 +147,10 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             contentFragment = (AbstractMenuNavigatorFragment) fragmentManager
                     .getFragment(savedInstanceState, "content");
         }
+    }
+
+    protected void getSplashScreen() {
+        setContentView(R.layout.splashscreen);
     }
 
     protected synchronized void registerTransactionListener(final OnTransactionListener listener) {
