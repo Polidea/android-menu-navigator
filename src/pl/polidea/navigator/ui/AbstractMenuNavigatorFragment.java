@@ -77,7 +77,7 @@ public abstract class AbstractMenuNavigatorFragment extends Fragment {
         displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         application = (MenuNavigatorBaseApplication) activity.getApplication();
-        bitmapReader = new BitmapReader(activity, application.getMenuRetriever(), displayMetrics);
+        bitmapReader = application.getBitmapReader(displayMetrics);
     }
 
     public void setMenuDownListener(final OnMenuDownListener menuChangedListener) {

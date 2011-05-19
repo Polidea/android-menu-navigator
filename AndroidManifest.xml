@@ -5,10 +5,10 @@
 	<application android:label="@string/app_name" android:icon="@drawable/icon" android:name="pl.polidea.navigator.MenuNavigatorBaseApplication">
 		<activity android:name="pl.polidea.navigator.MenuNavigatorBaseActivity" android:label="@string/app_name"
 		     android:theme="@style/MenuNavigatorTheme">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 		</activity>
 	</application>
 	<uses-permission android:name="android.permission.CALL_PHONE"/>

@@ -13,6 +13,7 @@ import pl.polidea.navigator.ui.BreadcrumbFragment;
 import pl.polidea.navigator.ui.OnLevelChangeListener;
 import pl.polidea.navigator.ui.OnMenuDownListener;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
@@ -25,6 +26,8 @@ import android.widget.TextView;
  * 
  */
 public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTransactionListener, OnLevelChangeListener {
+
+    protected static final int STOPSPLASH = 0;
 
     private final Set<OnTransactionListener> transactionListeners = new HashSet<OnTransactionListener>();
 
@@ -128,24 +131,22 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity_layout);
-        infoTextView = (TextView) findViewById(R.id.infoTextView);
-        fragmentManager = getSupportFragmentManager();
-        final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
-        fragmentsFactory = application.getFragmentFactory();
         if (savedInstanceState == null) {
-            navigationMenu = application.getNavigationMenu();
-            breadcrumbFragment = application.createBreadcrumbFragment();
-            contentFragment = fragmentsFactory.createFragment(navigationMenu);
-            insertNewFragmentToActivity();
+            setContentView(R.layout.splashscreen);
+            final AssetMenuRetrieverAsyncTask task = new AssetMenuRetrieverAsyncTask(
+                    (MenuNavigatorBaseApplication) this.getApplication(), this);
+            task.execute((Void[]) null);
         } else {
+            setContentView(R.layout.main_activity_layout);
+            infoTextView = (TextView) findViewById(R.id.infoTextView);
+            fragmentManager = getSupportFragmentManager();
+            final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
+            fragmentsFactory = application.getFragmentFactory();
             navigationMenu = (AbstractNavigationMenu) savedInstanceState.get("menu");
             breadcrumbFragment = (BreadcrumbFragment) fragmentManager.getFragment(savedInstanceState, "breadcrumb");
             contentFragment = (AbstractMenuNavigatorFragment) fragmentManager
                     .getFragment(savedInstanceState, "content");
         }
-        updateActivityWithCurrentFragment();
-        fragmentManager.addOnBackStackChangedListener(backStackChangedListener);
     }
 
     protected synchronized void registerTransactionListener(final OnTransactionListener listener) {
@@ -163,4 +164,21 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             fragmentManager.popBackStack();
         }
     }
+
+    public void signalMenuReady() {
+        final Message msg = new Message();
+        msg.what = MenuNavigatorBaseActivity.STOPSPLASH;
+        setContentView(R.layout.main_activity_layout);
+        infoTextView = (TextView) findViewById(R.id.infoTextView);
+        fragmentManager = getSupportFragmentManager();
+        final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
+        fragmentsFactory = application.getFragmentFactory();
+        navigationMenu = application.getNavigationMenu();
+        breadcrumbFragment = application.createBreadcrumbFragment();
+        contentFragment = fragmentsFactory.createFragment(navigationMenu);
+        insertNewFragmentToActivity();
+        updateActivityWithCurrentFragment();
+        fragmentManager.addOnBackStackChangedListener(backStackChangedListener);
+    }
+
 }

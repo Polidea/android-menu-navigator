@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
 	android:layout_width="fill_parent" android:layout_height="fill_parent" style="@style/FragmentLayout">
 	<FrameLayout android:id="@+id/breadcrumb_id" android:layout_height="wrap_content" android:layout_width="fill_parent" />
-	<TextView android:id="@+id/infoTextView" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" style="@style/InfoTextViewStyle"></TextView>
+	<TextView android:id="@+id/infoTextView" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		style="@style/InfoTextViewStyle"></TextView>
 	<FrameLayout android:id="@+id/content_id" android:layout_height="fill_parent" android:layout_width="fill_parent" />
 </LinearLayout>

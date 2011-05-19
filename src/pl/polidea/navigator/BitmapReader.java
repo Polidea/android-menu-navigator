@@ -2,7 +2,7 @@ package pl.polidea.navigator;
 
 import java.io.File;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,10 +19,13 @@ public class BitmapReader {
     private final String iconPrefix;
     private final Resources resources;
     private final MenuRetrieverInterface menuRetriever;
+    private final int warningResource;
 
-    public BitmapReader(final Activity activity, final MenuRetrieverInterface menuRetriever, final DisplayMetrics displayMetrics) {
+    public BitmapReader(final Context context, final MenuRetrieverInterface menuRetriever,
+            final DisplayMetrics displayMetrics, final int warningResource) {
+        this.warningResource = warningResource;
         this.menuRetriever = menuRetriever;
-        this.resources = activity.getResources();
+        this.resources = context.getResources();
         switch (displayMetrics.densityDpi) {
         case DisplayMetrics.DENSITY_HIGH:
             iconPrefix = "drawable-hdpi";
@@ -42,7 +45,7 @@ public class BitmapReader {
         final Bitmap bitmap = BitmapFactory.decodeFile(new File(new File(menuRetriever.getBaseDirectory(), iconPrefix),
                 fileName).getPath());
         if (bitmap == null) {
-            return BitmapFactory.decodeResource(resources, R.drawable.warning);
+            return BitmapFactory.decodeResource(resources, warningResource);
         }
         return bitmap;
     }
