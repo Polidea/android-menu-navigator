@@ -122,7 +122,9 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("menu", navigationMenu);
+        if (navigationMenu != null) {
+            outState.putSerializable("menu", navigationMenu);
+        }
         fragmentManager.putFragment(outState, "breadcrumb", breadcrumbFragment);
         fragmentManager.putFragment(outState, "content", contentFragment);
     }
