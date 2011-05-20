@@ -3,6 +3,7 @@ package pl.polidea.navigator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import pl.polidea.navigator.factories.FragmentFactoryInterface;
@@ -42,8 +43,8 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     @Override
     public boolean handleTransaction(String transaction) {
         final Map<String, String> map = navigationMenu.menuContext.variables;
-        for (final String key : map.keySet()) {
-            transaction = transaction.replace("{" + key + "}", map.get(key));
+        for (final Entry<String, String> entry : map.entrySet()) {
+            transaction = transaction.replace("{" + entry.getKey() + "}", entry.getValue());
         }
         final HashSet<OnTransactionListener> listenersCopy = new LinkedHashSet<OnTransactionListener>();
         synchronized (this) {

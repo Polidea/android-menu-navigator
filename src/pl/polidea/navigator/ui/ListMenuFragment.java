@@ -52,7 +52,7 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
             final ImageView imageView = (ImageView) listItemView.findViewById(R.id.list_item_image);
             final TextView textView = (TextView) listItemView.findViewById(R.id.list_item_text);
             if (menu.iconFile != null) {
-                final Bitmap bitmap = menu.iconFile == null ? null : bitmapReader.getBitmap(menu.iconFile);
+                final Bitmap bitmap = bitmapReader.getBitmap(menu.iconFile);
                 if (bitmap == null) {
                     imageView.setVisibility(View.GONE);
                 } else {

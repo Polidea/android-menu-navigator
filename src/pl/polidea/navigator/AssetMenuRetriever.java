@@ -84,7 +84,9 @@ public class AssetMenuRetriever implements MenuRetrieverInterface {
      *            directory to clean
      */
     private void cleanUpDirectory(final File directory) {
-        directory.mkdirs();
+        if (!directory.mkdirs()) {
+            Log.w(TAG, "Could not create directory " + directory);
+        }
         for (final File f : directory.listFiles()) {
             if (f.isDirectory()) {
                 cleanUpDirectory(f);
