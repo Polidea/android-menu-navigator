@@ -26,6 +26,7 @@ public class MenuReaderTest extends ActivityInstrumentationTestCase2<MenuNavigat
     protected void setUp() throws Exception {
         super.setUp();
         mActivity = this.getActivity();
+        mActivity.signalMenuReady();
         assetRetriever = new AssetMenuRetriever(mActivity, "testmenu", "menu");
         assetRetriever.copyMenu();
         final JsonMenuReader reader = new JsonMenuReader(new File(assetRetriever.getBaseDirectory(), "menu"),
