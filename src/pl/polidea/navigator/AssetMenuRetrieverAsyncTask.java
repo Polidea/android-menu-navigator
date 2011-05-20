@@ -36,6 +36,7 @@ public class AssetMenuRetrieverAsyncTask extends AsyncTask<Void, Void, AbstractN
 
     public AssetMenuRetrieverAsyncTask(final MenuNavigatorBaseApplication application,
             final MenuNavigatorBaseActivity activity) {
+        super();
         this.application = application;
         menuRetriever = application.getMenuRetriever();
         navigationMenuFactory = application.getNavigationMenuFactory();

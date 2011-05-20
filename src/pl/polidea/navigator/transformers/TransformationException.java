@@ -10,6 +10,7 @@ public class TransformationException extends Exception {
     public final String userMessage;
 
     public TransformationException(final String userMessage) {
+        super();
         this.userMessage = userMessage;
     }
 }
