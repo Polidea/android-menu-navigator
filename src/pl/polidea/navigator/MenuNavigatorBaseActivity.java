@@ -23,6 +23,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
 
+import com.apphance.android.Apphance;
+
 /**
  * Activity that should be used as base for all activities using menu navigator.
  * 
@@ -137,6 +139,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Apphance.start(this, getApphanceResourceId());
         if (savedInstanceState == null) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             getSplashScreen();
@@ -162,6 +165,10 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
         }
+    }
+
+    protected int getApphanceResourceId() {
+        return R.string.default_apphance_key;
     }
 
     protected void getSplashScreen() {
