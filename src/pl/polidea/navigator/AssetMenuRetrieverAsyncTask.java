@@ -25,7 +25,7 @@ public class AssetMenuRetrieverAsyncTask extends AsyncTask<Void, Void, AbstractN
 
     private final NavigationMenuFactoryInterface navigationMenuFactory;
 
-    private final MenuNavigatorBaseActivity activity;
+    private final SplashScreenActivity activity;
 
     // Set this variable to true in case you are debugging heavily menus
     // (changing/updating)
@@ -35,7 +35,7 @@ public class AssetMenuRetrieverAsyncTask extends AsyncTask<Void, Void, AbstractN
     private static final boolean MENU_TESTING_MODE = false;
 
     public AssetMenuRetrieverAsyncTask(final MenuNavigatorBaseApplication application,
-            final MenuNavigatorBaseActivity activity) {
+            final SplashScreenActivity activity) {
         super();
         this.application = application;
         menuRetriever = application.getMenuRetriever();
