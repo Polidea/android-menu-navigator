@@ -10,9 +10,9 @@ import android.widget.Toast;
 /**
  * Abstract navigable number fragment - works for all numeric types.
  */
-public abstract class AbstractDataEntryFragment extends
-        AbstractMenuNavigatorFragment {
+public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFragment {
 
+    private int errorTooShortResourceId = R.string.error_too_short;
     protected TransformerInterface transformer;
 
     public AbstractDataEntryFragment() {
@@ -29,11 +29,9 @@ public abstract class AbstractDataEntryFragment extends
         if (transformedText == null) {
             return false;
         }
-        if (getNavigationMenu().minLength != null
-                && getNavigationMenu().minLength > transformedText.length()) {
+        if (getNavigationMenu().minLength != null && getNavigationMenu().minLength > transformedText.length()) {
             final Resources resources = getActivity().getResources();
-            final String toastText = String.format(
-                    resources.getString(R.string.error_too_short),
+            final String toastText = String.format(resources.getString(errorTooShortResourceId),
                     getNavigationMenu().minLength);
             Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
             return false;
@@ -62,8 +60,7 @@ public abstract class AbstractDataEntryFragment extends
             try {
                 transformedText = transformer.transformEnteredText(transaction);
             } catch (final TransformationException e) {
-                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_LONG)
-                        .show();
+                Toast.makeText(getActivity(), e.userMessage, Toast.LENGTH_LONG).show();
                 return null;
             }
         }
@@ -72,5 +69,9 @@ public abstract class AbstractDataEntryFragment extends
 
     public void setTransformer(final TransformerInterface transformer) {
         this.transformer = transformer;
+    }
+
+    public void setErrorTooShortResourceId(final int errorTooShortResourceId) {
+        this.errorTooShortResourceId = errorTooShortResourceId;
     }
 }

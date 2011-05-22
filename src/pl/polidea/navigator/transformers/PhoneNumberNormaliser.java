@@ -43,8 +43,12 @@ public class PhoneNumberNormaliser implements TransformerInterface {
         }
         if (sb.length() < minLength || sb.length() > maxLength) {
             throw new TransformationException(
-                    ctx.getString(R.string.error_phone_number_not_valid), null);
+                    ctx.getString(getResourcePhoneNumberNotValid()), null);
         }
         return sb.toString();
+    }
+
+    protected int getResourcePhoneNumberNotValid() {
+        return R.string.error_phone_number_not_valid;
     }
 }

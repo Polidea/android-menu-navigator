@@ -1,4 +1,4 @@
-package pl.polidea.navigator;
+package pl.polidea.navigator.listeners;
 
 /**
  * Listens for the transactions to handle.

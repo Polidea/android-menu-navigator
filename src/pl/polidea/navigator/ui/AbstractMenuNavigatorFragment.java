@@ -2,7 +2,7 @@ package pl.polidea.navigator.ui;
 
 import pl.polidea.navigator.BitmapReader;
 import pl.polidea.navigator.MenuNavigatorBaseApplication;
-import pl.polidea.navigator.OnTransactionListener;
+import pl.polidea.navigator.listeners.OnTransactionListener;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import android.app.Activity;
 import android.os.Bundle;

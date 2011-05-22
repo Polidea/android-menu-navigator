@@ -1,4 +1,4 @@
-package pl.polidea.navigator;
+package pl.polidea.navigator.listeners;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -24,8 +24,7 @@ import android.widget.Toast;
 public class ActionCallTransactionListener implements OnTransactionListener {
 
     private static final String TEL_PREFIX = "tel:";
-    private static final String TAG = ActionCallTransactionListener.class
-            .getSimpleName();
+    private static final String TAG = ActionCallTransactionListener.class.getSimpleName();
     private final Context ctx;
 
     public ActionCallTransactionListener(final Context ctx) {
@@ -36,8 +35,7 @@ public class ActionCallTransactionListener implements OnTransactionListener {
     public boolean handleTransaction(final String transaction) {
         if (transaction.startsWith(TEL_PREFIX)) {
             Log.d(TAG, "Sending " + transaction + " to call.");
-            final String numberToCall = transaction.substring(TEL_PREFIX
-                    .length());
+            final String numberToCall = transaction.substring(TEL_PREFIX.length());
             Toast.makeText(ctx, numberToCall, Toast.LENGTH_LONG).show();
             final String newTransaction = TEL_PREFIX + Uri.encode(numberToCall);
             try {
@@ -46,8 +44,7 @@ public class ActionCallTransactionListener implements OnTransactionListener {
                 ctx.startActivity(callIntent);
                 return true;
             } catch (final ActivityNotFoundException e) {
-                Log.w(TAG,
-                        "Could not make a call - intent is not handled by any activity.");
+                Log.w(TAG, "Could not make a call - intent is not handled by any activity.");
             }
         }
         return false;

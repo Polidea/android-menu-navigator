@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import pl.polidea.navigator.factories.FragmentFactoryInterface;
+import pl.polidea.navigator.listeners.OnTransactionListener;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.BasicMenuTypes;
 import pl.polidea.navigator.menu.TransactionMenu;
