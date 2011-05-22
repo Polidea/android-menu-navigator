@@ -9,8 +9,8 @@ public class TransformationException extends Exception {
     private static final long serialVersionUID = 1L;
     public final String userMessage;
 
-    public TransformationException(final String userMessage) {
-        super();
+    public TransformationException(final String userMessage, final Throwable e) {
+        super(e);
         this.userMessage = userMessage;
     }
 }
