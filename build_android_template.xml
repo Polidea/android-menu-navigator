@@ -33,8 +33,11 @@
         <fileset dir="build-libs" includes="*.jar" />
     </path>
 
-    <target name="get.all.subrepositories">
-        <available file="${basedir}.subrepo" property="subrepos.exist"></available>
+    <target name="check.subrepositories.exist">
+        <available file="${basedir}/subrepo" property="subrepos.exist"></available>
+    </target>
+
+    <target name="get.all.subrepositories" depends="check.subrepositories.exist" if="subrepos.exist">
         <dirset id="subrepo.dirset" dir="subrepo">
             <include name="*"/>
         </dirset>
@@ -53,6 +56,7 @@
     </target>
 
     <target name="clean.subrepositories" depends="get.all.subrepositories" if="subrepos.exist">
+        <echo message="Cleaning subrepositories of project: ${basedir}"></echo>
         <foreach list="${subrepos}" target="clean.project" param="project.dir">
         </foreach>
     </target>
