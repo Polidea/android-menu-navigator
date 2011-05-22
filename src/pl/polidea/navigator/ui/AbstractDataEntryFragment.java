@@ -68,7 +68,7 @@ public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFra
             filterArray[0] = new InputFilter.LengthFilter(menu.maxLength);
             text.setFilters(filterArray);
         }
-        return null;
+        return layout;
     }
 
     @Override
