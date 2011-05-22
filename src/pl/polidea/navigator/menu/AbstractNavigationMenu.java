@@ -50,7 +50,8 @@ public abstract class AbstractNavigationMenu implements Serializable {
     public String toString() {
         return "AbstractNavigationMenu [name=" + name + ", description=" + description + ", iconFile=" + iconFile
                 + ", breadCrumbIconFile=" + breadCrumbIconFile + ", directory=" + directory + ", menuType=" + menuType
-                + ", parent=" + (parent == null ? "null" : parent.getClass()) + ", " + super.toString() + "]";
+                + ", parent=" + (parent == null ? "null" : parent.getClass()) + ", " + ", parameters=" + parameters
+                + super.toString() + "]";
     }
 
     public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent) {

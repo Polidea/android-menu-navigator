@@ -13,8 +13,7 @@ public class PhoneNumberNormaliser implements TransformerInterface {
     private final int maxLength;
     private final Context ctx;
 
-    public PhoneNumberNormaliser(final Context ctx, final int minLength,
-            final int maxLength, final String countryPrefix) {
+    public PhoneNumberNormaliser(final Context ctx, final int minLength, final int maxLength, final String countryPrefix) {
         this.ctx = ctx;
         this.minLength = minLength;
         this.maxLength = maxLength;
@@ -29,21 +28,18 @@ public class PhoneNumberNormaliser implements TransformerInterface {
      * @return
      */
     @Override
-    public String transformEnteredText(final String phoneNumber)
-            throws TransformationException {
+    public String transformEnteredText(final String phoneNumber) throws TransformationException {
         final StringBuilder sb = new StringBuilder();
         for (final char c : phoneNumber.toCharArray()) {
             if (Character.isDigit(c)) {
                 sb.append(c);
             }
         }
-        if (sb.length() > maxLength && countryPrefix != null
-                && sb.toString().startsWith(countryPrefix)) {
+        if (sb.length() > maxLength && countryPrefix != null && sb.toString().startsWith(countryPrefix)) {
             sb.delete(0, countryPrefix.length());
         }
         if (sb.length() < minLength || sb.length() > maxLength) {
-            throw new TransformationException(
-                    ctx.getString(getResourcePhoneNumberNotValid()), null);
+            throw new TransformationException(ctx.getString(getResourcePhoneNumberNotValid()), null);
         }
         return sb.toString();
     }

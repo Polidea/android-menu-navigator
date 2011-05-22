@@ -4,10 +4,10 @@
     <TableLayout android:id="@+id/tableLayout" android:layout_width="fill_parent" android:layout_height="wrap_content"
         android:stretchColumns="0" android:gravity="center_horizontal" style="@style/NumberTableLayout">
         <TableRow>
-            <EditText android:id="@+id/provide_number_text" android:text="" android:layout_width="fill_parent"
+            <EditText android:id="@+id/provide_text" android:text="" android:layout_width="fill_parent"
                 android:layout_weight="1" style="@style/NumberEditViewLayout" android:hint="@string/provide_number_button_hint"
                 android:layout_height="fill_parent"></EditText>
-            <Button android:id="@+id/provide_number_button" android:layout_weight="0" android:layout_width="fill_parent"
+            <Button android:id="@+id/provide_button" android:layout_weight="0" android:layout_width="fill_parent"
                 android:text="@string/provide_number_button_text" style="@style/NumberButtonLayout" android:layout_height="fill_parent"></Button>
         </TableRow>
     </TableLayout>

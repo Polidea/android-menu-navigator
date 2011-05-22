@@ -17,20 +17,19 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
     public final Integer minLength;
     public final Integer maxLength;
     public final String transaction;
+    public final String hint;
 
-    public AbstractDataEntryMenu(final JsonMenuReader reader,
-            final JSONObject jsonMenu, final String menuType,
+    public AbstractDataEntryMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent) throws JSONException {
         super(reader, jsonMenu, menuType, parent);
         minLength = JsonMenuReader.getIntOrNull(jsonMenu, "minLength");
         maxLength = JsonMenuReader.getIntOrNull(jsonMenu, "maxLength");
         variable = jsonMenu.getString("variable");
         transaction = JsonMenuReader.getStringOrNull(jsonMenu, "transaction");
+        hint = JsonMenuReader.getStringOrNull(jsonMenu, "hint");
         link = reader.readLink(jsonMenu, directory, this);
         if (link != null && transaction != null) {
-            throw new JSONException(
-                    "Exactly one of \"link\" and \"transaction\" can be defined in "
-                            + jsonMenu);
+            throw new JSONException("Exactly one of \"link\" and \"transaction\" can be defined in " + jsonMenu);
         }
     }
 
@@ -41,15 +40,13 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
 
     @Override
     public String toString() {
-        return "AbstractNumberMenu [variable=" + variable + ", link=" + link
-                + ", minLength=" + minLength + ", maxLength=" + maxLength
-                + ", transaction=" + transaction + ", " + super.toString()
-                + "]";
+        return "AbstractNumberMenu [variable=" + variable + ", link=" + link + ", minLength=" + minLength
+                + ", maxLength=" + maxLength + ", transaction=" + transaction + ", hint=" + hint + ", "
+                + super.toString() + "]";
     }
 
     @Override
-    public void updateTransientAttributes(final MenuContext menuContext,
-            final AbstractNavigationMenu parent) {
+    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent) {
         super.updateTransientAttributes(menuContext, parent);
         if (link != null) {
             link.updateTransientAttributes(menuContext, this);

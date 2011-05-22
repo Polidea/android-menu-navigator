@@ -5,6 +5,18 @@ import pl.polidea.navigator.menu.AbstractDataEntryMenu;
 import pl.polidea.navigator.transformers.TransformationException;
 import pl.polidea.navigator.transformers.TransformerInterface;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.method.DigitsKeyListener;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 /**
@@ -17,6 +29,45 @@ public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFra
 
     public AbstractDataEntryFragment() {
         super();
+    }
+
+    protected abstract ViewGroup inflateViewGroup(LayoutInflater inflater, ViewGroup container);
+
+    protected abstract void setEditTextOptions(EditText text);
+
+    @Override
+    public ViewGroup onCreateView(final LayoutInflater inflater, final ViewGroup container,
+            final Bundle savedInstanceState) {
+        if (getNavigationMenu() == null) {
+            return null;
+        }
+        final ViewGroup layout = inflateViewGroup(inflater, container);
+        final EditText text = (EditText) layout.findViewById(R.id.provide_text);
+        if (getNavigationMenu().hint != null) {
+            text.setHint(getNavigationMenu().hint);
+        }
+        final Button nextButton = (Button) layout.findViewById(R.id.provide_button);
+        setEditTextOptions(text);
+        final AbstractDataEntryMenu menu = getNavigationMenu();
+        text.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(final TextView v, final int actionId, final KeyEvent event) {
+                return goNext(v.getText().toString());
+            }
+        });
+        nextButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                goNext(text.getText().toString());
+            }
+        });
+        text.setKeyListener(new DigitsKeyListener());
+        if (menu.maxLength != null) {
+            final InputFilter[] filterArray = new InputFilter[1];
+            filterArray[0] = new InputFilter.LengthFilter(menu.maxLength);
+            text.setFilters(filterArray);
+        }
+        return null;
     }
 
     @Override
