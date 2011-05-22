@@ -34,6 +34,7 @@
     </path>
 
     <target name="get.all.subrepositories">
+        <available file="${basedir}.subrepo" property="subrepos.exist"></available>
         <dirset id="subrepo.dirset" dir="subrepo">
             <include name="*"/>
         </dirset>
@@ -51,7 +52,7 @@
         </exec>
     </target>
 
-    <target name="clean.subrepositories" depends="get.all.subrepositories">
+    <target name="clean.subrepositories" depends="get.all.subrepositories" if="subrepos.exist">
         <foreach list="${subrepos}" target="clean.project" param="project.dir">
         </foreach>
     </target>
@@ -85,7 +86,7 @@
         </exec>
     </target>
 
-    <target name="revert.subrepositories" depends="get.all.subrepositories">
+    <target name="revert.subrepositories" depends="get.all.subrepositories" if="subrepos.exist">
         <foreach list="${subrepos}" target="revert.project" param="project.dir">
         </foreach>
     </target>
