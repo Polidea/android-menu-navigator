@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_icon_text">&lt;brak&gt;</string>
+    <string name="provide_number_button_text">Dalej</string>
+    <string name="provide_number_button_hint">Wpisz numer</string>
+    <string name="provide_number_label">Wpisz numer</string>
+    <string name="provide_phone_number_button_hint">Wpisz numer tel.</string>
+    <string name="provide_phone_number_label">Wpisz numer tel.</string>
+    <string name="error_phone_number_not_valid">Zły numer telefonu!!!</string>
+    <string name="error_too_short">Zbyt krótki numer (min. %1$d znaków)</string>
+    <string name="provide_string_button_text">Dalej</string>
+    <string name="provide_string_button_hint">Wpisz tekst</string>
+    <string name="provide_string_label">Wpisz text</string>
+</resources>
