@@ -1,264 +1,371 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This file is part of Polidea build system.
-     It is included in order to enable efficient project building using ant
-     DO NOT MODIFY THIS FILE without consulting Jarek. -->
-<project name="AndroidTemplate" default="build">
-    <!-- make sure to add the following line to your build file after importing
-         the template, so that it works fine in eclipse ant window as well:
-    <import file="${sdk.dir}/tools/ant/main_rules.xml" />
-    -->
-
+     It is included in order to enable efficient project building using ant.
+     DO NOT MODIFY THIS FILE without consulting Jarek.
+      -->
+<project name="Android Manage template">
     <property file="project.properties" />
     <property file="local.properties" />
     <property file="server.properties" />
     <property file="build.properties" />
     <property file="default.properties" />
     <property name="bin.dir" location="bin" />
-    <property name="tests.dir" location="tests" />
-    <property name="src.dir" location="src" />
-    <property name="coverage.dir" location="coverage" />
-    <property name="tmpcoverage.dir" location="tmpcoverage" />
-    <property name="debug.apk.file" location="${bin.dir}/${project.apk.name}-debug.apk" />
-    <property name="release.apk.file" location="${bin.dir}/${project.apk.name}-release.apk" />
-    <property name="apk.file" location="${bin.dir}/${project.apk.name}.apk" />
+    <property name="ota.dir" location="ota" />
+    <property name="apk.file" value="${project.apk.name}.apk" />
+    <property name="file.version" value="version.txt" />
+    <property name="template.url.prefix" value="http://dev.polidea.pl/ext/polidea_templates/android-template/polidea_android_template/" />
+
+    <taskdef resource="net/sourceforge/ant4hg/taskdefs/antlib.xml" classpath="build-libs/ant4hg-V0.07.jar" />
     <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="build-libs/ant-contrib-1.0b3.jar" />
+    <!-- deployment -->
 
-    <path id="android.antlibs">
-        <pathelement path="${sdk.dir}/tools/lib/anttasks.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/sdklib.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/androidprefs.jar" />
-    </path>
+    <property environment="env" />
 
-    <path id="build.lib.path.id">
-        <fileset dir="build-libs" includes="*.jar" />
-    </path>
-
-    <target name="get.all.subrepositories">
-        <dirset id="subrepo.dirset" dir="subrepo">
-            <include name="*"/>
-        </dirset>
-        <pathconvert pathsep="," property="subrepos" refid="subrepo.dirset">
-            <mapper type="flatten"/>
-        </pathconvert>
-        <echo message="All subrepositories=${subrepos}"></echo>
+    <target name="pre-release" description="--> performs pre release operations (set versions)">
+        <echo message="pre-release" />
+        <fail unless="env.RELEASE_VERSION" message="Environment RELEASE_VERSION must be defined" />
+        <property name="android.manifest.file" value="AndroidManifest.xml" />
+        <propertyfile file="${file.version}">
+            <entry key="current.version.code" type="int" operation="+" value="1" />
+        </propertyfile>
+        <replace token="\:" value=":" file="${file.version}" />
+        <property file="${file.version}" prefix="app" />
+        <echo message="${app.current.version.code}, ${env.RELEASE_VERSION}" />
+        <replaceregexp file="${android.manifest.file}" match="android:versionCode.*=.*&quot;.*&quot;" replace="android:versionCode=&quot;${app.current.version.code}&quot;" byline="true" />
+        <replaceregexp file="${android.manifest.file}" match="android:versionName.*=.*&quot;.*&quot;" replace="android:versionName=&quot;${env.RELEASE_VERSION}&quot;" byline="true" />
+        <hg cmd="commit" dir="." message="Incrementing application version to ${env.RELEASE_VERSION} (${app.current.version.code})" user="${hg.user}" />
+        <exec executable="hg">
+            <!-- no tag support in ant4hg :( -->
+            <arg value="tag" />
+            <arg value="-u" />
+            <arg value="${hg.user}" />
+            <arg value="-f" />
+            <arg value="Release_${env.RELEASE_VERSION}_${app.current.version.code}" />
+        </exec>
+        <hg cmd="push" dir="." revision="default" />
     </target>
 
-    <target name="clean.project">
-        <exec executable="ant">
-            <arg value="-f"/>
-            <arg value="${basedir}/subrepo/${project.dir}/build.xml"/>
-            <arg value="clean"/>
+    <!-- Note! They cannot be set at the top of the file because pre-release
+         increments version and only after that it loadse the version file
+         therefore this task is only used in post-release -->
+    <target name="setup.post-release.properties">
+        <property file="${file.version}" prefix="app" />
+        <fail unless="env.RELEASE_VERSION" message="Environment RELEASE_VERSION must be defined" />
+        <property name="release.subdirectory.dir" location="${release.dir}/${external.directory.name}/" />
+        <property name="full.version.name" value="${env.RELEASE_VERSION}_${app.current.version.code}" />
+        <property name="versioned.dir" location="${release.subdirectory.dir}/${full.version.name}" />
+        <property name="apk.file.name" value="${project.apk.name}-${full.version.name}.apk" />
+        <property name="javadoc.file.name" value="${project.apk.name}-javadoc-${full.version.name}.zip" />
+        <property name="sources.file.name" value="${project.apk.name}-src-${full.version.name}.zip" />
+    </target>
+
+    <target name="javadoc-zip" depends="setup.post-release.properties" description="Builds javadoc zip file">
+        <echo message="javadoc-zip" />
+        <zip destfile="bin/${javadoc.file.name}" update="false">
+            <zipfileset dir="javadoc" />
+        </zip>
+    </target>
+
+    <target name="sources-zip" depends="setup.post-release.properties" description="Builds sources zip file">
+        <echo message="sources-zip" />
+        <zip destfile="bin/${sources.file.name}" update="false">
+            <zipfileset dir=".">
+                <exclude name="**/.hg/**" />
+                <exclude name="bin/**" />
+                <exclude name="gen/**" />
+                <exclude name="doc/**" />
+                <exclude name="javadoc/**" />
+                <exclude name="ota/**" />
+                <exclude name="tmp*" />
+                <exclude name="tmpcoverage/**" />
+                <exclude name="outinstr/**" />
+                <exclude name="subrepo/*/bin/**" />
+                <exclude name="subrepo/*/gen/**" />
+                <exclude name="subrepo/*/doc/**" />
+                <exclude name="subrepo/*/javadoc/**" />
+                <exclude name="subrepo/*/ota/**" />
+                <exclude name="subrepo/*/tmp*" />
+                <exclude name="subrepo/*/tmpcoverage/**" />
+                <exclude name="subrepo/*/outinstr/**" />
+            </zipfileset>
+        </zip>
+    </target>
+
+    <target name="no-build-scripts-sources-zip" depends="setup.post-release.properties" description="Builds sources zip file">
+        <echo message="sources-zip" />
+        <zip destfile="bin/no-build-${sources.file.name}" update="false">
+            <zipfileset dir=".">
+                <exclude name="**/.hg/**" />
+                <exclude name="bin/**" />
+                <exclude name="gen/**" />
+                <exclude name="doc/**" />
+                <exclude name="analysis/**" />
+                <exclude name="javadoc/**" />
+                <exclude name="ota/**" />
+                <exclude name="cert/**" />
+                <exclude name="template/**" />
+                <exclude name="build*.xml" />
+                <exclude name="build.properties" />
+                <exclude name="project.properties" />
+                <exclude name="version.txt" />
+                <exclude name="ChangeVersion.py" />
+                <exclude name="tmp*" />
+                <exclude name="Android-OTA/**" />
+                <exclude name="tmpcoverage/**" />
+                <exclude name="outinstr/**" />
+                <exclude name="build-libs/**" />
+                <exclude name="subrepo/*/bin/**" />
+                <exclude name="subrepo/*/gen/**" />
+                <exclude name="subrepo/*/doc/**" />
+                <exclude name="subrepo/*/analysis/**" />
+                <exclude name="subrepo/*/javadoc/**" />
+                <exclude name="subrepo/*/ota/**" />
+                <exclude name="subrepo/*/cert/**" />
+                <exclude name="subrepo/*/template/**" />
+                <exclude name="subrepo/*/build*.xml" />
+                <exclude name="subrepo/*/build.properties" />
+                <exclude name="subrepo/*/project.properties" />
+                <exclude name="subrepo/*/version.txt" />
+                <exclude name="subrepo/*/ChangeVersion.py" />
+                <exclude name="subrepo/*/tmp*" />
+                <exclude name="subrepo/*/Android-OTA/**" />
+                <exclude name="subrepo/*/tmpcoverage/**" />
+                <exclude name="subrepo/*/outinstr/**" />
+                <exclude name="subrepo/*/build-libs/**" />
+            </zipfileset>
+        </zip>
+    </target>
+
+
+    <target name="download-qrcode">
+        <urlencode property="url.encoded" value="${url}" />
+        <get src="https://chart.googleapis.com/chart?cht=qr&amp;chs=256x256&amp;chl=${url.encoded}" dest="${qrcode.png.file}" />
+    </target>
+
+    <target name="release.montage">
+        <fileset id="montage.fileset" dir = "." includes="**/*.jpg,**/*.jpeg,**/*.exif,**/*.png,**/*.bmp,**/*.gif,**/*.tif,**/*.tiff,**/*.raw,**/*.svg,**/*.webp,**/*.JPG,**/*.JPEG,**/*.EXIF,**/*.PNG,**/*.BMP,**/*.GIF,**/*.TIF,**/*.TIFF,**/*.RAW,**/*.SVG,**/*.WEBP" />
+        <pathconvert pathsep="${line.separator}" property="images" refid="montage.fileset" />
+        <echo file="gen/montage_images.txt">${images}</echo>
+        <exec executable="montage" dir="gen">
+            <arg value="@montage_images.txt" />
+            <arg value="montage_images.jpg" />
+        </exec>
+        <tstamp>
+        </tstamp>
+        <exec executable="convert" dir="gen">
+            <arg value="montage_images.jpg" />
+            <arg value="-font" />
+            <arg value="helvetica" />
+            <arg value="-pointsize" />
+            <arg value="36" />
+            <arg value="-draw" />
+            <arg value="gravity southwest fill black text 0,12 '${project.apk.name} Release_${env.RELEASE_VERSION}_${app.current.version.code} released ${DSTAMP} ${TSTAMP}' fill blue text 1,11" />
+            <arg value="montage_converted_images.jpg" />
+        </exec>
+        <mkdir dir="${versioned.dir}" />
+        <copy file="gen/montage_converted_images.jpg" tofile="${versioned.dir}/montage_converted_images.jpg" />
+    </target>
+
+    <target name="copy.release" description="Copies release to external dir (need to have release.name property defined)" if="release.name">
+        <var name="release.full.url" value="${release.url}${versioned.dir}/${release.name}/${release.name}-${apk.file.name}" />
+        <mkdir dir="${versioned.dir}/${release.name}" />
+        <copy file="${ota.dir}/${release.name}/${release.name}-${apk.file}" tofile="${versioned.dir}/${release.name}/${release.name}-${apk.file.name}" />
+        <echo message="Apk for ${release.name}: ${release.full.url}" />
+        <echo file="${message.file}" append="true">
+            <![CDATA[
+   <li>Apk for ${release.name}: <a href="${release.full.url}">${release.full.url}</a></li>
+]]></echo>
+
+</target>
+
+<target name="post-release" description="--> performs post release operations"
+    depends="setup.post-release.properties, javadoc-zip, sources-zip, no-build-scripts-sources-zip, release.montage, preprocess.txt2tags.files">
+    <echo message="post-release" />
+    <mkdir dir="${release.subdirectory.dir}" />
+    <mkdir dir="${versioned.dir}" />
+    <property name="image.montage.url" value="${release.url}${versioned.dir}/montage_converted_images.jpg" />
+    <echo message="Image montage at: ${image.montage.url}" />
+    <property name="release.ota.url" value="${release.url}${versioned.dir}/index.html" />
+    <property name="message.file" location="gen/message.html" />
+    <delete file="${message.file}" failonerror="false" />
+    <echo file="${message.file}" append="true">
+        <![CDATA[<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>
+        Project <b>${project.apk.name}</b> released version ${env.RELEASE_VERSION}_${app.current.version.code}<p>
+]]></echo>
+    <echo message="OTA release: ${release.ota.url}" />
+    <echo file="${message.file}" append="true">
+        <![CDATA[<p>
+The easiest way to install the application is Over-The-Air installation. You can open it directly on the device.<br>
+OTA release is available here: <a href="${release.ota.url}">${release.ota.url}</a><br>
+You can also install it by scanning the QR code attached to the mail.<p>
+Separate .apk files are also available for download:
+        ]]></echo>
+    <echo file="${message.file}" append="true">
+        <![CDATA[<ul>]]></echo>
+    <dirset id="release.configurations.dirset" dir="release">
+        <include name="*" />
+    </dirset>
+    <pathconvert pathsep="," property="release.configurations" refid="release.configurations.dirset">
+        <mapper type="flatten" />
+    </pathconvert>
+    <antcall target="prepare.ota.release" inheritall="true">
+    </antcall>
+    <foreach list="${release.configurations}" target="copy.release" param="release.name" inheritall="true">
+    </foreach>
+    <echo file="${message.file}" append="true">
+        <![CDATA[</ul>]]></echo>
+    <antcall target="download-qrcode">
+        <param name="url" value="${release.ota.url}" />
+        <param name="qrcode.png.file" value="${versioned.dir}/qrcode.png" />
+    </antcall>
+    <echo message="Image montage at:" />
+    <echo message="${release.url}${versioned.dir}/montage_converted_images.jpg" />
+    <echo file="${message.file}" append="true">
+        <![CDATA[<p>
+You can see montage of <a href="${release.url}${versioned.dir}/montage_converted_images.jpg">all images used in the project</a>.<br>
+The image is also attached to the mail.
+        ]]></echo>
+    <echo file="${message.file}" append="true">
+        <![CDATA[<p><b>Description:</b><p>]]></echo>
+    <concat destfile="${message.file}" append="true">
+        <filelist dir="gen" files="DESCRIPTION.html"/>
+    </concat>
+    <echo file="${message.file}" append="true">
+        <![CDATA[<p><b>Release notes:</b><p>]]></echo>
+    <concat destfile="${message.file}" append="true">
+        <filelist dir="gen" files="RELEASE_NOTES.html"/>
+    </concat>
+    <echo file="${message.file}" append="true"><![CDATA[
+    <p>Have fun,<p>
+            <i>Your Jenkins</i>
+  <body>
+  </html>]]></echo>
+        <copy todir="gen" file="${versioned.dir}/qrcode.png"/>
+        <mail from="${from.release.mail}" tolist="${to.release.mail}"
+            subject="[Android] ${project.apk.name} released. Version ${env.RELEASE_VERSION}"
+            encoding="auto"
+            messagefile="${message.file}" messagemimetype="text/html">
+            <attachments>
+                <fileset dir="gen">
+                    <include name="qrcode.png"/>
+                    <include name="montage_converted_images.jpg"/>
+                </fileset>
+            </attachments>
+        </mail>
+    </target>
+
+    <target name="preprocess.txt2tags.files">
+        <exec executable="txt2tags" dir="${basedir}" failonerror="true">
+            <arg value="-H"/>
+            <arg value="--encoding=utf-8"/>
+            <arg value="-o"/>
+            <arg value="gen/RELEASE_NOTES.html"/>
+            <arg value="-t"/>
+            <arg value="html"/>
+            <arg value="RELEASE_NOTES.txt"/>
+        </exec>
+        <exec executable="txt2tags" dir="${basedir}" failonerror="true">
+            <arg value="-H"/>
+            <arg value="--encoding=utf-8"/>
+            <arg value="-o"/>
+            <arg value="gen/DESCRIPTION.html"/>
+            <arg value="-t"/>
+            <arg value="html"/>
+            <arg value="DESCRIPTION.txt"/>
         </exec>
     </target>
 
-    <target name="clean.subrepositories" depends="get.all.subrepositories">
-        <foreach list="${subrepos}" target="clean.project" param="project.dir">
-        </foreach>
+    <target name="append.url">
+        <var name="release.full.url" value="${release.url}${versioned.dir}/${release.name}/${release.name}-${apk.file.name}" />
+        <echo append="true" file="${ota.url.file}" message="${release.full.url},"/>
     </target>
 
-    <target name="clean" depends="clean.subrepositories" description="Cleans the project including subrepositories">
-        <echo message="Cleaning project: ${basedir}"></echo>
-        <delete dir="bin" failonerror="false" />
-        <delete dir="gen" failonerror="false" />
-        <delete dir="javadoc" failonerror="false" />
-        <delete dir="coverage" failonerror="false" />
-        <delete dir="outinstr" failonerror="false" />
-        <delete dir="tmpcoverage" failonerror="false" />
-        <delete file="res/raw/config.properties" failonerror="false" />
-        <delete file="res/raw/local_config.properties" failonerror="false" />
+    <target name="build.ota.urls">
+        <property name="ota.url.file" location="gen/ota_url_file"/>
+        <delete file="${ota.url.file}"/>
+        <foreach list="${release.configurations}" param="release.name" inheritall="yes" target="append.url"/>
     </target>
 
-    <target name="replace.android.log.with.apphance" description="Replace all android logs with apphance. Including subrepositories.">
-        <echo message="Replacing android logs with apphance's" />
-        <replace casesensitive="true" token="import android.util.Log;" value="import com.apphance.android.Log;">
-            <fileset dir=".">
-                <include name="**/*.java"/>
-            </fileset>
-        </replace>
-    </target>
-
-    <target name="revert.project">
-        <exec executable="ant">
-            <arg value="-f"/>
-            <arg value="${basedir}/subrepo/${project.dir}/build.xml"/>
-            <arg value="revert"/>
+    <target name="prepare.ota.release" depends="build.ota.urls">
+        <loadfile property="url.list" srcfile="${ota.url.file}"/>
+        <exec executable="python" dir="${basedir}" failonerror="true">
+            <arg value="Android-OTA/CreateOTA.py" />
+            <arg value="-n" />
+            <arg value="${project.apk.name}" />
+            <arg value="-d" />
+            <arg value="${versioned.dir}" />
+            <arg value="-u" />
+            <arg value="${url.list}" />
+            <arg value="-v" />
+            <arg value="${full.version.name}" />
+            <arg value="-r" />
+            <arg value="${release.configurations}" />
+            <arg value="-R" />
+            <arg value="gen/RELEASE_NOTES.html" />
+            <arg value="-D" />
+            <arg value="gen/DESCRIPTION.html" />
         </exec>
     </target>
 
-    <target name="revert.subrepositories" depends="get.all.subrepositories">
-        <foreach list="${subrepos}" target="revert.project" param="project.dir">
-        </foreach>
+
+    <target name="build-zip-template" description="Builds zip file from the template">
+        <property name="template.file" location="${basedir}/../polidea_android_template.zip">
+        </property>
+        <delete file="${template.file}">
+        </delete>
+        <zip destfile="${template.file}">
+            <zipfileset dir="${basedir}">
+            </zipfileset>
+        </zip>
     </target>
 
-    <target name="revert" depends="revert.subrepositories" description="Reverts all changes done locally including subrepositories">
-        <echo message="Reverting all changes in ${project.dir}" />
-        <exec executable="hg" dir="${project.dir}">
-            <arg value="revert" />
-            <arg value="--all" />
-        </exec>
+    <target name="download.file">
+        <echo message="Downloading file: ${file}" />
+        <get src="${template.url.prefix}${file}" dest="${file}" verbose="on" />
     </target>
 
-    <taskdef name="setup" classname="com.android.ant.SetupTask" classpathref="android.antlibs" />
-    <setup import="no" />
-    <import file="${sdk.dir}/tools/ant/main_rules.xml" />
-
-    <target name="init">
-        <echo message="init"/>
-        <mkdir dir="bin" />
-        <mkdir dir="bin/classes" />
-        <mkdir dir="gen" />
-        <mkdir dir="outinstr" />
-        <mkdir dir="coverage"/>
-        <mkdir dir="tmpcoverage"/>
-        <mkdir dir="javadoc" />
-        <available file="release/${release.name}/production_build.txt" property="production.build"/>
+    <target name="check.if.file.exists">
+        <echo message="Checking if exists: ${file}" />
+        <available file="${file}" property="file.exists"/>
     </target>
 
-    <target name="build.debug.apk" unless="production.build" depends="init">
-        <echo message="building debug version"/>
-        <antcall target="debug" inheritall="true"></antcall>
-        <echo message="copy ${debug.apk.file} to ${apk.file}" />
-        <copy file="${debug.apk.file}" tofile="${apk.file}" />
+    <target name="download.file.if.missing" depends="check.if.file.exists" unless="file.exists">
+        <echo message="Downloading missing file: ${file}" />
+        <get src="${template.url.prefix}${file}" dest="${file}" verbose="on" />
     </target>
 
-    <target name="build.release.apk" if="production.build" depends="init">
-        <echo message="building release version"/>
-        <antcall target="release" inheritall="true"></antcall>
-        <echo message="copy ${release.apk.file} to ${apk.file}" />
-        <copy file="${release.apk.file}" tofile="${apk.file}"/>
-    </target>
-
-    <target name="build" description="Build application" depends="build.release.apk, build.debug.apk">
-    </target>
-
-    <!--ANALYSIS-->
-
-    <path id="findbugs.dir.jars">
-        <fileset dir="${findbugs.home.dir}/lib">
-            <include name="*.jar" />
-        </fileset>
-    </path>
-
-    <path id="checkstyle.home.id">
-        <fileset dir="${checkstyle.home.dir}">
-            <include name="*.jar" />
-        </fileset>
-    </path>
-
-    <path id="pmd.home.id">
-        <fileset dir="${pmd.home.dir}/lib">
-            <include name="*.jar" />
-        </fileset>
-    </path>
-
-    <target name="analysis" depends="init,compile" description="-> static code analysis">
-        <echo message="analysis"/>
-        <taskdef resource="checkstyletask.properties" classpathref="checkstyle.home.id" />
-        <checkstyle config="analysis/checkstyle.xml" failureProperty="checkstyle.failure" failOnViolation="false" classpathref="checkstyle.home.id">
-            <classpath path="${lib-classes-folder}" />
-            <classpath path="${out.dir}" />
-            <formatter type="xml" tofile="gen/checkstyle_report.xml" />
-            <fileset dir="${source.dir}" includes="**/*.java" />
-        </checkstyle>
-        <!-- get rid of checkstyle "Unable to get class information" error (bug in checkstyle!): -->
-        <replaceregexp file="gen/checkstyle_report.xml" flags="g">
-            <regexp pattern=".*error.*Unable to get class information.*\/.*"/>
-            <substitution expression=""/>
-        </replaceregexp>
-        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.home.id" />
-        <pmd shortFilenames="false" targetjdk="1.6" rulesetfiles="analysis/pmd.xml">
-            <formatter type="xml" toFile="gen/pmd_report.xml" />
-            <fileset dir="${source.dir}" includes="**/*.java" />
-        </pmd>
-
-        <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="pmd.home.id" />
-        <cpd minimumTokenCount="100" outputFile="gen/cpd_report.xml" format="xml">
-            <fileset dir="${source.dir}" includes="**/*.java" />
-        </cpd>
-
-        <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="findbugs.dir.jars" />
-        <findbugs home="${findbugs.home.dir}" output="xml" outputFile="gen/findbugs_report.xml" excludefilter="analysis/findbugs_exclude.xml">
-            <sourcePath path="${source.dir}" />
-            <class location="${out.dir}" />
-        </findbugs>
-    </target>
-
-    <target name="javadoc" depends="init" description="--> builds javadoc ">
-        <echo message="javadoc"/>
-        <delete dir="javadoc" failonerror="false"/>
-        <mkdir dir="javadoc" />
-        <javadoc destdir="javadoc" author="false" version="false" overview="${javadoc.overview.location}" encoding="utf-8">
-            <packageset dir="src" defaultexcludes="yes">
-                <include name="**" />
-            </packageset>
-            <doctitle><![CDATA[<h1>${javadoc.title}</h1>]]></doctitle>
-       </javadoc>
-    </target>
-
-    <target name="clean-ota" depends="clean" description="Cleans ota directory">
-        <delete dir="ota"/>
-    </target>
-
-    <target name="prepare-configuration" description="Prepares configuration based on release.name property (release.name might be development, production, stealth)" if="release.name">
-        <copy todir="res/raw/">
-            <fileset dir="release/${release.name}" includes="*">
-            </fileset>
-        </copy>
-    </target>
-
-    <target name="create-copy-apk-and-rename" description="Renames release apk's to the right ones depending on the release.name" if="release.name">
-        <mkdir dir="ota"/>
-        <mkdir dir="ota/${release.name}"/>
-        <copy todir="ota/${release.name}">
-            <fileset dir="bin">
-                <include name="*.apk"/>
-            </fileset>
-            <mapper type="glob" from="*.apk" to="${release.name}-*.apk">
-            </mapper>
-        </copy>
-    </target>
-
-    <target name="build.release" description="Builds single release (need to have release.name property defined)" if="release.name">
-        <antcall target="clean">
+    <target name="update.templates" description="Updates all templates">
+        <antcall target="download.file">
+            <param name="file" value="build_android_manage_template.xml" />
         </antcall>
-        <antcall target="prepare-configuration">
+        <antcall target="download.file.if.missing">
+            <param name="file" value="build-libs/ant-contrib-1.0b3.jar" />
         </antcall>
-        <antcall target="build">
-        </antcall>
-        <antcall target="create-copy-apk-and-rename">
-        </antcall>
+        <ant antfile="build_android_manage_template.xml" target="update.all.files.from.template"></ant>
     </target>
 
-    <target name="build-all-releases" description="Builds all releases">
-        <dirset id="release.configurations.dirset" dir="release">
-            <include name="*"/>
-        </dirset>
-        <pathconvert pathsep="," property="release.configurations"
-            refid="release.configurations.dirset">
-            <mapper type="flatten"/>
-        </pathconvert>
-        <foreach list="${release.configurations}" target="build.release" param="release.name">
-        </foreach>
+    <target name="mkdir">
+        <echo message="(Re)creating directory ${directory.to.create}"/>
+        <mkdir dir="${directory.to.create}"/>
     </target>
 
-    <target name="-post-compile" if="enable.aop">
-        <echo message="Weaving aspects in following classes" />
-        <iajc destDir="${aop.output}" Xlintwarnings="true" showWeaveInfo="true" target="1.6" source="1.6">
-            <argfiles>
-                <pathelement location="aspects.lst" />
-            </argfiles>
-            <inpath>
-                <pathelement location="${out.classes.absolute.dir}" />
-            </inpath>
-            <classpath>
-                <pathelement location="${aspectj.home}/lib/aspectjrt.jar" />
-                <fileset dir="${jar.libs.dir}" includes="*.jar" />
-                <fileset dir="${jar.libs.absolute.dir}" includes="*.jar" />
-                <path refid="android.target.classpath" />
-            </classpath>
-        </iajc>
-        <move file="${out.classes.absolute.dir}" todir="bin/classes_not_weaved" />
-        <move file="${aop.output}/pl" todir="bin/classes" />
+    <target name="update.all.files.from.template">
+        <mkdir dir="template"/>
+        <antcall target="download.file">
+            <param name="file" value="template/directories.txt" />
+        </antcall>
+        <antcall target="download.file">
+            <param name="file" value="template/files.txt" />
+        </antcall>
+        <antcall target="download.file">
+            <param name="file" value="template/files_if_missing.txt" />
+        </antcall>
+        <loadfile property="directories.to.create" srcfile="template/directories.txt"></loadfile>
+        <loadfile property="files.to.download" srcfile="template/files.txt"></loadfile>
+        <loadfile property="missing.files.to.download" srcfile="template/files_if_missing.txt"></loadfile>
+        <foreach list="${directories.to.create}" delimiter="${line.separator}" param="directory.to.create" target="mkdir"/>
+        <foreach list="${files.to.download}" delimiter="${line.separator}" param="file" target="download.file"/>
+        <foreach list="${missing.files.to.download}" delimiter="${line.separator}" param="file" target="download.file.if.missing"/>
+        <delete file="test/libs/polidea_test_runner_1.0.jar" failonerror="false"/>
     </target>
-
 </project>
