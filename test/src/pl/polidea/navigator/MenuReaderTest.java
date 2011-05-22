@@ -10,37 +10,32 @@ import pl.polidea.navigator.menu.ListMenu;
 import pl.polidea.navigator.menu.MenuContext;
 import pl.polidea.navigator.menu.MenuImport;
 import pl.polidea.navigator.menu.PhoneNumberMenu;
-import android.test.ActivityInstrumentationTestCase2;
+import android.test.ApplicationTestCase;
 import android.util.Log;
 
 /**
  * Test for menu reader.
  */
-public class MenuReaderTest extends ActivityInstrumentationTestCase2<MenuNavigatorBaseActivity> {
+public class MenuReaderTest extends ApplicationTestCase<MenuNavigatorBaseApplication> {
 
-    private MenuNavigatorBaseActivity mActivity;
+    public MenuReaderTest() {
+        super(MenuNavigatorBaseApplication.class);
+    }
+
     private AssetMenuRetriever assetRetriever;
     private AbstractNavigationMenu navigationMenu;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mActivity = this.getActivity();
-        assetRetriever = new AssetMenuRetriever(mActivity, "testmenu", "menu");
+        createApplication();
+        assetRetriever = new AssetMenuRetriever(getApplication(), "testmenu", "menu");
         assetRetriever.copyMenu();
         final JsonMenuReader reader = new JsonMenuReader(new File(assetRetriever.getBaseDirectory(), "menu"),
                 "main_menu.json", null, new NavigationMenuFactoryBase(), true);
         reader.createMenu(new MenuContext());
         navigationMenu = reader.getMyMenu();
         Log.d("MenuReaderTest", navigationMenu.toString());
-    }
-
-    public MenuReaderTest() {
-        super("pl.polidea.navigator", MenuNavigatorBaseActivity.class);
-    }
-
-    public void testPrecondition() {
-        assertNotNull(mActivity);
     }
 
     public void testMainMenuReadCorrectly() {

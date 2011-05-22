@@ -16,5 +16,8 @@
     -->
     <instrumentation android:name="pl.polidea.instrumentation.PolideaInstrumentationTestRunner"
                      android:targetPackage="pl.polidea.navigator"
+                     android:label="Tests for pl.polidea.navigator with Junit XML output"/>
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+                     android:targetPackage="pl.polidea.navigator"
                      android:label="Tests for pl.polidea.navigator"/>
 </manifest>
