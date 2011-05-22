@@ -5,7 +5,6 @@ import pl.polidea.navigator.menu.FloatNumberMenu;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 
 /**
  * Fragment for entering a number.
@@ -23,7 +22,7 @@ public class FloatNumberFragment extends AbstractDataEntryFragment {
     }
 
     @Override
-    protected void setEditTextOptions(final EditText text) {
+    protected void setEditTextOptions() {
         text.setImeOptions(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_FLAG_DECIMAL
                 | EditorInfo.IME_ACTION_NEXT);
     }

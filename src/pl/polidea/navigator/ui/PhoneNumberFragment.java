@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 
 /**
  * Fragment for entering phone number.
@@ -22,7 +21,6 @@ public class PhoneNumberFragment extends AbstractDataEntryFragment {
     private static final String TAG = PhoneNumberFragment.class.getSimpleName();
 
     protected static final int CONTACT_PICKER_RESULT = 1234;
-    private EditText editText;
 
     private View contactImage;
 
@@ -37,8 +35,8 @@ public class PhoneNumberFragment extends AbstractDataEntryFragment {
     }
 
     @Override
-    protected void setEditTextOptions(final EditText text) {
-        editText.setImeOptions(EditorInfo.TYPE_CLASS_PHONE | EditorInfo.IME_ACTION_NEXT);
+    protected void setEditTextOptions() {
+        text.setImeOptions(EditorInfo.TYPE_CLASS_PHONE | EditorInfo.IME_ACTION_NEXT);
     }
 
     @Override
@@ -80,7 +78,7 @@ public class PhoneNumberFragment extends AbstractDataEntryFragment {
         final String[] proj = { Phone.NUMBER, Phone.TYPE };
         final Cursor cursor = getActivity().managedQuery(data.getData(), proj, null, null, null);
         if (cursor.moveToFirst()) {
-            editText.setText(cursor.getString(0));
+            text.setText(cursor.getString(0));
         }
     };
 }

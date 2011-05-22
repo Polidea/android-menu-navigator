@@ -26,6 +26,7 @@ public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFra
 
     private int errorTooShortResourceId = R.string.error_too_short;
     protected TransformerInterface transformer;
+    protected EditText text;
 
     public AbstractDataEntryFragment() {
         super();
@@ -33,7 +34,7 @@ public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFra
 
     protected abstract ViewGroup inflateViewGroup(LayoutInflater inflater, ViewGroup container);
 
-    protected abstract void setEditTextOptions(EditText text);
+    protected abstract void setEditTextOptions();
 
     @Override
     public ViewGroup onCreateView(final LayoutInflater inflater, final ViewGroup container,
@@ -42,12 +43,12 @@ public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFra
             return null;
         }
         final ViewGroup layout = inflateViewGroup(inflater, container);
-        final EditText text = (EditText) layout.findViewById(R.id.provide_text);
+        text = (EditText) layout.findViewById(R.id.provide_text);
         if (getNavigationMenu().hint != null) {
             text.setHint(getNavigationMenu().hint);
         }
         final Button nextButton = (Button) layout.findViewById(R.id.provide_button);
-        setEditTextOptions(text);
+        setEditTextOptions();
         final AbstractDataEntryMenu menu = getNavigationMenu();
         text.setOnEditorActionListener(new OnEditorActionListener() {
             @Override

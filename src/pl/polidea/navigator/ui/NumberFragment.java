@@ -5,7 +5,6 @@ import pl.polidea.navigator.menu.NumberMenu;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 
 /**
  * Fragment for entering a number.
@@ -23,7 +22,7 @@ public class NumberFragment extends AbstractDataEntryFragment {
     };
 
     @Override
-    protected void setEditTextOptions(final EditText text) {
+    protected void setEditTextOptions() {
         text.setImeOptions(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.IME_ACTION_NEXT);
     }
 }

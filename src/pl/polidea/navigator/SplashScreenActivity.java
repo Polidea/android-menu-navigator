@@ -13,6 +13,8 @@ public class SplashScreenActivity extends Activity {
 
     protected void getSplashScreen() {
         setContentView(R.layout.splashscreen);
+        final ImageView imageView = (ImageView) findViewById(pl.polidea.navigator.R.id.splashscreen);
+        imageView.setImageResource(R.drawable.navigator);
     }
 
     protected int getApphanceResourceId() {
@@ -26,8 +28,6 @@ public class SplashScreenActivity extends Activity {
         final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
         if (savedInstanceState == null) {
             getSplashScreen();
-            final ImageView imageView = (ImageView) findViewById(pl.polidea.navigator.R.id.splashscreen);
-            imageView.setImageResource(R.drawable.navigator);
             final AssetMenuRetrieverAsyncTask task = new AssetMenuRetrieverAsyncTask(application, this);
             task.execute((Void[]) null);
         }
