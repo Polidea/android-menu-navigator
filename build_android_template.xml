@@ -75,7 +75,7 @@
 
     <target name="replace.android.log.with.apphance" description="Replace all android logs with apphance. Including subrepositories.">
         <echo message="Replacing android logs with apphance's" />
-        <replace casesensitive="true" token="import android.util.Log;" value="import com.apphance.android.Log;">
+        <replace casesensitive="true" token="import android.util.Log;" value="import com.apphance.android.Log;" summary="true">
             <fileset dir=".">
                 <include name="**/*.java"/>
             </fileset>
@@ -211,7 +211,32 @@
         </copy>
     </target>
 
-    <target name="create-copy-apk-and-rename" description="Renames release apk's to the right ones depending on the release.name" if="release.name">
+    <target name="build.jar" if="jar.file.name" >
+        <property environment="env"/>
+        <property file="version.txt" prefix="app" />
+        <manifest file="gen/MANIFEST.MF" >
+            <attribute name="Specification-Title" value="${project.apk.name}"/>
+            <attribute name="Specification-Vendor" value="${project.apk.name}"/>
+            <attribute name="Implementation-Title" value="${env.RELEASE_VERSION}"/>
+            <attribute name="Implementation-Version" value="${app.current.version.code}"/>
+            <attribute name="Implementation-Vendor" value="${project.apk.name}"/>
+            <attribute name="Implementation-Vendor-Id" value="${project.apk.name}"/>
+        </manifest>
+        <jar destfile="bin/${jar.file.name}.jar" manifest="gen/MANIFEST.MF" manifestencoding="utf-8">
+            <fileset dir="bin/classes">
+                <include name="**/*.class" />
+                <exclude name="**/test/*.class" />
+                <exclude name="R*.class" />
+            </fileset>
+            <fileset dir=".">
+                <include name="res/**" />
+                <exclude name="**/*test*.*" />
+                <exclude name="res/raw/config.*" />
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="create-ota-artifacts">
         <mkdir dir="ota"/>
         <mkdir dir="ota/${release.name}"/>
         <copy todir="ota/${release.name}">
@@ -219,6 +244,13 @@
                 <include name="*.apk"/>
             </fileset>
             <mapper type="glob" from="*.apk" to="${release.name}-*.apk">
+            </mapper>
+        </copy>
+        <copy todir="ota/${release.name}">
+            <fileset dir="bin">
+                <include name="*.jar"/>
+            </fileset>
+            <mapper type="glob" from="*.jar" to="${release.name}-*.jar">
             </mapper>
         </copy>
     </target>
@@ -230,7 +262,9 @@
         </antcall>
         <antcall target="build">
         </antcall>
-        <antcall target="create-copy-apk-and-rename">
+        <antcall target="build.jar">
+        </antcall>
+        <antcall target="create-ota-artifacts">
         </antcall>
     </target>
 
@@ -265,5 +299,4 @@
         <move file="${out.classes.absolute.dir}" todir="bin/classes_not_weaved" />
         <move file="${aop.output}/pl" todir="bin/classes" />
     </target>
-
 </project>

@@ -32,6 +32,3 @@ syntax: regexp
 \.pyc$
 syntax: regexp
 ^ota/.*$
-
-syntax: regexp
-^test/instrumented$

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="MenuNavigatorPolideaTest" default="help">
+<project name="Test" default="help">
 
     <property file="local.properties" />
 
@@ -23,7 +23,7 @@
         <delete dir="coverage" failonerror="clean"></delete>
     </target>
 
-    <target name="run.android.tests.with.coverage" depends="clean, clean-coverage, init, coverage, -set-coverage-classpath, -install-instrumented, install" description="Runs tests and generates coverage report">
+    <target name="run.android.tests.with.coverage" depends="clean, clean-coverage, init,-set-coverage-classpath, -install-instrumented, install" description="Runs tests and generates coverage report">
         <taskdef name="nekoconv" classname="org.cyberneko.i18n.ant.Convert" classpath="build-libs/nekoconv.jar" />
         <run-tests-helper emma.enabled="true">
             <extra-instrument-args>
