@@ -1,4 +1,5 @@
 {
+  "breadcrumb_icon" = "icon.png",
   "name" : "Choose phone",
   "description" : "Choose phone number",
   "type" : "PHONE_NUMBER",

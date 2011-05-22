@@ -1,4 +1,5 @@
-    {
+{
+  "breadcrumb_icon" : "icon.png",
   "name" : "Main menu",
   "description" : "Choose menu",
   "type" : "ICONS",
