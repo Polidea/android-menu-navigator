@@ -96,8 +96,8 @@
     </target>
 
     <target name="revert" depends="revert.subrepositories" description="Reverts all changes done locally including subrepositories">
-        <echo message="Reverting all changes in ${project.dir}" />
-        <exec executable="hg" dir="${project.dir}">
+        <echo message="Reverting all changes in ${basedir}" />
+        <exec executable="hg">
             <arg value="revert" />
             <arg value="--all" />
         </exec>
