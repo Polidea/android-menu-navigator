@@ -71,6 +71,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             infoTextView.setText(navigationMenu.description);
             infoTextView.setVisibility(View.VISIBLE);
         }
+        fragmentsFactory.updateFragment(contentFragment, navigationMenu);
     }
 
     private final OnMenuDownListener menuDownListener = new OnMenuDownListener() {

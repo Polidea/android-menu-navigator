@@ -18,7 +18,8 @@ import pl.polidea.navigator.ui.StringFragment;
 public class FragmentFactoryBase implements FragmentFactoryInterface {
 
     @Override
-    public AbstractMenuNavigatorFragment createFragment(final AbstractNavigationMenu navigationMenu) {
+    public AbstractMenuNavigatorFragment createFragment(
+            final AbstractNavigationMenu navigationMenu) {
         AbstractMenuNavigatorFragment fragment = null;
         final String menuType = navigationMenu.menuType;
         if (BasicMenuTypes.ICONS.equals(menuType)) {
@@ -40,9 +41,15 @@ public class FragmentFactoryBase implements FragmentFactoryInterface {
             // here
             return createFragment(((MenuImport) navigationMenu).link);
         } else {
-            throw new IllegalArgumentException("Type " + menuType + " is undefined!");
+            throw new IllegalArgumentException("Type " + menuType
+                    + " is undefined!");
         }
-        fragment.setNavigationMenu(navigationMenu);
         return fragment;
+    }
+
+    @Override
+    public void updateFragment(final AbstractMenuNavigatorFragment fragment,
+            final AbstractNavigationMenu navigationMenu) {
+        fragment.setNavigationMenu(navigationMenu);
     }
 }
