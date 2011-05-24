@@ -15,11 +15,15 @@
     <attr name="menuNavigator.iconsTextViewTextColor" format="color" />
     <attr name="menuNavigator.iconsTextViewTextSize" format="dimension" />
     <attr name="menuNavigator.iconsImageViewPadding" format="dimension" />
+    <attr name="menuNavigator.iconBackground" format="color|reference" />
 
     <!--  List view internals -->
     <attr name="menuNavigator.listTextViewPadding" format="dimension" />
     <attr name="menuNavigator.listTextViewTextColor" format="color" />
     <attr name="menuNavigator.listTextViewTextSize" format="dimension" />
+    <attr name="menuNavigator.listDividerColor" format="color" />
+    <attr name="menuNavigator.listDividerHeight" format="dimension" />
+    <attr name="menuNavigator.listFragmentBackground" format="color|reference" />
 
     <!-- List item view  -->
     <attr name="menuNavigator.listItemPadding" format="dimension" />

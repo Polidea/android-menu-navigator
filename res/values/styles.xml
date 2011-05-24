@@ -40,6 +40,16 @@
 		<item name="android:background">?menuNavigator.fragmentBackground</item>
 	</style>
 
+    <style name="ListFragmentLayout">
+        <item name="android:background">?menuNavigator.listFragmentBackground</item>
+        <item name="android:divider">?menuNavigator.listDividerColor</item>
+        <item name="android:dividerHeight">?menuNavigator.listDividerHeight</item>
+    </style>
+
+    <style name="IconLayout">
+        <item name="android:background">?menuNavigator.iconBackground</item>
+    </style>
+
     <style name="PhoneNumberImageButtonLayout" parent="@android:style/Widget.ImageButton">
         <item name="android:padding">?menuNavigator.phoneNumberImageButtonPadding</item>
     </style>
