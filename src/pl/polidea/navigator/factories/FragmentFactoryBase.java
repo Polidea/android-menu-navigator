@@ -44,6 +44,7 @@ public class FragmentFactoryBase implements FragmentFactoryInterface {
             throw new IllegalArgumentException("Type " + menuType
                     + " is undefined!");
         }
+        updateFragment(fragment, navigationMenu);
         return fragment;
     }
 
