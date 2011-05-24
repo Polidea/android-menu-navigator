@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -20,11 +21,13 @@ public class BitmapReader {
     private final Resources resources;
     private final MenuRetrieverInterface menuRetriever;
     private final int warningResource;
+    private final DisplayMetrics displayMetrics;
 
     public BitmapReader(final Context context, final MenuRetrieverInterface menuRetriever,
             final DisplayMetrics displayMetrics, final int warningResource) {
         this.warningResource = warningResource;
         this.menuRetriever = menuRetriever;
+        this.displayMetrics = displayMetrics;
         this.resources = context.getResources();
         switch (displayMetrics.densityDpi) {
         case DisplayMetrics.DENSITY_HIGH:
@@ -42,8 +45,10 @@ public class BitmapReader {
     }
 
     public Bitmap getBitmap(final String fileName) {
+        final Options options = new BitmapFactory.Options();
+        options.inDensity = displayMetrics.densityDpi;
         final Bitmap bitmap = BitmapFactory.decodeFile(new File(new File(menuRetriever.getBaseDirectory(), iconPrefix),
-                fileName).getPath());
+                fileName).getPath(), options);
         if (bitmap == null) {
             return BitmapFactory.decodeResource(resources, warningResource);
         }
