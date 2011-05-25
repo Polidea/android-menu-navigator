@@ -1,60 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Breadcrumb top panel  -->
-    <attr name="menuNavigator.breadcrumbPadding" format="dimension" />
-    <attr name="menuNavigator.breadcrumbBackground" format="color|reference" />
+	<!-- Breadcrumb top panel -->
+	<attr name="menuNavigator.breadcrumbPadding" format="dimension" />
+	<attr name="menuNavigator.breadcrumbBackground" format="color|reference" />
 
-    <!-- Breadcrumb's internals  -->
-    <attr name="menuNavigator.breadcrumbTextViewPadding" format="dimension" />
-    <attr name="menuNavigator.breadcrumbTextViewTextColor" format="color" />
-    <attr name="menuNavigator.breadcrumbTextViewTextSize" format="dimension" />
-    <attr name="menuNavigator.breadcrumbImageViewPadding" format="dimension" />
+	<!-- Breadcrumb's internals -->
+	<attr name="menuNavigator.breadcrumbTextViewPadding" format="dimension" />
+	<attr name="menuNavigator.breadcrumbTextViewTextColor" format="color" />
+	<attr name="menuNavigator.breadcrumbTextViewTextSize" format="dimension" />
+	<attr name="menuNavigator.breadcrumbImageViewPadding" format="dimension" />
 
-    <!--  Icon view internals -->
-    <attr name="menuNavigator.iconsTextViewPadding" format="dimension" />
-    <attr name="menuNavigator.iconsTextViewTextColor" format="color" />
-    <attr name="menuNavigator.iconsTextViewTextSize" format="dimension" />
-    <attr name="menuNavigator.iconsImageViewPadding" format="dimension" />
-    <attr name="menuNavigator.iconBackground" format="color|reference" />
+	<!-- Icon view internals -->
+	<attr name="menuNavigator.iconsTextViewPadding" format="dimension" />
+	<attr name="menuNavigator.iconsTextViewTextColor" format="color" />
+	<attr name="menuNavigator.iconsTextViewTextSize" format="dimension" />
+	<attr name="menuNavigator.iconsImageViewPadding" format="dimension" />
+	<attr name="menuNavigator.iconBackground" format="color|reference" />
 
-    <!--  List view internals -->
-    <attr name="menuNavigator.listTextViewPadding" format="dimension" />
-    <attr name="menuNavigator.listTextViewTextColor" format="color" />
-    <attr name="menuNavigator.listTextViewTextSize" format="dimension" />
-    <attr name="menuNavigator.listDividerColor" format="color" />
-    <attr name="menuNavigator.listDividerHeight" format="dimension" />
-    <attr name="menuNavigator.listFragmentBackground" format="color|reference" />
+	<!-- List view internals -->
+	<attr name="menuNavigator.listTextViewPadding" format="dimension" />
+	<attr name="menuNavigator.listTextViewTextColor" format="color" />
+	<attr name="menuNavigator.listTextViewTextSize" format="dimension" />
+	<attr name="menuNavigator.listDividerColor" format="color" />
+	<attr name="menuNavigator.listDividerHeight" format="dimension" />
+	<attr name="menuNavigator.listFragmentBackground" format="color|reference" />
 
-    <!-- List item view  -->
-    <attr name="menuNavigator.listItemPadding" format="dimension" />
-    <attr name="menuNavigator.listItemBackground" format="color|reference" />
+	<!-- List item view -->
+	<attr name="menuNavigator.listItemPadding" format="dimension" />
+	<attr name="menuNavigator.listItemBackground" format="color|reference" />
 
-    <!--  String view internals -->
-    <attr name="menuNavigator.stringEditTextPadding" format="dimension" />
-    <attr name="menuNavigator.stringEditTextTextColor" format="color" />
-    <attr name="menuNavigator.stringEditTextTextSize" format="dimension" />
-    <attr name="menuNavigator.stringTableMargin" format="dimension" />
-    <attr name="menuNavigator.stringTablePadding" format="dimension" />
+	<!-- String view internals -->
+	<attr name="menuNavigator.stringEditTextPadding" format="dimension" />
+	<attr name="menuNavigator.stringEditTextTextColor" format="color" />
+	<attr name="menuNavigator.stringEditTextTextSize" format="dimension" />
+	<attr name="menuNavigator.stringTableMargin" format="dimension" />
+	<attr name="menuNavigator.stringTablePadding" format="dimension" />
 
-    <!--  Number view internals -->
-    <attr name="menuNavigator.numberEditTextPadding" format="dimension" />
-    <attr name="menuNavigator.numberEditTextTextColor" format="color" />
-    <attr name="menuNavigator.numberEditTextTextSize" format="dimension" />
-    <attr name="menuNavigator.numberTableMargin" format="dimension" />
-    <attr name="menuNavigator.numberTablePadding" format="dimension" />
+	<!-- Number view internals -->
+	<attr name="menuNavigator.numberEditTextPadding" format="dimension" />
+	<attr name="menuNavigator.numberEditTextTextColor" format="color" />
+	<attr name="menuNavigator.numberEditTextTextSize" format="dimension" />
+	<attr name="menuNavigator.numberTableMargin" format="dimension" />
+	<attr name="menuNavigator.numberTablePadding" format="dimension" />
 
-    <!--  Phone Number view internals -->
-    <attr name="menuNavigator.phoneNumberImageButtonPadding" format="dimension" />
+	<!-- Phone Number view internals -->
+	<attr name="menuNavigator.phoneNumberImageButtonPadding" format="dimension" />
 
-    <!-- Main fragment view layout  -->
-    <attr name="menuNavigator.fragmentBackground" format="color|reference" />
+	<!-- Main fragment view layout -->
+	<attr name="menuNavigator.fragmentBackground" format="color|reference" />
 
-    <!-- Main fragment view layout  -->
-    <attr name="menuNavigator.infoTextViewPadding" format="dimension" />
-    <attr name="menuNavigator.infoTextViewTextColor" format="color" />
-    <attr name="menuNavigator.infoTextViewTextSize" format="dimension" />
-    <attr name="menuNavigator.infoTextViewBackground" format="color|reference" />
-
-
+	<!-- Main fragment view layout -->
+	<attr name="menuNavigator.infoTextViewPadding" format="dimension" />
+	<attr name="menuNavigator.infoTextViewTextColor" format="color" />
+	<attr name="menuNavigator.infoTextViewTextSize" format="dimension" />
+	<attr name="menuNavigator.infoTextViewBackground" format="color|reference" />
 
 </resources>
