@@ -57,6 +57,10 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
         conn.setRequestMethod("HEAD");
         conn.setConnectTimeout(5 * 1000);
         conn.connect();
+        if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+            Log.d(TAG, "Response code when retrieving from remote = " + conn.getResponseCode());
+            return null;
+        }
         final Map<String, List<String>> fields = conn.getHeaderFields();
         Log.d(TAG, "Retrieved headers: " + fields);
         final List<String> etagHeaders = fields.get("ETag");

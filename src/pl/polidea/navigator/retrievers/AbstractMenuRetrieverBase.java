@@ -139,8 +139,12 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
         final String oldSignature = getOldSignature();
         final String newSignature = getMenuSignature();
         Log.d(TAG, "Comparing " + oldSignature + " with " + newSignature);
+        if (newSignature == null) {
+            Log.d(TAG, "Cannot retrieve new signature. Probably error retrieving it. Skipping.");
+            return false;
+        }
         if (newSignature.equals(oldSignature)) {
-            Log.d(TAG, "Already initialized with same signature" + oldSignature + " : skipping copying");
+            Log.d(TAG, "Already initialized with same signature:" + oldSignature + " : skipping copying");
             return false;
         }
         Log.d(TAG, "Cleaning up " + internalTmpDirectory);

@@ -114,7 +114,7 @@ public class MenuNavigatorBaseApplication extends Application {
                     }
                     Log.d(TAG, "Scheduled run finished for menu retrieval.");
                 } catch (final Throwable t) {
-                    Log.w(TAG, "Error when retrieving new menu", t);
+                    Log.w(TAG, "Error when retrieving new menu: ", t);
                 }
             }
 
