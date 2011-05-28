@@ -42,10 +42,12 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
 
     @Override
     public String getMenuSignature() throws IOException {
+        Log.d(TAG, "Checking if there is a remote menu update");
         if (!wifiOnly || isOnWifi()) {
             Log.d(TAG, "Skipping connection - we are not on wifi only");
             return getOldSignature();
         }
+        Log.d(TAG, "Connecting to " + whereToDownloadFrom);
         final HttpURLConnection conn = (HttpURLConnection) whereToDownloadFrom.openConnection();
         conn.setRequestMethod("HEAD");
         conn.setConnectTimeout(5 * 1000);
