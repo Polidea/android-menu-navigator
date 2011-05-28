@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -76,7 +77,7 @@ public class IconsFragment extends AbstractMenuNavigatorFragment {
             } else {
                 textView.setText(item.name);
             }
-            iconLayout.setLayoutParams(new TableRow.LayoutParams(iconWidth, iconWidth));
+            iconLayout.setLayoutParams(new TableRow.LayoutParams(iconWidth, LayoutParams.WRAP_CONTENT));
             tableRow.addView(iconLayout);
         }
         return layout;
