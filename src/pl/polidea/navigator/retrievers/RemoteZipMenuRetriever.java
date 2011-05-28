@@ -67,11 +67,11 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
         final List<String> sizeHeaders = fields.get("Content-Length");
         final List<String> lastModifiedHeaders = fields.get("Last-Modified");
         String signature = null;
-        if (!etagHeaders.isEmpty()) {
+        if (!etagHeaders.isEmpty()) { // NOPMD - it is more readable this way
             signature = whereToDownloadFrom.toExternalForm() + ":" + etagHeaders.get(0);
-        } else if (!lastModifiedHeaders.isEmpty()) {
+        } else if (!lastModifiedHeaders.isEmpty()) { // NOPMD
             signature = whereToDownloadFrom.toExternalForm() + ":" + lastModifiedHeaders.get(0);
-        } else if (!sizeHeaders.isEmpty()) {
+        } else if (!sizeHeaders.isEmpty()) { // NOPMD
             signature = whereToDownloadFrom.toExternalForm() + ":" + sizeHeaders.get(0);
         } else {
             signature = whereToDownloadFrom.toExternalForm();

@@ -113,7 +113,9 @@ public class MenuNavigatorBaseApplication extends Application {
                         Log.w(TAG, "Error while retrieving menu from remote: ", e);
                     }
                     Log.d(TAG, "Scheduled run finished for menu retrieval.");
-                } catch (final Throwable t) {
+                } catch (final Throwable t) { // NOPMD - it is needed here to
+                                              // show any errors that might
+                                              // occur.
                     Log.w(TAG, "Error when retrieving new menu: ", t);
                 }
             }

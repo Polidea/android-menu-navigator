@@ -36,7 +36,8 @@ public class SplashScreenActivity extends Activity {
                 }
             } catch (final IOException e) {
                 Log.w(TAG, "Error when copying standard menu", e);
-            } catch (final Throwable t) {
+            } catch (final Throwable t) { // NOPMD - it is needed here to show
+                                          // any errors.
                 Log.w(TAG, "Error when copying standard menu", t);
             }
             return null;
@@ -57,7 +58,7 @@ public class SplashScreenActivity extends Activity {
     // At the expense of few seconds slower startup time
     private static final boolean MENU_TESTING_MODE = false;
 
-    private volatile MenuNavigatorBaseApplication application;
+    private MenuNavigatorBaseApplication application;
 
     protected void getSplashScreen() {
         setContentView(R.layout.splashscreen);

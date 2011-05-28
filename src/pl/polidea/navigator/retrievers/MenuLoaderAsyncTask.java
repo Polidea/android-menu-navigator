@@ -41,7 +41,8 @@ public class MenuLoaderAsyncTask extends AsyncTask<Void, Void, AbstractNavigatio
             final AbstractNavigationMenu menu = reader.getMyMenu();
             Log.d(TAG, " Returning menu: " + menu);
             return menu;
-        } catch (final Throwable t) {
+        } catch (final Throwable t) { // NOPMD - it is ok here. We want to show
+                                      // any error in log
             Log.w(TAG, "Error when reasing menu.", t);
         }
         return null;
