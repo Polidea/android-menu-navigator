@@ -149,7 +149,9 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
         }
         Log.d(TAG, "Cleaning up " + internalTmpDirectory);
         cleanUpDirectory(internalTmpDirectory);
-        internalTmpDirectory.mkdir();
+        if (!internalTmpDirectory.mkdirs()) {
+            Log.w(TAG, "Could not create temporary directory: " + internalTmpDirectory);
+        }
         Log.d(TAG, "Cleaned up " + internalTmpDirectory);
         saveSignatureToFile(newSignature);
         copyMenuInternally();
@@ -185,10 +187,15 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
         final Properties p = new Properties();
         String versionString = null;
         try {
-            p.load(new FileInputStream(f));
-            versionString = p.getProperty("menu_version");
-            if (versionString != null) {
-                version = Integer.parseInt(versionString);
+            final FileInputStream is = new FileInputStream(f);
+            try {
+                p.load(is);
+                versionString = p.getProperty("menu_version");
+                if (versionString != null) {
+                    version = Integer.parseInt(versionString);
+                }
+            } finally {
+                is.close();
             }
         } catch (final NumberFormatException e) {
             Log.w(TAG, "Could not read version.txt (" + versionString + "): ", e);
