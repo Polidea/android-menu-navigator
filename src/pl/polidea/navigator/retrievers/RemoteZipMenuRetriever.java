@@ -122,4 +122,11 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
             zipentry = inputStream.getNextEntry();
         }
     }
+
+    @Override
+    public String toString() {
+        return "RemoteZipMenuRetriever [whereToDownloadFrom=" + whereToDownloadFrom + ", wifiOnly=" + wifiOnly
+                + ", toString()=" + super.toString() + "]";
+    }
+
 }

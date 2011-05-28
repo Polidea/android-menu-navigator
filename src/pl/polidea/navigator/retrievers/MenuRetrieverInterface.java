@@ -36,4 +36,12 @@ public interface MenuRetrieverInterface {
      */
     File getBaseDirectory();
 
+    /**
+     * Retrieves numerical version of the menu. In case there are two retrievers
+     * employed - first time and timed one, this version is used to decide which
+     * menu is going to be used (generally - higher version!).
+     * 
+     * @return
+     */
+    int getMenuVersion();
 }

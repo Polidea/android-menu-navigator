@@ -23,6 +23,7 @@ public class AssetMenuRetriever extends AbstractMenuRetrieverBase implements Men
         assetManager = ctx.getAssets();
     }
 
+    @Override
     protected void copyMenuInternally() throws IOException {
         copyRecursivelyFromAsset(null, null);
     }
@@ -121,4 +122,10 @@ public class AssetMenuRetriever extends AbstractMenuRetrieverBase implements Men
         Log.d(TAG, "Copied menu to " + internalTmpDirectory);
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "AssetMenuRetriever [fromAssetLocation=" + fromAssetLocation + ", toString()=" + super.toString() + "]";
+    }
+
 }

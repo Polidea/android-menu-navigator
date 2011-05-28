@@ -15,10 +15,11 @@ import android.util.DisplayMetrics;
  * Application that should be extended by any menu navigation application.
  */
 public class MenuNavigatorBaseApplication extends Application {
-    private MenuRetrieverInterface menuRetriever;
+    private MenuRetrieverInterface firstTimeMenuRetriever;
     private AbstractNavigationMenu navigationMenu;
     private NavigationMenuFactoryInterface navigationMenuFactory;
     private FragmentFactoryInterface fragmentFactory;
+    private MenuRetrieverInterface timedRunMenuRetriever;
 
     @Override
     public void onCreate() {
@@ -27,7 +28,8 @@ public class MenuNavigatorBaseApplication extends Application {
     }
 
     protected void createBaseFactories() {
-        menuRetriever = createMenuRetriever();
+        firstTimeMenuRetriever = createFirstTimeMenuRetriever();
+        timedRunMenuRetriever = timedRunMenuRetriever();
         navigationMenuFactory = createNavigationMenuFactory();
         fragmentFactory = createFragmentFactory();
     }
@@ -44,16 +46,24 @@ public class MenuNavigatorBaseApplication extends Application {
         return navigationMenuFactory;
     }
 
-    public final MenuRetrieverInterface getMenuRetriever() {
-        return menuRetriever;
+    public final MenuRetrieverInterface getFirstTimeMenuRetriever() {
+        return firstTimeMenuRetriever;
+    }
+
+    public MenuRetrieverInterface getTimedMenuRetriever() {
+        return timedRunMenuRetriever;
     }
 
     public final NavigationMenuFactoryInterface getNavigationMenuFactory() {
         return navigationMenuFactory;
     }
 
-    protected MenuRetrieverInterface createMenuRetriever() {
+    protected MenuRetrieverInterface createFirstTimeMenuRetriever() {
         return new AssetMenuRetriever(this, "testmenu", "menu");
+    }
+
+    protected MenuRetrieverInterface timedRunMenuRetriever() {
+        return null;
     }
 
     protected FragmentFactoryBase createFragmentFactory() {
@@ -69,7 +79,7 @@ public class MenuNavigatorBaseApplication extends Application {
     }
 
     public BitmapReader getBitmapReader(final DisplayMetrics displayMetrics) {
-        return new BitmapReader(this, getMenuRetriever(), displayMetrics, R.drawable.warning);
+        return new BitmapReader(this, getFirstTimeMenuRetriever(), displayMetrics, R.drawable.warning);
     }
 
     public final void setNavigationMenu(final AbstractNavigationMenu navigationMenu) {

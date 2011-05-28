@@ -8,9 +8,7 @@ import pl.polidea.navigator.ui.AbstractMenuNavigatorFragment;
  * type.
  */
 public interface FragmentFactoryInterface {
-    AbstractMenuNavigatorFragment createFragment(
-            final AbstractNavigationMenu navigationMenu);
+    AbstractMenuNavigatorFragment createFragment(final AbstractNavigationMenu navigationMenu);
 
-    void updateFragment(AbstractMenuNavigatorFragment fragment,
-            AbstractNavigationMenu navigationMenu);
+    void updateFragment(AbstractMenuNavigatorFragment fragment, AbstractNavigationMenu navigationMenu);
 }

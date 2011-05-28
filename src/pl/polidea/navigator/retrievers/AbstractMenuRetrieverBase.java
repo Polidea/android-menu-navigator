@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -157,6 +158,35 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
     @Override
     public File getBaseDirectory() {
         return internalDirectory;
+    }
+
+    @Override
+    public int getMenuVersion() {
+        int version = -1;
+        final File f = new File(internalDirectory, "version.txt");
+        final Properties p = new Properties();
+        String versionString = null;
+        try {
+            p.load(new FileInputStream(f));
+            versionString = p.getProperty("menu_version");
+            if (versionString != null) {
+                version = Integer.parseInt(versionString);
+            }
+        } catch (final NumberFormatException e) {
+            Log.e(TAG, "Could not read version.txt (" + versionString + "): ", e);
+        } catch (final FileNotFoundException e) {
+            Log.e(TAG, "Could not read version.txt : ", e);
+        } catch (final IOException e) {
+            Log.e(TAG, "Could not read version.txt : ", e);
+        }
+        Log.d(TAG, "Returning version (for " + internalDirectory + ":" + version);
+        return version;
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractMenuRetrieverBase [internalDirectory=" + internalDirectory + ", internalTmpDirectory="
+                + internalTmpDirectory + ", internalOldDirectory=" + internalOldDirectory + "]";
     }
 
 }

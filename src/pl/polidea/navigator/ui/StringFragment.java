@@ -2,6 +2,7 @@ package pl.polidea.navigator.ui;
 
 import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.StringMenu;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -23,7 +24,7 @@ public class StringFragment extends AbstractDataEntryFragment {
 
     @Override
     protected void setEditTextOptions() {
-        text.setImeOptions(EditorInfo.TYPE_CLASS_TEXT | EditorInfo.IME_ACTION_NEXT);
+        text.setImeOptions(InputType.TYPE_CLASS_TEXT | EditorInfo.IME_ACTION_NEXT);
     }
 
 }
