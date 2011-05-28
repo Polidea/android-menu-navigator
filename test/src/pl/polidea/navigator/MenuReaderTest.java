@@ -10,6 +10,7 @@ import pl.polidea.navigator.menu.ListMenu;
 import pl.polidea.navigator.menu.MenuContext;
 import pl.polidea.navigator.menu.MenuImport;
 import pl.polidea.navigator.menu.PhoneNumberMenu;
+import pl.polidea.navigator.retrievers.AssetMenuRetriever;
 import android.test.ApplicationTestCase;
 import android.util.Log;
 

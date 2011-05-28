@@ -1,5 +1,6 @@
 package pl.polidea.navigator;
 
+import pl.polidea.navigator.retrievers.AssetMenuRetrieverAsyncTask;
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.ImageView;

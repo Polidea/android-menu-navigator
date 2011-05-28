@@ -1,4 +1,4 @@
-package pl.polidea.navigator;
+package pl.polidea.navigator.retrievers;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

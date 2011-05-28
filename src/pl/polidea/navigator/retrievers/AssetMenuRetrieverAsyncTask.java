@@ -1,8 +1,11 @@
-package pl.polidea.navigator;
+package pl.polidea.navigator.retrievers;
 
 import java.io.File;
 import java.io.IOException;
 
+import pl.polidea.navigator.JsonMenuReader;
+import pl.polidea.navigator.MenuNavigatorBaseApplication;
+import pl.polidea.navigator.SplashScreenActivity;
 import pl.polidea.navigator.factories.NavigationMenuFactoryInterface;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.MenuContext;

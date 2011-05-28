@@ -5,6 +5,8 @@ import pl.polidea.navigator.factories.FragmentFactoryInterface;
 import pl.polidea.navigator.factories.NavigationMenuFactoryBase;
 import pl.polidea.navigator.factories.NavigationMenuFactoryInterface;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
+import pl.polidea.navigator.retrievers.AssetMenuRetriever;
+import pl.polidea.navigator.retrievers.MenuRetrieverInterface;
 import pl.polidea.navigator.ui.BreadcrumbFragment;
 import android.app.Application;
 import android.util.DisplayMetrics;

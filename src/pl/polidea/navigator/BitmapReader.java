@@ -2,6 +2,7 @@ package pl.polidea.navigator;
 
 import java.io.File;
 
+import pl.polidea.navigator.retrievers.MenuRetrieverInterface;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
