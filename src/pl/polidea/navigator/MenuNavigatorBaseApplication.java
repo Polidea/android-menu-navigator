@@ -1,5 +1,10 @@
 package pl.polidea.navigator;
 
+import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import pl.polidea.navigator.factories.FragmentFactoryBase;
 import pl.polidea.navigator.factories.FragmentFactoryInterface;
 import pl.polidea.navigator.factories.NavigationMenuFactoryBase;
@@ -11,15 +16,19 @@ import pl.polidea.navigator.ui.BreadcrumbFragment;
 import android.app.Application;
 import android.util.DisplayMetrics;
 
+import com.apphance.android.Log;
+
 /**
  * Application that should be extended by any menu navigation application.
  */
 public class MenuNavigatorBaseApplication extends Application {
+    private static final String TAG = MenuNavigatorBaseApplication.class.getSimpleName();
     private MenuRetrieverInterface firstTimeMenuRetriever;
     private AbstractNavigationMenu navigationMenu;
     private NavigationMenuFactoryInterface navigationMenuFactory;
     private FragmentFactoryInterface fragmentFactory;
     private MenuRetrieverInterface timedRunMenuRetriever;
+    private ScheduledExecutorService executor;
 
     @Override
     public void onCreate() {
@@ -84,5 +93,33 @@ public class MenuNavigatorBaseApplication extends Application {
 
     public final void setNavigationMenu(final AbstractNavigationMenu navigationMenu) {
         this.navigationMenu = navigationMenu;
+    }
+
+    protected void startTimerRetrieverThread(final long initialDelay, final long delay, final TimeUnit timeUnit) {
+        final MenuRetrieverInterface timedRetriever = getTimedMenuRetriever();
+        if (timedRetriever == null) {
+            Log.d(TAG, "Skipping timer startup because there is no timed retriever.");
+            return;
+        }
+        executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Log.d(TAG, "Scheduled run started for menu retrieval.");
+                    try {
+                        timedRetriever.copyMenu();
+                    } catch (final IOException e) {
+                        Log.w(TAG, "Error while retrieving menu from remote: ", e);
+                    }
+                    Log.d(TAG, "Scheduled run finished for menu retrieval.");
+                } catch (final Throwable t) {
+                    Log.w(TAG, "Error when retrieving new menu", t);
+                }
+            }
+
+        }, initialDelay, delay, TimeUnit.SECONDS);
+        Log.d(TAG, "Scheduled menu retrieval to run after few seconds, every hour,");
+
     }
 }
