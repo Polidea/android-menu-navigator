@@ -100,6 +100,7 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
             final String zipEntryName = zipentry.getName();
             if (zipentry.isDirectory()) {
                 final File dir = new File(internalTmpDirectory, zipEntryName);
+                Log.d(TAG, "Creating directory: " + dir);
                 if (!dir.mkdir()) {
                     throw new IOException("Could not create directory:" + dir);
                 }
@@ -108,6 +109,7 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
                 continue;
             }
             final File newFile = new File(internalTmpDirectory, zipEntryName);
+            Log.d(TAG, "Extracting file: " + newFile);
             final FileOutputStream fileOutputStream = new FileOutputStream(newFile);
             try {
                 int n = -1;
@@ -117,6 +119,7 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
             } finally {
                 fileOutputStream.close();
             }
+            Log.d(TAG, "Extracted file: " + newFile);
             currentSize += zipentry.getCompressedSize();
             inputStream.closeEntry();
             zipentry = inputStream.getNextEntry();

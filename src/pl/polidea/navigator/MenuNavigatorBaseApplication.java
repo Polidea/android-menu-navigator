@@ -29,7 +29,7 @@ public class MenuNavigatorBaseApplication extends Application {
 
     protected void createBaseFactories() {
         firstTimeMenuRetriever = createFirstTimeMenuRetriever();
-        timedRunMenuRetriever = timedRunMenuRetriever();
+        timedRunMenuRetriever = createTimedRunMenuRetriever();
         navigationMenuFactory = createNavigationMenuFactory();
         fragmentFactory = createFragmentFactory();
     }
@@ -62,7 +62,7 @@ public class MenuNavigatorBaseApplication extends Application {
         return new AssetMenuRetriever(this, "testmenu", "menu");
     }
 
-    protected MenuRetrieverInterface timedRunMenuRetriever() {
+    protected MenuRetrieverInterface createTimedRunMenuRetriever() {
         return null;
     }
 
