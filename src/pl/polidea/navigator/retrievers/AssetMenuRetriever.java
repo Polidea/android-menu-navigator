@@ -14,6 +14,7 @@ import android.util.Log;
  * 
  */
 public class AssetMenuRetriever extends AbstractMenuRetrieverBase implements MenuRetrieverInterface {
+    private static final String TAG = AssetMenuRetriever.class.getSimpleName();
     private final String fromAssetLocation;
     private final AssetManager assetManager;
 
@@ -92,35 +93,6 @@ public class AssetMenuRetriever extends AbstractMenuRetrieverBase implements Men
         final StringBuilder sb = new StringBuilder("asset_");
         addSignatureRecursivelyFromAsset(sb, null, null);
         return sb.toString();
-    }
-
-    @Override
-    public boolean copyMenu() throws IOException {
-        final String oldSignature = getOldSignature();
-        final String newSignature = getMenuSignature();
-        Log.d(TAG, "Comparing " + oldSignature + " with " + newSignature);
-        if (newSignature.equals(oldSignature)) {
-            Log.d(TAG, "Already initialized with same signature" + oldSignature + " : skipping copying");
-            return false;
-        }
-        Log.d(TAG, "Cleaning up " + internalTmpDirectory);
-        cleanUpDirectory(internalTmpDirectory);
-        saveSignatureToFile(newSignature);
-        copyRecursivelyFromAsset(null, null);
-        Log.d(TAG, "Renaming " + internalDirectory + " to " + internalOldDirectory);
-        if (!internalDirectory.renameTo(internalOldDirectory)) {
-            Log.w(TAG, "Could not rename " + internalDirectory + " to " + internalOldDirectory);
-        }
-        if (!internalTmpDirectory.renameTo(internalDirectory)) {
-            Log.w(TAG, "Could not rename " + internalTmpDirectory + " to " + internalDirectory);
-        }
-        Log.d(TAG, "Cleaning up " + internalOldDirectory);
-        cleanUpDirectory(internalOldDirectory);
-        if (!internalOldDirectory.delete()) {
-            Log.w(TAG, "Could not delete " + internalOldDirectory);
-        }
-        Log.d(TAG, "Copied menu to " + internalTmpDirectory);
-        return true;
     }
 
     @Override

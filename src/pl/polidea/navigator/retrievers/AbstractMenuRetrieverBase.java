@@ -18,7 +18,7 @@ import android.util.Log;
  */
 public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterface {
 
-    protected static final String TAG = AssetMenuRetriever.class.getSimpleName();
+    private static final String TAG = AbstractMenuRetrieverBase.class.getSimpleName();
     private static final int BUFFER_SIZE = 8192;
     protected final File internalDirectory;
     protected final File internalTmpDirectory;
@@ -35,6 +35,7 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
     protected abstract void copyMenuInternally() throws IOException;
 
     protected String getOldSignature() throws IOException {
+        Log.d(TAG, "Retrieving signature from: " + internalDirectory);
         final File signatureFile = new File(internalDirectory, "signature.properties");
         final Properties p = new Properties();
         String oldSignature = null;
@@ -47,6 +48,8 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
             } finally {
                 signatureFileStream.close();
             }
+        } else {
+            Log.w(TAG, "Signature file " + signatureFile + " missing.");
         }
         return oldSignature;
     }
@@ -99,13 +102,16 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
      *            directory to clean
      */
     protected void cleanUpDirectory(final File directory) {
-        if (!directory.mkdirs()) {
-            Log.w(TAG, "Could not create directory " + directory);
+        if (!directory.exists()) {
+            Log.d(TAG, "Skipped deleting non-existing " + directory);
+            return;
         }
         for (final File f : directory.listFiles()) {
-            if (f.isDirectory()) {
+            if (f.isDirectory() && !f.getName().startsWith(".")) {
+                Log.d(TAG, "Internal cleanup of directory:" + f);
                 cleanUpDirectory(f);
             }
+            Log.d(TAG, "Delete file/dir: " + f);
             if (!f.delete()) {
                 Log.d(TAG, "Could not delete " + f);
                 return;
@@ -120,10 +126,12 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
         p.setProperty("signature", newSignature);
         final FileOutputStream out = new FileOutputStream(signatureFile);
         try {
-            p.save(out, "Automatically generated at copying from assets");
+            p.store(out, "Automatically generated at copying from assets");
+            out.flush();
         } finally {
             out.close();
         }
+        Log.d(TAG, "Saved signature " + newSignature + " to " + signatureFile);
     }
 
     @Override
@@ -137,21 +145,27 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
         }
         Log.d(TAG, "Cleaning up " + internalTmpDirectory);
         cleanUpDirectory(internalTmpDirectory);
+        internalTmpDirectory.mkdir();
+        Log.d(TAG, "Cleaned up " + internalTmpDirectory);
         saveSignatureToFile(newSignature);
         copyMenuInternally();
         Log.d(TAG, "Renaming " + internalDirectory + " to " + internalOldDirectory);
         if (!internalDirectory.renameTo(internalOldDirectory)) {
             Log.w(TAG, "Could not rename " + internalDirectory + " to " + internalOldDirectory);
         }
+        Log.d(TAG, "Renamed " + internalDirectory + " to " + internalOldDirectory);
+        Log.d(TAG, "Renaming " + internalTmpDirectory + " to " + internalDirectory);
         if (!internalTmpDirectory.renameTo(internalDirectory)) {
             Log.w(TAG, "Could not rename " + internalTmpDirectory + " to " + internalDirectory);
         }
+        Log.d(TAG, "Renamed " + internalTmpDirectory + " to " + internalDirectory);
         Log.d(TAG, "Cleaning up " + internalOldDirectory);
         cleanUpDirectory(internalOldDirectory);
+        Log.d(TAG, "Cleaned up " + internalOldDirectory);
         if (!internalOldDirectory.delete()) {
             Log.w(TAG, "Could not delete " + internalOldDirectory);
         }
-        Log.d(TAG, "Copied menu to " + internalTmpDirectory);
+        Log.d(TAG, "Finished copying menu to " + internalDirectory);
         return true;
     }
 
@@ -173,11 +187,11 @@ public abstract class AbstractMenuRetrieverBase implements MenuRetrieverInterfac
                 version = Integer.parseInt(versionString);
             }
         } catch (final NumberFormatException e) {
-            Log.e(TAG, "Could not read version.txt (" + versionString + "): ", e);
+            Log.w(TAG, "Could not read version.txt (" + versionString + "): ", e);
         } catch (final FileNotFoundException e) {
-            Log.e(TAG, "Could not read version.txt : ", e);
+            Log.w(TAG, "Could not read version.txt : ", e);
         } catch (final IOException e) {
-            Log.e(TAG, "Could not read version.txt : ", e);
+            Log.w(TAG, "Could not read version.txt : ", e);
         }
         Log.d(TAG, "Returning version (for " + internalDirectory + ":" + version);
         return version;

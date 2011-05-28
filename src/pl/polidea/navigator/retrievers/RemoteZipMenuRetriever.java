@@ -35,16 +35,21 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
     }
 
     public boolean isOnWifi() {
+        Log.d(TAG, "Checking if we are on wifi");
         final ConnectivityManager mgrConn = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        Log.d(TAG, "Retrieved connectivity manager");
         final NetworkInfo network = mgrConn.getActiveNetworkInfo();
-        return network != null && network.getType() == ConnectivityManager.TYPE_WIFI;
+        Log.d(TAG, "Retrieved network info: " + network);
+        final boolean result = network != null && network.getType() == ConnectivityManager.TYPE_WIFI;
+        Log.d(TAG, "Result : " + result);
+        return result;
     }
 
     @Override
     public String getMenuSignature() throws IOException {
         Log.d(TAG, "Checking if there is a remote menu update");
-        if (!wifiOnly || isOnWifi()) {
-            Log.d(TAG, "Skipping connection - we are not on wifi only");
+        if (wifiOnly && !isOnWifi()) {
+            Log.d(TAG, "Skipping connection - we are not on wifi");
             return getOldSignature();
         }
         Log.d(TAG, "Connecting to " + whereToDownloadFrom);
@@ -67,6 +72,7 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
         } else {
             signature = whereToDownloadFrom.toExternalForm();
         }
+        Log.d(TAG, "Signature = " + signature);
         return signature;
     }
 
@@ -93,7 +99,6 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
      */
     private void unpackTheZipFile(final ZipInputStream inputStream) throws IOException {
         long currentSize = 0;
-        cleanUpDirectory(internalTmpDirectory);
         ZipEntry zipentry = inputStream.getNextEntry();
         final byte[] buf = new byte[BUFFER_SIZE];
         while (zipentry != null) {

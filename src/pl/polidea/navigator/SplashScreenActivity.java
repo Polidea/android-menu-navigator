@@ -35,7 +35,9 @@ public class SplashScreenActivity extends Activity {
                     a.commit();
                 }
             } catch (final IOException e) {
-                Log.w(TAG, "Error when copying standard menu");
+                Log.w(TAG, "Error when copying standard menu", e);
+            } catch (final Throwable t) {
+                Log.w(TAG, "Error when copying standard menu", t);
             }
             return null;
         }
@@ -44,6 +46,7 @@ public class SplashScreenActivity extends Activity {
         protected void onPostExecute(final Void result) {
             readMenu();
         }
+
     }
 
     private static final String TAG = SplashScreenActivity.class.getSimpleName();

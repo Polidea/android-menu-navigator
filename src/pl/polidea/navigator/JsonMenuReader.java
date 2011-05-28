@@ -73,7 +73,7 @@ public class JsonMenuReader {
 
     public void createMenu(final MenuContext menuContext) {
         this.menuContext = menuContext;
-        Log.d(TAG, "Creating menu");
+        Log.d(TAG, "Creating menu from " + directory);
         boolean menuReadFromCache = false;
         if (topLevelMenu && new File(directory, CACHE_FILE_NAME).exists()) {
             menuReadFromCache = readMenuFromCache();
