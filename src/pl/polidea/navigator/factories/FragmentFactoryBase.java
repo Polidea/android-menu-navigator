@@ -10,12 +10,15 @@ import pl.polidea.navigator.ui.ListMenuFragment;
 import pl.polidea.navigator.ui.NumberFragment;
 import pl.polidea.navigator.ui.PhoneNumberFragment;
 import pl.polidea.navigator.ui.StringFragment;
+import android.util.Log;
 
 /**
  * Creates appropriate fragment depending on the menu item passed.
  * 
  */
 public class FragmentFactoryBase implements FragmentFactoryInterface {
+
+    private static final String TAG = FragmentFactoryBase.class.getSimpleName();
 
     @Override
     public AbstractMenuNavigatorFragment createFragment(final AbstractNavigationMenu navigationMenu) {
@@ -43,6 +46,7 @@ public class FragmentFactoryBase implements FragmentFactoryInterface {
             throw new IllegalArgumentException("Type " + menuType + " is undefined!");
         }
         updateFragment(fragment, navigationMenu);
+        Log.d(TAG, "Returning fragment: " + fragment);
         return fragment;
     }
 

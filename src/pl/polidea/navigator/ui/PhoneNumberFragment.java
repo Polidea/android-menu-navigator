@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.text.InputType;
+import android.text.method.DialerKeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class PhoneNumberFragment extends AbstractDataEntryFragment {
     @Override
     protected void setEditTextOptions() {
         text.setImeOptions(InputType.TYPE_CLASS_PHONE | EditorInfo.IME_ACTION_NEXT);
+        text.setKeyListener(new DialerKeyListener());
     }
 
     @Override

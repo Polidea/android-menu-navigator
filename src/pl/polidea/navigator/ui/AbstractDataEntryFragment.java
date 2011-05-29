@@ -7,7 +7,6 @@ import pl.polidea.navigator.transformers.TransformerInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.method.DigitsKeyListener;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +61,6 @@ public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFra
                 goNext(text.getText().toString());
             }
         });
-        text.setKeyListener(new DigitsKeyListener());
         if (menu.maxLength != null) {
             final InputFilter[] filterArray = new InputFilter[1];
             filterArray[0] = new InputFilter.LengthFilter(menu.maxLength);

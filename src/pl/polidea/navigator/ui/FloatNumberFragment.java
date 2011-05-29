@@ -3,6 +3,7 @@ package pl.polidea.navigator.ui;
 import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.FloatNumberMenu;
 import android.text.InputType;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -26,5 +27,6 @@ public class FloatNumberFragment extends AbstractDataEntryFragment {
     protected void setEditTextOptions() {
         text.setImeOptions(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL
                 | EditorInfo.IME_ACTION_NEXT);
+        text.setKeyListener(new DigitsKeyListener(false, true));
     }
 }
