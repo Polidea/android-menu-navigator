@@ -33,4 +33,8 @@ syntax: regexp
 syntax: regexp
 ^ota/.*$
 syntax: regexp
-^test/instrumented$
+^res/raw/apphance\.properties$
+syntax: regexp
+^AndroidManifest\.xml\.no_apphance$
+syntax: regexp
+^res/raw/production_build\.txt$
