@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -134,14 +133,18 @@ public class JsonMenuReader {
             final StringBuilder builder = new StringBuilder();
             final File fileToRead = new File(directory, fileName);
             Log.d(TAG, "Reading file: " + fileToRead);
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileToRead),
-                    "UTF-8"));
+            final FileInputStream fis = new FileInputStream(fileToRead);
             try {
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line);
+                final BufferedReader reader = new BufferedReader(new UnicodeReader(fis, "UTF-8"));
+                try {
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line);
+                    }
+                } finally {
+                    reader.close();
                 }
             } finally {
-                reader.close();
+                fis.close();
             }
             Log.d(TAG, "Finished reading file: " + fileToRead);
             final JSONObject jsonMenu = new JSONObject(builder.toString());
