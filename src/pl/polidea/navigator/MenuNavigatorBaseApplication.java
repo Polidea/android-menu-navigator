@@ -1,6 +1,8 @@
 package pl.polidea.navigator;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -29,11 +31,44 @@ public class MenuNavigatorBaseApplication extends Application {
     private FragmentFactoryInterface fragmentFactory;
     private MenuRetrieverInterface timedRunMenuRetriever;
     private ScheduledExecutorService executor;
+    private Properties localConfig;
+    private String flurryKey;
 
     @Override
     public void onCreate() {
+        readLocalConfig();
+        setupFlurryKey();
         createBaseFactories();
         super.onCreate();
+    }
+
+    private void setupFlurryKey() {
+        flurryKey = localConfig.getProperty("flurry_key");
+    }
+
+    public Properties getLocalConfig() {
+        return localConfig;
+    }
+
+    private void readLocalConfig() {
+        final int configResId = getResources().getIdentifier("local_config", "raw", getPackageName());
+        if (configResId > 0) {
+            Log.d(TAG, "Reading mPay configuration from raw resources using res id = " + configResId);
+            try {
+                localConfig = new Properties();
+                final InputStream is = getResources().openRawResource(configResId);
+                try {
+                    localConfig.load(is);
+                } finally {
+                    is.close();
+                }
+                Log.d(TAG, "Properties read: " + localConfig);
+            } catch (final IOException e) {
+                Log.d(TAG, "Exception while reading configuration." + e, e);
+            }
+        } else {
+            Log.d(TAG, "Skipping loading configuration - the local_config file is missing");
+        }
     }
 
     protected void createBaseFactories() {
@@ -122,6 +157,9 @@ public class MenuNavigatorBaseApplication extends Application {
 
         }, initialDelay, delay, TimeUnit.SECONDS);
         Log.d(TAG, "Scheduled menu retrieval to run after few seconds, every hour,");
+    }
 
+    public final String getFlurryKey() {
+        return flurryKey;
     }
 }

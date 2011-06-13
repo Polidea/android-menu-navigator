@@ -1,5 +1,6 @@
 package pl.polidea.navigator;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -22,6 +23,8 @@ import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
+
+import com.flurry.android.FlurryAgent;
 
 /**
  * Activity that should be used as base for all activities using menu navigator.
@@ -72,6 +75,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
                 infoTextView.setText(navigationMenu.description);
                 infoTextView.setVisibility(View.VISIBLE);
             }
+            FlurryAgent.onEvent("Show Menu", Collections.singletonMap("menu", navigationMenu.name));
         }
         fragmentsFactory.updateFragment(contentFragment, navigationMenu);
     }
@@ -80,7 +84,9 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         @Override
         public void onMenuDown(final AbstractNavigationMenu navigationMenu) {
             if (BasicMenuTypes.TRANSACTION.equals(navigationMenu.menuType)) {
-                handleTransaction(((TransactionMenu) navigationMenu).transaction);
+                final String t = ((TransactionMenu) navigationMenu).transaction;
+                FlurryAgent.onEvent("Transaction", Collections.singletonMap("transaction", t));
+                handleTransaction(t);
                 return;
             }
             final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu);
@@ -88,6 +94,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
                 contentFragment = newContentFragment;
                 addFragmentToBackStack(navigationMenu);
                 updateActivityWithCurrentFragment();
+                FlurryAgent.onEvent("Select submenu", Collections.singletonMap("menu", navigationMenu.name));
             }
         }
 
@@ -98,9 +105,12 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         public void onBackStackChanged() {
             contentFragment = (AbstractMenuNavigatorFragment) fragmentManager.findFragmentById(R.id.content_id);
             updateActivityWithCurrentFragment();
+            FlurryAgent.onEvent("Back stack changed", Collections.singletonMap("menu", navigationMenu.name));
         }
 
     };
+
+    private String flurryKey;
 
     public void addFragmentToBackStack(final AbstractNavigationMenu navigationMenu) {
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -137,6 +147,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
+        flurryKey = application.getFlurryKey();
         if (savedInstanceState == null) {
             navigationMenu = application.getNavigationMenu();
         } else {
@@ -175,6 +186,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
 
     @Override
     public void changeLevel(final int toLevel) {
+        FlurryAgent.onEvent("Change breadcrumb level", Collections.singletonMap("level", Integer.toString(toLevel)));
         final int startingLevel = fragmentManager.getBackStackEntryCount();
         for (int currentLevel = startingLevel; currentLevel >= toLevel + 1; currentLevel--) {
             fragmentManager.popBackStack();
@@ -185,4 +197,15 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         transactionListeners.clear();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, flurryKey);
+    }
+
+    @Override
+    protected void onStop() {
+        FlurryAgent.onEndSession(this);
+        super.onStop();
+    }
 }
