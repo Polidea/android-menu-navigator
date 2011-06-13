@@ -102,7 +102,6 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
      *             when canceled
      */
     private void unpackTheZipFile(final ZipInputStream inputStream) throws IOException {
-        long currentSize = 0;
         ZipEntry zipentry = inputStream.getNextEntry();
         final byte[] buf = new byte[BUFFER_SIZE];
         while (zipentry != null) {
@@ -129,7 +128,6 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
                 fileOutputStream.close();
             }
             Log.d(TAG, "Extracted file: " + newFile);
-            currentSize += zipentry.getCompressedSize();
             inputStream.closeEntry();
             zipentry = inputStream.getNextEntry();
         }

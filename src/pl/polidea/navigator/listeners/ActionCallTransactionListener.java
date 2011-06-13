@@ -33,7 +33,7 @@ public class ActionCallTransactionListener implements OnTransactionListener {
 
     @Override
     public boolean handleTransaction(final String transaction) {
-        if (transaction.startsWith(TEL_PREFIX)) {
+        if (transaction != null && transaction.startsWith(TEL_PREFIX)) {
             Log.d(TAG, "Sending " + transaction + " to call.");
             final String numberToCall = transaction.substring(TEL_PREFIX.length());
             Toast.makeText(ctx, numberToCall, Toast.LENGTH_LONG).show();
