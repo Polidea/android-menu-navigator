@@ -200,12 +200,16 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.onStartSession(this, flurryKey);
+        if (flurryKey != null) {
+            FlurryAgent.onStartSession(this, flurryKey);
+        }
     }
 
     @Override
     protected void onStop() {
-        FlurryAgent.onEndSession(this);
+        if (flurryKey != null) {
+            FlurryAgent.onEndSession(this);
+        }
         super.onStop();
     }
 }
