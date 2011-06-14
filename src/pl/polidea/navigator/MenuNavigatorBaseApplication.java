@@ -50,7 +50,7 @@ public class MenuNavigatorBaseApplication extends Application {
         return localConfig;
     }
 
-    private void readLocalConfig() {
+    protected void readLocalConfig() {
         final int configResId = getResources().getIdentifier("local_config", "raw", getPackageName());
         if (configResId > 0) {
             Log.d(TAG, "Reading mPay configuration from raw resources using res id = " + configResId);
