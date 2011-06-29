@@ -11,4 +11,5 @@
     <string name="provide_string_button_text">Dalej</string>
     <string name="provide_string_button_hint">Wpisz tekst</string>
     <string name="provide_string_label">Wpisz text</string>
+    <string name="first_time_loading">Przygotowanie do pierwszego uruchomienia</string>
 </resources>

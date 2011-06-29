@@ -13,4 +13,5 @@
     <string name="provide_string_button_hint">Enter text</string>
     <string name="provide_string_label">Provide text</string>
     <string name="default_apphance_key">Some not valid apphance key should be replaced in the final application</string>
+    <string name="first_time_loading">Loading for the first time</string>
 </resources>

@@ -12,6 +12,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.apphance.android.Apphance;
@@ -83,6 +84,7 @@ public class SplashScreenActivity extends Activity {
                 // note- reading menu will be fired automaticallly when internal
                 // menu refreshed
             } else {
+                findViewById(R.id.splash_first_time_test).setVisibility(View.GONE);
                 readMenu();
             }
         }

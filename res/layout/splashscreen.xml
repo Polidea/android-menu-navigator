@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent" android:layout_height="fill_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 	<ImageView android:id="@+id/splashscreen" android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:src="@drawable/navigator" android:scaleType="fitXY" android:padding="0dip" android:layout_margin="0dip">
 	</ImageView>
-	<ProgressBar android:id="@+id/progress_bar" android:layout_gravity="center" android:indeterminate="true"
-		android:layout_width="wrap_content" android:layout_height="wrap_content" >
-	</ProgressBar>
+	<LinearLayout android:orientation="vertical" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content">
+		<ProgressBar android:id="@+id/progress_bar" android:layout_gravity="center" android:indeterminate="true"
+			android:layout_width="wrap_content" android:layout_height="wrap_content">
+		</ProgressBar>
+		<TextView android:id="@+id/splash_first_time_test" android:text="@string/first_time_loading" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" style="@style/SplashScreenTextView"></TextView>
+	</LinearLayout>
 </FrameLayout>

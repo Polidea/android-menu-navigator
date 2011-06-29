@@ -47,4 +47,10 @@
         <item name="menuNavigator.infoTextViewTextSize">12dip</item>
         <item name="menuNavigator.infoTextViewBackground">#CCCCCC</item>
     </style>
+    <style name="MenuNavigatorSplashScreenTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <!-- Splash screen -->
+        <item name="menuNavigator.splashScreenTextViewPadding">1dip</item>
+        <item name="menuNavigator.splashScreenTextViewTextColor">@android:color/black</item>
+        <item name="menuNavigator.splashScreenTextViewTextSize">18dip</item>
+    </style>
 </resources>

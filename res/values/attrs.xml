@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<!-- Breadcrumb top panel -->
 	<attr name="menuNavigator.breadcrumbPadding" format="dimension" />
 	<attr name="menuNavigator.breadcrumbBackground" format="color|reference" />
@@ -16,6 +17,7 @@
 	<attr name="menuNavigator.iconsTextViewTextSize" format="dimension" />
 	<attr name="menuNavigator.iconsImageViewPadding" format="dimension" />
 	<attr name="menuNavigator.iconBackground" format="color|reference" />
+
 
 	<!-- List view internals -->
 	<attr name="menuNavigator.listTextViewPadding" format="dimension" />
@@ -54,5 +56,10 @@
 	<attr name="menuNavigator.infoTextViewTextColor" format="color" />
 	<attr name="menuNavigator.infoTextViewTextSize" format="dimension" />
 	<attr name="menuNavigator.infoTextViewBackground" format="color|reference" />
+
+    <!-- Splash screen -->
+    <attr name="menuNavigator.splashScreenTextViewPadding" format="dimension" />
+    <attr name="menuNavigator.splashScreenTextViewTextColor" format="color" />
+    <attr name="menuNavigator.splashScreenTextViewTextSize" format="dimension" />
 
 </resources>

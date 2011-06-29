@@ -7,9 +7,9 @@
 		<item name="android:textColor">?menuNavigator.breadcrumbTextViewTextColor</item>
 	</style>
 
-    <style name="BreadCrumbImageViewStyle">
-        <item name="android:padding">?menuNavigator.breadcrumbImageViewPadding</item>
-    </style>
+	<style name="BreadCrumbImageViewStyle">
+		<item name="android:padding">?menuNavigator.breadcrumbImageViewPadding</item>
+	</style>
 
 	<style name="BreadCrumbLayout">
 		<item name="android:padding">?menuNavigator.breadcrumbPadding</item>
@@ -41,20 +41,20 @@
 		<item name="android:background">?menuNavigator.fragmentBackground</item>
 	</style>
 
-    <style name="ListFragmentLayout">
-        <item name="android:background">?menuNavigator.listFragmentBackground</item>
-        <item name="android:divider">?menuNavigator.listDividerColor</item>
-        <item name="android:dividerHeight">?menuNavigator.listDividerHeight</item>
-        <item name="android:cacheColorHint">?menuNavigator.listFragmentBackground</item>
-    </style>
+	<style name="ListFragmentLayout">
+		<item name="android:background">?menuNavigator.listFragmentBackground</item>
+		<item name="android:divider">?menuNavigator.listDividerColor</item>
+		<item name="android:dividerHeight">?menuNavigator.listDividerHeight</item>
+		<item name="android:cacheColorHint">?menuNavigator.listFragmentBackground</item>
+	</style>
 
-    <style name="IconLayout">
-        <item name="android:background">?menuNavigator.iconBackground</item>
-    </style>
+	<style name="IconLayout">
+		<item name="android:background">?menuNavigator.iconBackground</item>
+	</style>
 
-    <style name="PhoneNumberImageButtonLayout" parent="@android:style/Widget.ImageButton">
-        <item name="android:padding">?menuNavigator.phoneNumberImageButtonPadding</item>
-    </style>
+	<style name="PhoneNumberImageButtonLayout" parent="@android:style/Widget.ImageButton">
+		<item name="android:padding">?menuNavigator.phoneNumberImageButtonPadding</item>
+	</style>
 
 	<style name="NumberEditViewLayout" parent="@android:style/Widget.EditText">
 		<item name="android:padding">?menuNavigator.numberEditTextPadding</item>
@@ -70,19 +70,19 @@
 	<style name="NumberButtonLayout" parent="@android:style/Widget.Button">
 	</style>
 
-    <style name="StringEditViewLayout" parent="@android:style/Widget.EditText">
-        <item name="android:padding">?menuNavigator.stringEditTextPadding</item>
-        <item name="android:textColor">?menuNavigator.stringEditTextTextColor</item>
-        <item name="android:textSize">?menuNavigator.stringEditTextTextSize</item>
-    </style>
+	<style name="StringEditViewLayout" parent="@android:style/Widget.EditText">
+		<item name="android:padding">?menuNavigator.stringEditTextPadding</item>
+		<item name="android:textColor">?menuNavigator.stringEditTextTextColor</item>
+		<item name="android:textSize">?menuNavigator.stringEditTextTextSize</item>
+	</style>
 
-    <style name="StringTableLayout">
-        <item name="android:layout_margin">?menuNavigator.stringTableMargin</item>
-        <item name="android:padding">?menuNavigator.stringTablePadding</item>
-    </style>
+	<style name="StringTableLayout">
+		<item name="android:layout_margin">?menuNavigator.stringTableMargin</item>
+		<item name="android:padding">?menuNavigator.stringTablePadding</item>
+	</style>
 
-    <style name="StringButtonLayout" parent="@android:style/Widget.Button">
-    </style>
+	<style name="StringButtonLayout" parent="@android:style/Widget.Button">
+	</style>
 
 	<style name="InfoTextViewStyle" parent="@android:style/TextAppearance">
 		<item name="android:padding">?menuNavigator.infoTextViewPadding</item>
@@ -90,4 +90,12 @@
 		<item name="android:textSize">?menuNavigator.infoTextViewTextSize</item>
 		<item name="android:background">?menuNavigator.infoTextViewBackground</item>
 	</style>
+
+
+	<style name="SplashScreenTextView" parent="@android:style/TextAppearance">
+		<item name="android:padding">?menuNavigator.splashScreenTextViewPadding</item>
+		<item name="android:textColor">?menuNavigator.splashScreenTextViewTextColor</item>
+		<item name="android:textSize">?menuNavigator.splashScreenTextViewTextSize</item>
+	</style>
+
 </resources>
