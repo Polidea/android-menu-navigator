@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ import com.flurry.android.FlurryAgent;
  */
 public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTransactionListener, OnLevelChangeListener {
 
+    private static final String TAG = MenuNavigatorBaseActivity.class.getSimpleName();
     private final Set<OnTransactionListener> transactionListeners = new LinkedHashSet<OnTransactionListener>();
 
     private FragmentManager fragmentManager;
@@ -43,9 +45,15 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
 
     @Override
     public boolean handleTransaction(String transaction) {
-        final Map<String, String> map = navigationMenu.menuContext.variables;
-        for (final Entry<String, String> entry : map.entrySet()) {
-            transaction = transaction.replace("{" + entry.getKey() + "}", entry.getValue());
+        if (navigationMenu == null) {
+            Log.w(TAG, "We do not expect navigation menu to be null here: " + navigationMenu + " ");
+        } else if (navigationMenu.menuContext == null) {
+            Log.w(TAG, "We do not expect  menu context to be null here: " + navigationMenu.menuContext + " ");
+        } else {
+            final Map<String, String> map = navigationMenu.menuContext.variables;
+            for (final Entry<String, String> entry : map.entrySet()) {
+                transaction = transaction.replace("{" + entry.getKey() + "}", entry.getValue());
+            }
         }
         final HashSet<OnTransactionListener> listenersCopy = new LinkedHashSet<OnTransactionListener>();
         synchronized (this) {
