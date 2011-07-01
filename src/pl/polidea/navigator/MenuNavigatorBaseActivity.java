@@ -156,10 +156,11 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         super.onCreate(savedInstanceState);
         final MenuNavigatorBaseApplication application = (MenuNavigatorBaseApplication) getApplication();
         flurryKey = application.getFlurryKey();
-        if (savedInstanceState == null) {
-            navigationMenu = application.getNavigationMenu();
-        } else {
+        if (savedInstanceState != null) {
             navigationMenu = (AbstractNavigationMenu) savedInstanceState.get("menu");
+        }
+        if (navigationMenu == null) {
+            navigationMenu = application.getNavigationMenu();
         }
         setContentView(R.layout.main_activity_layout);
         infoTextView = (TextView) findViewById(R.id.infoTextView);
