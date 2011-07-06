@@ -87,7 +87,7 @@ public abstract class AbstractDataEntryFragment extends AbstractMenuNavigatorFra
             return false;
         }
         final AbstractDataEntryMenu menu = getNavigationMenu();
-        if (menu.variable != null) {
+        if (menu.variable != null && menu.menuContext != null && menu.menuContext.variables != null) {
             menu.menuContext.variables.put(menu.variable, transformedText);
         }
         if (menu.link == null) {
