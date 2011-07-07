@@ -89,6 +89,14 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
         unpackTheZipFile(is);
     }
 
+    public void createDirectoriesRecursively(final File f) {
+        final File parent = f.getParentFile();
+        if (!parent.exists()) {
+            createDirectoriesRecursively(parent);
+            parent.mkdir();
+        }
+    }
+
     /**
      * Unpacks the zip file to the directory, cleaning it up beforehand.
      * 
@@ -106,28 +114,21 @@ public class RemoteZipMenuRetriever extends AbstractMenuRetrieverBase implements
         final byte[] buf = new byte[BUFFER_SIZE];
         while (zipentry != null) {
             final String zipEntryName = zipentry.getName();
-            if (zipentry.isDirectory()) {
-                final File dir = new File(internalTmpDirectory, zipEntryName);
-                Log.d(TAG, "Creating directory: " + dir);
-                if (!dir.mkdir()) {
-                    throw new IOException("Could not create directory:" + dir);
+            if (!zipentry.isDirectory()) {
+                final File newFile = new File(internalTmpDirectory, zipEntryName);
+                createDirectoriesRecursively(newFile);
+                Log.d(TAG, "Extracting file: " + newFile);
+                final FileOutputStream fileOutputStream = new FileOutputStream(newFile);
+                try {
+                    int n = -1;
+                    while ((n = inputStream.read(buf, 0, BUFFER_SIZE)) > -1) {
+                        fileOutputStream.write(buf, 0, n);
+                    }
+                } finally {
+                    fileOutputStream.close();
                 }
-                inputStream.closeEntry();
-                zipentry = inputStream.getNextEntry();
-                continue;
+                Log.d(TAG, "Extracted file: " + newFile);
             }
-            final File newFile = new File(internalTmpDirectory, zipEntryName);
-            Log.d(TAG, "Extracting file: " + newFile);
-            final FileOutputStream fileOutputStream = new FileOutputStream(newFile);
-            try {
-                int n = -1;
-                while ((n = inputStream.read(buf, 0, BUFFER_SIZE)) > -1) {
-                    fileOutputStream.write(buf, 0, n);
-                }
-            } finally {
-                fileOutputStream.close();
-            }
-            Log.d(TAG, "Extracted file: " + newFile);
             inputStream.closeEntry();
             zipentry = inputStream.getNextEntry();
         }
