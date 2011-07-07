@@ -13,6 +13,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 /**
  * Reads bitmap from a directory.
@@ -23,6 +24,8 @@ public class BitmapReader {
     private final MenuRetrieverInterface menuRetriever;
     private final int warningResource;
     private final DisplayMetrics displayMetrics;
+
+    private static final String TAG = BitmapReader.class.getSimpleName();
 
     public BitmapReader(final Context context, final MenuRetrieverInterface menuRetriever,
             final DisplayMetrics displayMetrics, final int warningResource) {
@@ -46,11 +49,15 @@ public class BitmapReader {
     }
 
     public Bitmap getBitmap(final String fileName) {
+        Log.d(TAG, "Retrieving bitmap " + fileName + " from " + iconPrefix);
         final Options options = new BitmapFactory.Options();
         options.inDensity = displayMetrics.densityDpi;
-        final Bitmap bitmap = BitmapFactory.decodeFile(new File(new File(menuRetriever.getBaseDirectory(), iconPrefix),
-                fileName).getPath(), options);
+        final File file = new File(new File(menuRetriever.getBaseDirectory(), iconPrefix), fileName);
+        Log.d(TAG, "File to read from " + file);
+        final Bitmap bitmap = BitmapFactory.decodeFile(file.getPath(), options);
+        Log.d(TAG, "Retrieving bitmap " + fileName);
         if (bitmap == null) {
+            Log.d(TAG, "Retrieving bitmap " + fileName);
             return BitmapFactory.decodeResource(resources, warningResource);
         }
         return bitmap;

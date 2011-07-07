@@ -132,6 +132,8 @@ public class SplashScreenActivity extends Activity {
             menuRetriever = firstTimeRetriever.getMenuVersion() > timedMenuRetriever.getMenuVersion() ? firstTimeRetriever
                     : timedMenuRetriever;
         }
+        Log.d(TAG, "Selected menu retriever:" + menuRetriever);
+        application.setSelectedMenuRetriever(menuRetriever);
         Log.d(TAG, "Loading menu " + menuRetriever);
         final MenuLoaderAsyncTask task = new MenuLoaderAsyncTask(this, application.getNavigationMenuFactory(),
                 menuRetriever);

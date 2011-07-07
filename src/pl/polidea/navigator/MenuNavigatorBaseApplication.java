@@ -33,6 +33,7 @@ public class MenuNavigatorBaseApplication extends Application {
     private ScheduledExecutorService executor;
     private Properties localConfig;
     private String flurryKey;
+    private MenuRetrieverInterface selectedMenuRetriever;
 
     @Override
     public void onCreate() {
@@ -94,6 +95,10 @@ public class MenuNavigatorBaseApplication extends Application {
         return firstTimeMenuRetriever;
     }
 
+    public final MenuRetrieverInterface getSelectedMenuRetriever() {
+        return selectedMenuRetriever;
+    }
+
     public MenuRetrieverInterface getTimedMenuRetriever() {
         return timedRunMenuRetriever;
     }
@@ -123,7 +128,7 @@ public class MenuNavigatorBaseApplication extends Application {
     }
 
     public BitmapReader getBitmapReader(final DisplayMetrics displayMetrics) {
-        return new BitmapReader(this, getFirstTimeMenuRetriever(), displayMetrics, R.drawable.warning);
+        return new BitmapReader(this, selectedMenuRetriever, displayMetrics, R.drawable.warning);
     }
 
     public final void setNavigationMenu(final AbstractNavigationMenu navigationMenu) {
@@ -161,5 +166,9 @@ public class MenuNavigatorBaseApplication extends Application {
 
     public final String getFlurryKey() {
         return flurryKey;
+    }
+
+    public void setSelectedMenuRetriever(final MenuRetrieverInterface menuRetriever) {
+        this.selectedMenuRetriever = menuRetriever;
     }
 }
