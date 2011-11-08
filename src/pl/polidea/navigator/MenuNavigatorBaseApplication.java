@@ -18,7 +18,7 @@ import pl.polidea.navigator.ui.BreadcrumbFragment;
 import android.app.Application;
 import android.util.DisplayMetrics;
 
-import com.apphance.android.Log;
+import android.util.Log;
 
 /**
  * Application that should be extended by any menu navigation application.
