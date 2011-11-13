@@ -12,7 +12,7 @@ import pl.polidea.navigator.menu.MenuImport;
 import pl.polidea.navigator.menu.PhoneNumberMenu;
 import pl.polidea.navigator.retrievers.AssetMenuRetriever;
 import android.test.ApplicationTestCase;
-import android.util.Log;
+import com.apphance.android.Log;
 
 /**
  * Test for menu reader.

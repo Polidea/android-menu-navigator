@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import android.content.Context;
-import android.util.Log;
+import com.apphance.android.Log;
 
 /**
  * Abstract class that provides basic building blocks for any retriever.

@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.text.InputType;
 import android.text.method.DialerKeyListener;
-import android.util.Log;
+import com.apphance.android.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import pl.polidea.navigator.factories.NavigationMenuFactoryInterface;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.MenuContext;
-import android.util.Log;
+import com.apphance.android.Log;
 
 /**
  * This class reads menu from specified file and directory in JSon form. It

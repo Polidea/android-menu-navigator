@@ -13,7 +13,7 @@ import java.util.zip.ZipInputStream;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
+import com.apphance.android.Log;
 
 /**
  * Retriever which reads menu from zip file downloaded over http.

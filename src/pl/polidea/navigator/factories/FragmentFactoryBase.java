@@ -10,7 +10,7 @@ import pl.polidea.navigator.ui.ListMenuFragment;
 import pl.polidea.navigator.ui.NumberFragment;
 import pl.polidea.navigator.ui.PhoneNumberFragment;
 import pl.polidea.navigator.ui.StringFragment;
-import android.util.Log;
+import com.apphance.android.Log;
 
 /**
  * Creates appropriate fragment depending on the menu item passed.

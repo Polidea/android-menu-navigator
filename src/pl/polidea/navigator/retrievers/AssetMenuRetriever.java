@@ -7,7 +7,7 @@ import java.io.IOException;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
-import android.util.Log;
+import com.apphance.android.Log;
 
 /**
  * Unpacks menu from assets to internal folders.
