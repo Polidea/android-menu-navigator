@@ -7,7 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath ('com.apphance.ameba:Ameba:0.99.2.6-SNAPSHOT') {
+        classpath ('com.apphance.ameba:Ameba:0.99.3.2-SNAPSHOT') {
             changing = true
         }
     }
@@ -19,7 +19,8 @@ buildscript {
 apply plugin: 'ameba-project-configuration'
 apply plugin: 'ameba-mercurial'
 apply plugin: 'ameba-android-build'
-//apply plugin: 'ameba-android-apphance'
+apply plugin: 'ameba-project-release'
+apply plugin: 'ameba-android-release'
+apply plugin: 'ameba-android-apphance'
 apply plugin: 'ameba-android-analysis'
 //apply plugin: 'ameba-android-test'
-apply plugin: 'ameba-android-reports'

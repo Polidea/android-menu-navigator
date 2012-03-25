@@ -1,7 +1,7 @@
 package pl.polidea.navigator.listeners;
 
 import android.content.Context;
-import com.apphance.android.Log;
+import android.util.Log;
 import android.widget.Toast;
 
 /**

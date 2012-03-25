@@ -8,7 +8,7 @@ import pl.polidea.navigator.factories.NavigationMenuFactoryInterface;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.MenuContext;
 import android.os.AsyncTask;
-import com.apphance.android.Log;
+import android.util.Log;
 
 /**
  * Loads menu from the retriever chosen.

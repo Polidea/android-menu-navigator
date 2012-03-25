@@ -13,7 +13,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.util.DisplayMetrics;
-import com.apphance.android.Log;
+import android.util.Log;
 
 /**
  * Reads bitmap from a directory.

@@ -11,11 +11,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
-import com.apphance.android.Log;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.apphance.android.Apphance;
 
 /**
  * Activity displaying splash screen.
@@ -67,14 +65,9 @@ public class SplashScreenActivity extends Activity {
         imageView.setImageResource(R.drawable.navigator);
     }
 
-    protected int getApphanceResourceId() {
-        return R.string.default_apphance_key;
-    }
-
     @Override
     protected void onCreate(final android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Apphance.start(this, getApphanceResourceId());
         application = (MenuNavigatorBaseApplication) getApplication();
         if (savedInstanceState == null) {
             getSplashScreen();
