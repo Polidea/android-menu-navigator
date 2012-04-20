@@ -17,7 +17,6 @@ import pl.polidea.navigator.retrievers.MenuRetrieverInterface;
 import pl.polidea.navigator.ui.BreadcrumbFragment;
 import android.app.Application;
 import android.util.DisplayMetrics;
-
 import android.util.Log;
 
 /**
@@ -44,7 +43,9 @@ public class MenuNavigatorBaseApplication extends Application {
     }
 
     private void setupFlurryKey() {
-        flurryKey = localConfig.getProperty("flurry_key");
+        if (localConfig != null) {
+            flurryKey = localConfig.getProperty("flurry_key");
+        }
     }
 
     public Properties getLocalConfig() {
