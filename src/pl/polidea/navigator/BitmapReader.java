@@ -43,6 +43,9 @@ public class BitmapReader {
         case DisplayMetrics.DENSITY_LOW:
             iconPrefix = "drawable-ldpi";
             break;
+        case 320:
+            iconPrefix = "drawable-xhdpi";
+            break;
         default:
             throw new IllegalArgumentException("Unsupported density: " + displayMetrics.densityDpi);
         }
