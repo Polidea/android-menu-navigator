@@ -40,3 +40,5 @@ syntax: regexp
 ^res/raw/production_build\.txt$
 syntax: regexp
 ^\.settings$
+syntax: regexp
+^\.checkstyle$
