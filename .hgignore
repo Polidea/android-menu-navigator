@@ -38,3 +38,5 @@ syntax: regexp
 ^AndroidManifest\.xml\.no_apphance$
 syntax: regexp
 ^res/raw/production_build\.txt$
+syntax: regexp
+^\.settings$
