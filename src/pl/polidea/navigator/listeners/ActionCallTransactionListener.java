@@ -1,7 +1,7 @@
 package pl.polidea.navigator.listeners;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -25,9 +25,9 @@ public class ActionCallTransactionListener implements OnTransactionListener {
 
     private static final String TEL_PREFIX = "tel:";
     private static final String TAG = ActionCallTransactionListener.class.getSimpleName();
-    private final Context ctx;
+    private final Activity ctx;
 
-    public ActionCallTransactionListener(final Context ctx) {
+    public ActionCallTransactionListener(final Activity ctx) {
         this.ctx = ctx;
     }
 
@@ -41,7 +41,7 @@ public class ActionCallTransactionListener implements OnTransactionListener {
             try {
                 final Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse(newTransaction));
-                ctx.startActivity(callIntent);
+                ctx.startActivityForResult(callIntent, 0);
                 return true;
             } catch (final ActivityNotFoundException e) {
                 Log.w(TAG, "Could not make a call - intent is not handled by any activity.");

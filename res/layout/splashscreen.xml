@@ -8,7 +8,14 @@
 		<ProgressBar android:id="@+id/progress_bar" android:layout_gravity="center" android:indeterminate="true"
 			android:layout_width="wrap_content" android:layout_height="wrap_content">
 		</ProgressBar>
-		<TextView android:id="@+id/splash_first_time_test" android:text="@string/first_time_loading" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" style="@style/SplashScreenTextView"></TextView>
+
+		<TextView
+		    android:id="@+id/splash_first_time_test"
+		    style="@style/SplashScreenTextView"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/first_time_loading" >
+		</TextView>
+
 	</LinearLayout>
 </FrameLayout>

@@ -12,7 +12,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 /**
@@ -65,24 +64,18 @@ public class SplashScreenActivity extends Activity {
         imageView.setImageResource(R.drawable.navigator);
     }
 
-    protected void getConfigurationsSettingsScreen() {
-        getSplashScreen();
-    }
-
     @Override
     protected void onCreate(final android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         application = (MenuNavigatorBaseApplication) getApplication();
         if (savedInstanceState == null) {
+            getSplashScreen();
             if (checkFirstTimeMenuRetrievalNeeded()) {
-                getConfigurationsSettingsScreen();
                 final AsyncTask<Void, Void, Void> embeddedMenuRetrieveTask = new InternalMenuRetrieverAsyncTask();
                 embeddedMenuRetrieveTask.execute((Void[]) null);
                 // note- reading menu will be fired automaticallly when internal
                 // menu refreshed
             } else {
-                getSplashScreen();
-                findViewById(R.id.splash_first_time_test).setVisibility(View.GONE);
                 readMenu();
             }
         }
