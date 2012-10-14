@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pl.polidea.navigator.JsonMenuReader;
+import android.content.Context;
 
 /**
  * Menu importing from another file.
@@ -11,9 +12,9 @@ import pl.polidea.navigator.JsonMenuReader;
 public class MenuImport extends AbstractNavigationMenu {
     private static final long serialVersionUID = 1L;
 
-    public MenuImport(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent)
-            throws JSONException {
-        super(reader, jsonMenu, BasicMenuTypes.MENU_IMPORT, parent);
+    public MenuImport(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent,
+            final Context context) throws JSONException {
+        super(reader, jsonMenu, BasicMenuTypes.MENU_IMPORT, parent, context);
         link = reader.readLink(jsonMenu, directory, parent);
     }
 
@@ -21,7 +22,7 @@ public class MenuImport extends AbstractNavigationMenu {
 
     @Override
     public boolean isDisabled() {
-        return link == null;
+        return super.isDisabled() || link == null;
     }
 
     @Override
@@ -30,10 +31,11 @@ public class MenuImport extends AbstractNavigationMenu {
     }
 
     @Override
-    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent) {
-        super.updateTransientAttributes(menuContext, parent);
+    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent,
+            final Context context) {
+        super.updateTransientAttributes(menuContext, parent, context);
         if (link != null) {
-            link.updateTransientAttributes(menuContext, this);
+            link.updateTransientAttributes(menuContext, this, context);
         }
     }
 

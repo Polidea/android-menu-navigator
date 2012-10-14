@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import pl.polidea.navigator.factories.NavigationMenuFactoryInterface;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.MenuContext;
+import android.content.Context;
 import android.util.Log;
 
 /**
@@ -40,14 +41,16 @@ public class JsonMenuReader {
     public MenuContext menuContext;
     private final NavigationMenuFactoryInterface jsonMenuFactory;
     private final boolean topLevelMenu;
+    private final Context context;
 
     public JsonMenuReader(final File directory, final String fileName, final AbstractNavigationMenu parent,
-            final NavigationMenuFactoryInterface jsonMenuFactory, final boolean topLevelMenu) {
+            final NavigationMenuFactoryInterface jsonMenuFactory, final boolean topLevelMenu, final Context context) {
         this.directory = directory;
         this.fileName = fileName;
         this.parent = parent;
         this.jsonMenuFactory = jsonMenuFactory;
         this.topLevelMenu = topLevelMenu;
+        this.context = context;
     }
 
     public static String getStringOrNull(final JSONObject obj, final String name) throws JSONException {
@@ -118,7 +121,7 @@ public class JsonMenuReader {
             } finally {
                 inputStream.close();
             }
-            myMenu.updateTransientAttributes(new MenuContext(), null);
+            myMenu.updateTransientAttributes(new MenuContext(), null, context);
         } catch (final IOException e) {
             Log.w(TAG, "Error reading from cache. Deleting the cache and fallback to normal reading.", e);
             return false;
@@ -149,7 +152,7 @@ public class JsonMenuReader {
             Log.d(TAG, "Finished reading file: " + fileToRead);
             final JSONObject jsonMenu = new JSONObject(builder.toString());
             Log.d(TAG, "Read json object: " + jsonMenu);
-            myMenu = jsonMenuFactory.readMenuFromJsonObject(this, jsonMenu, parent);
+            myMenu = jsonMenuFactory.readMenuFromJsonObject(this, jsonMenu, parent, context);
             if (myMenu == null) {
                 Log.w(TAG, "The menu is null!!");
             } else {
@@ -174,7 +177,7 @@ public class JsonMenuReader {
                 Log.w(TAG, "The element no. " + i + " in the array " + array + " is null. Possibly coma was "
                         + " left empty");
             } else {
-                items.add(jsonMenuFactory.readMenuFromJsonObject(this, obj, parentMenu));
+                items.add(jsonMenuFactory.readMenuFromJsonObject(this, obj, parentMenu, context));
             }
 
         }
@@ -189,7 +192,7 @@ public class JsonMenuReader {
         }
         final File linkedFile = new File(directory, linkedFileName);
         final JsonMenuReader reader = new JsonMenuReader(linkedFile.getParentFile(), linkedFile.getName(), parentMenu,
-                jsonMenuFactory, false);
+                jsonMenuFactory, false, context);
         reader.createMenu(menuContext);
         return reader.getMyMenu();
     }

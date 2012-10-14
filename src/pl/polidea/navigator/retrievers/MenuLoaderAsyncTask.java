@@ -35,7 +35,7 @@ public class MenuLoaderAsyncTask extends AsyncTask<Void, Void, AbstractNavigatio
     protected AbstractNavigationMenu doInBackground(final Void... params) {
         Log.d(TAG, "Loading menu from " + menuRetriever);
         final JsonMenuReader reader = new JsonMenuReader(new File(menuRetriever.getBaseDirectory(), "menu"),
-                "main_menu.json", null, navigationMenuFactory, true);
+                "main_menu.json", null, navigationMenuFactory, true, activity);
         reader.createMenu(new MenuContext());
         final AbstractNavigationMenu menu = reader.getMyMenu();
         Log.d(TAG, " Returning menu: " + menu);

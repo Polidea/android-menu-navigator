@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pl.polidea.navigator.JsonMenuReader;
+import android.content.Context;
 
 /**
  * Base class for all number menu types.
@@ -20,8 +21,8 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
     public final String hint;
 
     public AbstractDataEntryMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
-            final AbstractNavigationMenu parent) throws JSONException {
-        super(reader, jsonMenu, menuType, parent);
+            final AbstractNavigationMenu parent, final Context context) throws JSONException {
+        super(reader, jsonMenu, menuType, parent, context);
         minLength = JsonMenuReader.getIntOrNull(jsonMenu, "minLength");
         maxLength = JsonMenuReader.getIntOrNull(jsonMenu, "maxLength");
         variable = jsonMenu.getString("variable");
@@ -35,7 +36,7 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
 
     @Override
     public boolean isDisabled() {
-        return link == null && transaction == null;
+        return super.isDisabled() || (link == null && transaction == null);
     }
 
     @Override
@@ -46,10 +47,11 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
     }
 
     @Override
-    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent) {
-        super.updateTransientAttributes(menuContext, parent);
+    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent,
+            final Context context) {
+        super.updateTransientAttributes(menuContext, parent, context);
         if (link != null) {
-            link.updateTransientAttributes(menuContext, this);
+            link.updateTransientAttributes(menuContext, this, context);
         }
     }
 

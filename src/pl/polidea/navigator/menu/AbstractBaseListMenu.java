@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pl.polidea.navigator.JsonMenuReader;
+import android.content.Context;
 
 /**
  * Base menu class for all kinds of lists.
@@ -18,14 +19,14 @@ public abstract class AbstractBaseListMenu extends AbstractNavigationMenu {
     public final AbstractNavigationMenu[] items;
 
     public AbstractBaseListMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
-            final AbstractNavigationMenu parent) throws JSONException {
-        super(reader, jsonMenu, menuType, parent);
+            final AbstractNavigationMenu parent, final Context context) throws JSONException {
+        super(reader, jsonMenu, menuType, parent, context);
         items = reader.readItems(jsonMenu, directory, this, menuContext);
     }
 
     @Override
     public boolean isDisabled() {
-        return items == null;
+        return super.isDisabled() || items == null;
     }
 
     @Override
@@ -34,10 +35,11 @@ public abstract class AbstractBaseListMenu extends AbstractNavigationMenu {
     }
 
     @Override
-    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent) {
-        super.updateTransientAttributes(menuContext, parent);
+    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent,
+            final Context context) {
+        super.updateTransientAttributes(menuContext, parent, context);
         for (final AbstractNavigationMenu item : items) {
-            item.updateTransientAttributes(menuContext, this);
+            item.updateTransientAttributes(menuContext, this, context);
         }
     }
 

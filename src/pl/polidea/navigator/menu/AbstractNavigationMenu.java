@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pl.polidea.navigator.JsonMenuReader;
+import pl.polidea.navigator.Persistence;
+import android.content.Context;
 
 /**
  * Base class for all menu types.
@@ -26,11 +28,14 @@ public abstract class AbstractNavigationMenu implements Serializable {
     public transient MenuContext menuContext;
     public transient AbstractNavigationMenu parent;
 
+    private transient Persistence persistence;
+
     public AbstractNavigationMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
-            final AbstractNavigationMenu parent) throws JSONException {
+            final AbstractNavigationMenu parent, final Context context) throws JSONException {
         this.directory = reader.directory;
         this.menuType = menuType;
         this.menuContext = reader.menuContext;
+        this.persistence = new Persistence(context);
         // Note. Tree Map here is because hashmap has a weird bug/feature which
         // results in lots of "loadFactor"
         // related logs to be printed to log file when serializing/deserializing
@@ -45,7 +50,7 @@ public abstract class AbstractNavigationMenu implements Serializable {
     }
 
     public boolean isDisabled() {
-        return false;
+        return !persistence.getMenuVisibility(name);
     }
 
     @Override
@@ -56,8 +61,10 @@ public abstract class AbstractNavigationMenu implements Serializable {
                 + super.toString() + "]";
     }
 
-    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent) {
+    public void updateTransientAttributes(final MenuContext menuContext, final AbstractNavigationMenu parent,
+            final Context context) {
         this.parent = parent;
         this.menuContext = menuContext;
+        persistence = new Persistence(context);
     }
 }
