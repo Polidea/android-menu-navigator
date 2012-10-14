@@ -12,13 +12,24 @@ import android.util.Log;
 public abstract class InternalTransactionListener implements OnTransactionListener {
 
     private static final String INTERNAL_PREFIX = "internal:";
+    private static final String TEL_PREFIX = "tel:";
 
     @Override
     public boolean handleTransaction(final String transaction) {
-        if (transaction != null && transaction.startsWith(INTERNAL_PREFIX)) {
-            final String method = transaction.substring(INTERNAL_PREFIX.length());
-            Log.d("Internal method: ", method);
-            return functionsMaker(method);
+        if (transaction != null) {
+            if (transaction.startsWith(INTERNAL_PREFIX)) {
+                final String method = transaction.substring(INTERNAL_PREFIX.length());
+                Log.d("Internal transaction: ", method);
+                return functionsMaker(method);
+            }
+            // if this transaction i tel transaction it may cause internal and
+            // call actions
+            if (transaction.startsWith(TEL_PREFIX)) {
+                final String method = transaction.substring(TEL_PREFIX.length());
+                Log.d("Call transaction through internal listener: ", method);
+                functionsMaker(method);
+                return false;
+            }
         }
         return false;
     }

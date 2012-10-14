@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:keepScreenOn="true">
-	<ImageView android:id="@+id/splashscreen" android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:src="@drawable/navigator" android:scaleType="fitXY" android:padding="0dip" android:layout_margin="0dip">
-	</ImageView>
-	<LinearLayout android:orientation="vertical" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content">
-		<ProgressBar android:id="@+id/progress_bar" android:layout_gravity="center" android:indeterminate="true"
-			android:layout_width="wrap_content" android:layout_height="wrap_content">
-		</ProgressBar>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:keepScreenOn="true" >
 
-		<TextView
-		    android:id="@+id/splash_first_time_test"
-		    style="@style/SplashScreenTextView"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="@string/first_time_loading" >
-		</TextView>
+    <ImageView
+        android:id="@+id/splashscreen"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="0dip"
+        android:padding="0dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/navigator" >
+    </ImageView>
 
-	</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" >
+        </ProgressBar>
+
+        <TextView
+            android:id="@+id/splash_first_time_test"
+            style="@style/SplashScreenTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/first_time_loading" >
+        </TextView>
+    </LinearLayout>
+
 </FrameLayout>
