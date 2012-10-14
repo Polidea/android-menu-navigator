@@ -21,7 +21,7 @@ public class MenuImport extends AbstractNavigationMenu {
 
     @Override
     public boolean isDisabled() {
-        return true;// link == null;
+        return link == null;
     }
 
     @Override

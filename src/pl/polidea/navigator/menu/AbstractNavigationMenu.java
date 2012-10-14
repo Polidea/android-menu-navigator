@@ -44,7 +44,9 @@ public abstract class AbstractNavigationMenu implements Serializable {
         this.parent = parent;
     }
 
-    public abstract boolean isDisabled();
+    public boolean isDisabled() {
+        return false;
+    }
 
     @Override
     public String toString() {
