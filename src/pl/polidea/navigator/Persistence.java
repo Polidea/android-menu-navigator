@@ -21,6 +21,12 @@ public class Persistence {
         return sharedPreferences.getBoolean(MENU_BUTTON + name, true);
     }
 
+    protected void setStringPreference(final String key, final String value) {
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
     protected void setFloatPreference(final String key, final float value) {
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putFloat(key, value);
