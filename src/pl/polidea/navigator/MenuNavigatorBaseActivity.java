@@ -91,21 +91,25 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
     private final OnMenuDownListener menuDownListener = new OnMenuDownListener() {
         @Override
         public void onMenuDown(final AbstractNavigationMenu navigationMenu) {
-            if (BasicMenuTypes.TRANSACTION.equals(navigationMenu.menuType)) {
-                final String t = ((TransactionMenu) navigationMenu).transaction;
-                FlurryAgent.onEvent("Transaction", Collections.singletonMap("transaction", t));
-                handleTransaction(t);
-                return;
-            }
-            final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu);
-            if (newContentFragment != null) {
-                contentFragment = newContentFragment;
-                addFragmentToBackStack(navigationMenu);
-                updateActivityWithCurrentFragment();
-                FlurryAgent.onEvent("Select submenu", Collections.singletonMap("menu", navigationMenu.name));
-            }
+            MenuNavigatorBaseActivity.this.onMenuDown(navigationMenu);
         }
 
+    };
+
+    protected void onMenuDown(final AbstractNavigationMenu navigationMenu) {
+        if (BasicMenuTypes.TRANSACTION.equals(navigationMenu.menuType)) {
+            final String t = ((TransactionMenu) navigationMenu).transaction;
+            FlurryAgent.onEvent("Transaction", Collections.singletonMap("transaction", t));
+            handleTransaction(t);
+            return;
+        }
+        final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu);
+        if (newContentFragment != null) {
+            contentFragment = newContentFragment;
+            addFragmentToBackStack(navigationMenu);
+            updateActivityWithCurrentFragment();
+            FlurryAgent.onEvent("Select submenu", Collections.singletonMap("menu", navigationMenu.name));
+        }
     };
 
     private final OnBackStackChangedListener backStackChangedListener = new OnBackStackChangedListener() {

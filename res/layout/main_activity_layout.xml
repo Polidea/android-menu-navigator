@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-	android:layout_width="fill_parent" android:layout_height="fill_parent" style="@style/FragmentLayout"
-	android:keepScreenOn="true">
-	<FrameLayout android:id="@+id/breadcrumb_id" android:layout_height="wrap_content" android:layout_width="fill_parent" />
-	<TextView android:id="@+id/infoTextView" android:layout_width="fill_parent" android:layout_height="wrap_content"
-		style="@style/InfoTextViewStyle"></TextView>
-	<FrameLayout android:id="@+id/content_id" android:layout_height="fill_parent" android:layout_width="fill_parent" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/FragmentLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:keepScreenOn="true"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/breadcrumb_id"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/infoTextView"
+        style="@style/InfoTextViewStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </TextView>
+
+    <FrameLayout
+        android:id="@+id/content_id"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
 </LinearLayout>
