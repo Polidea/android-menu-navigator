@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="3" android:versionName="TEST_NEW_BUILD" package="pl.polidea.navigator">
-	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="11"/>
-	<application android:icon="@drawable/icon" android:label="@string/app_name" android:name="pl.polidea.navigator.MenuNavigatorBaseApplication">
-        <activity android:name="pl.polidea.navigator.SplashScreenActivity" android:screenOrientation="portrait" android:theme="@style/MenuNavigatorSplashScreenTheme">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="pl.polidea.navigator"
+    android:versionCode="3"
+    android:versionName="TEST_NEW_BUILD" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="11" />
+
+    <application
+        android:name="pl.polidea.navigator.MenuNavigatorBaseApplication"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name="pl.polidea.navigator.SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MenuNavigatorSplashScreenTheme" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="@string/app_name" android:name="pl.polidea.navigator.MenuNavigatorBaseActivity" android:theme="@style/MenuNavigatorTheme">
+        <activity
+            android:name="pl.polidea.navigator.MenuNavigatorBaseActivity"
+            android:configChanges="orientation"
+            android:label="@string/app_name"
+            android:theme="@style/MenuNavigatorTheme" >
         </activity>
-	</application>
-	<uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    </application>
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
 </manifest>
