@@ -74,6 +74,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         contentFragment.setMenuDownListener(menuDownListener);
         breadcrumbFragment.setLevelChangeListener(this);
         navigationMenu = contentFragment.getNavigationMenu();
+        updateNavigationMenuDescription();
         breadcrumbFragment.setNavigationMenu(navigationMenu);
         breadcrumbFragment.updateMenu();
         if (navigationMenu != null) {
@@ -181,6 +182,10 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         }
         updateActivityWithCurrentFragment();
         fragmentManager.addOnBackStackChangedListener(backStackChangedListener);
+    }
+
+    protected AbstractNavigationMenu updateNavigationMenuDescription() {
+        return navigationMenu;
     }
 
     @Override

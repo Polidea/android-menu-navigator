@@ -19,7 +19,7 @@ import android.content.Context;
 public abstract class AbstractNavigationMenu implements Serializable {
     private static final long serialVersionUID = 1L;
     public final String name;
-    public final String description;
+    public String description;
     public final String iconFile;
     public final String breadCrumbIconFile;
     public final File directory;
@@ -51,6 +51,10 @@ public abstract class AbstractNavigationMenu implements Serializable {
 
     public boolean isDisabled() {
         return !persistence.getMenuVisibility(name);
+    }
+
+    public void setDescription(final String decription) {
+        this.description = decription;
     }
 
     @Override
