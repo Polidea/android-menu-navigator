@@ -102,7 +102,7 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
             final String t = ((TransactionMenu) navigationMenu).transaction;
             FlurryAgent.onEvent("Transaction", Collections.singletonMap("transaction", t));
             handleTransaction(t);
-            updateActivityWithCurrentFragment();
+
             return;
         }
         final AbstractMenuNavigatorFragment newContentFragment = fragmentsFactory.createFragment(navigationMenu);
