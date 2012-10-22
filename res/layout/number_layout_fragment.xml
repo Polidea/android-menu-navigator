@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:orientation="vertical" android:gravity="center|top" style="@style/FragmentLayout">
-    <TableLayout android:id="@+id/tableLayout" android:layout_width="fill_parent" android:layout_height="wrap_content"
-        android:stretchColumns="0" android:gravity="center_horizontal" style="@style/NumberTableLayout">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/FragmentLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center|top"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        style="@style/NumberTableLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:stretchColumns="0" >
+
         <TableRow>
-            <EditText android:id="@+id/provide_text" android:text="" android:layout_width="fill_parent"
-                android:layout_weight="1" style="@style/NumberEditViewLayout" android:hint="@string/provide_number_button_hint"
-                android:layout_height="fill_parent"></EditText>
-            <Button android:id="@+id/provide_button" android:layout_weight="0" android:layout_width="fill_parent"
-                android:text="@string/provide_number_button_text" style="@style/NumberButtonLayout" android:layout_height="fill_parent"></Button>
+
+            <EditText
+                android:id="@+id/provide_text"
+                style="@style/NumberEditViewLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:hint="@string/provide_number_button_hint"
+                android:text="" >
+            </EditText>
+
+            <Button
+                android:id="@+id/provide_button"
+                style="@style/NumberButtonLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0"
+                android:text="@string/provide_number_button_text" >
+            </Button>
         </TableRow>
     </TableLayout>
-</LinearLayout>
 
+</LinearLayout>
