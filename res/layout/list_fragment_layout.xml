@@ -4,17 +4,16 @@
     android:layout_height="fill_parent" >
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/latestChoosenListView"
         style="@style/ListFragmentLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/latestChoosenTextView"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentBottom="true" >
     </ListView>
 
     <TextView
         android:id="@+id/latestChoosenTextView"
-		style="@style/InfoTextViewStyle"
+        style="@style/InfoTextViewStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/latestChoosenListView"
@@ -22,11 +21,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView
-        android:id="@+id/latestChoosenListView"
+        android:id="@+id/listView"
         style="@style/ListFragmentLayout"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/latestChoosenTextView"
+        android:layout_alignParentTop="true" >
     </ListView>
 
 </RelativeLayout>
