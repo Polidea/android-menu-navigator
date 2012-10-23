@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent" >
 
     <ListView
         android:id="@+id/listView"
         style="@style/ListFragmentLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/latestChoosenTextView"
+        android:layout_alignParentTop="true" >
     </ListView>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/latestChoosenTextView"
+		style="@style/InfoTextViewStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/latestChoosenListView"
+        android:text="@string/ostatnio_wybierane"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ListView
+        android:id="@+id/latestChoosenListView"
+        style="@style/ListFragmentLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true" >
+    </ListView>
+
+</RelativeLayout>

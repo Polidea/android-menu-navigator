@@ -89,7 +89,11 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
         }
         final ViewGroup listViewGroup = (ViewGroup) inflater.inflate(R.layout.list_fragment_layout, container, false);
         final ListView listView = (ListView) listViewGroup.findViewById(R.id.listView);
+        final TextView latestText = (TextView) listViewGroup.findViewById(R.id.latestChoosenTextView);
+        final ListView latestChoosenListView = (ListView) listViewGroup.findViewById(R.id.latestChoosenListView);
+        // latestText.setVisibility(View.GONE);
         listView.setAdapter(new ListMenuAdapter(getNavigationMenu(), inflater));
+
         return listViewGroup;
     }
 }

@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
-	android:layout_height="wrap_content" style="@style/ListItemLayout" android:gravity="center_vertical"
-	android:stretchColumns="1">
-	<TableRow>
-		<ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:scaleType="centerInside"
-			android:id="@+id/list_item_image" android:layout_gravity="center"></ImageView>
-		<TextView android:text="TextView" android:id="@+id/list_item_text" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" style="@style/ListTextViewStyle" android:layout_gravity="center_vertical"></TextView>
-	</TableRow>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ListItemLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:stretchColumns="1" >
+
+    <TableRow>
+
+        <ImageView
+            android:id="@+id/list_item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerInside" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/list_item_text"
+            style="@style/ListTextViewStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="TextView" >
+        </TextView>
+    </TableRow>
+
 </TableLayout>
