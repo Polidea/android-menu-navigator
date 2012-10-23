@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:stretchColumns="0" >
-
         <TableRow>
+
 
             <EditText
                 android:id="@+id/provide_text"

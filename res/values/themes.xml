@@ -22,7 +22,7 @@
         <item name="menuNavigator.stringTableMargin">1dip</item>
         <item name="menuNavigator.stringTablePadding">5dip</item>
         <!-- Number view -->
-        <item name="menuNavigator.numberEditTextPadding">1dip</item>
+        <item name="menuNavigator.numberEditTextPadding">10dip</item>
         <item name="menuNavigator.numberEditTextTextColor">@android:color/black</item>
         <item name="menuNavigator.numberEditTextTextSize">24dip</item>
         <item name="menuNavigator.numberTableMargin">1dip</item>
