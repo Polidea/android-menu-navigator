@@ -1,11 +1,13 @@
 package pl.polidea.navigator.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import pl.polidea.navigator.Persistence;
 import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.ListMenu;
+import pl.polidea.navigator.menu.TransactionMenu;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +24,12 @@ import android.widget.TextView;
  * List displaying fragment.
  */
 public class ListMenuFragment extends AbstractMenuNavigatorFragment {
+
+    Context context;
+
+    public ListMenuFragment(final Context context) {
+        this.context = context;
+    }
 
     private class ListMenuAdapter extends BaseAdapter {
 
@@ -83,24 +91,21 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
 
     private class LatestListAdapter extends BaseAdapter {
 
-        private final TextView latestText;
         // first = description, second = transaction
-        private List<Pair<String, String>> dTList;
+        private final List<Pair<String, String>> dTList;
         private final LayoutInflater inflater;
 
         /**
          * @param descriptionTransactionPairsList
          *            first = description, second = transaction
          */
-        public LatestListAdapter(final List<Pair<String, String>> descriptionTransactionPairsList,
-                final TextView latestText, final LayoutInflater inflater) {
-            this.dTList = descriptionTransactionPairsList;
+        public LatestListAdapter(final String name, final TextView latestText, final LayoutInflater inflater) {
             this.inflater = inflater;
-            if (dTList == null) {
-                dTList = new ArrayList<Pair<String, String>>();
-            }
 
-            this.latestText = latestText;
+            final Persistence persistence = new Persistence(context);
+
+            dTList = persistence.getLatestList(name);
+
             if (dTList.isEmpty()) {
                 latestText.setVisibility(View.GONE);
             }
@@ -124,11 +129,15 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
 
         @Override
         public View getView(final int position, final View convertView, final ViewGroup parent) {
+            final String description = dTList.get(position).first;
+            final String transaction = dTList.get(position).second;
             final View listItemView = inflater.inflate(R.layout.single_list_item_layout, null);
             final ImageView imageView = (ImageView) listItemView.findViewById(R.id.list_item_image);
             final TextView textView = (TextView) listItemView.findViewById(R.id.list_item_text);
             imageView.setVisibility(View.GONE);
-            textView.setText(dTList.get(position).first);
+            textView.setText(description);
+            listItemView.setOnClickListener(new MenuNavigatorOnClickListener(new TransactionMenu(description,
+                    transaction, context)));
             return listItemView;
         }
     }
@@ -147,8 +156,9 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
         final ListView listView = (ListView) listViewGroup.findViewById(R.id.listView);
         final TextView latestText = (TextView) listViewGroup.findViewById(R.id.latestChoosenTextView);
         final ListView latestChoosenListView = (ListView) listViewGroup.findViewById(R.id.latestChoosenListView);
-        listView.setAdapter(new ListMenuAdapter(getNavigationMenu(), inflater));
-        latestChoosenListView.setAdapter(new LatestListAdapter(null, latestText, inflater));
+        final ListMenu listMenu = getNavigationMenu();
+        listView.setAdapter(new ListMenuAdapter(listMenu, inflater));
+        latestChoosenListView.setAdapter(new LatestListAdapter(listMenu.name, latestText, inflater));
 
         return listViewGroup;
     }

@@ -117,7 +117,7 @@ public class MenuNavigatorBaseApplication extends Application {
     }
 
     protected FragmentFactoryBase createFragmentFactory() {
-        return new FragmentFactoryBase();
+        return new FragmentFactoryBase(this);
     }
 
     protected NavigationMenuFactoryInterface createNavigationMenuFactory() {

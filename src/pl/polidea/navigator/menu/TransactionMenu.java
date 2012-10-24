@@ -12,6 +12,7 @@ import android.content.Context;
 public class TransactionMenu extends AbstractNavigationMenu {
 
     private static final long serialVersionUID = 1L;
+    public String transaction;
 
     public TransactionMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent,
             final Context context) throws JSONException {
@@ -19,7 +20,10 @@ public class TransactionMenu extends AbstractNavigationMenu {
         transaction = jsonMenu.getString("transaction");
     }
 
-    public String transaction;
+    public TransactionMenu(final String name, final String transaction, final Context context) {
+        super(name, BasicMenuTypes.TRANSACTION, context);
+        this.transaction = transaction;
+    }
 
     @Override
     public boolean isDisabled() {

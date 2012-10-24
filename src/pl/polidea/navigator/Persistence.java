@@ -1,11 +1,16 @@
 package pl.polidea.navigator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Pair;
 
 public class Persistence {
 
     private static final String MENU_BUTTON = "Menu_button:";
+    private static final String LATEST_LIST = "Latest_list";
 
     protected final SharedPreferences sharedPreferences;
 
@@ -37,5 +42,17 @@ public class Persistence {
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
         editor.commit();
+    }
+
+    public List<Pair<String, String>> getLatestList(final String name) {
+        final List<Pair<String, String>> list = new ArrayList<Pair<String, String>>();
+        for (int i = 0; i < 3; i++) {
+            final String description = sharedPreferences.getString(LATEST_LIST + name + "description" + i, null);
+            final String transaction = sharedPreferences.getString(LATEST_LIST + name + "transaction" + i, null);
+            if (description != null && transaction != null) {
+                list.add(new Pair<String, String>(description, transaction));
+            }
+        }
+        return list;
     }
 }
