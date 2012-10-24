@@ -158,7 +158,11 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
         final ListView latestChoosenListView = (ListView) listViewGroup.findViewById(R.id.latestChoosenListView);
         final ListMenu listMenu = getNavigationMenu();
         listView.setAdapter(new ListMenuAdapter(listMenu, inflater));
-        latestChoosenListView.setAdapter(new LatestListAdapter(listMenu.name, latestText, inflater));
+        AbstractNavigationMenu menu = listMenu;
+        while (menu.parent != null && menu.parent.parent != null) {
+            menu = menu.parent;
+        }
+        latestChoosenListView.setAdapter(new LatestListAdapter(menu.name, latestText, inflater));
 
         return listViewGroup;
     }

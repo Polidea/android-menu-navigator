@@ -44,15 +44,36 @@ public class Persistence {
         editor.commit();
     }
 
-    public List<Pair<String, String>> getLatestList(final String name) {
+    private static int LATEST_LIST_MAX_LENGTH = 3;
+
+    public List<Pair<String, String>> getLatestList(final String menuName) {
         final List<Pair<String, String>> list = new ArrayList<Pair<String, String>>();
-        for (int i = 0; i < 3; i++) {
-            final String description = sharedPreferences.getString(LATEST_LIST + name + "description" + i, null);
-            final String transaction = sharedPreferences.getString(LATEST_LIST + name + "transaction" + i, null);
+        for (int i = 0; i < LATEST_LIST_MAX_LENGTH; i++) {
+            final String description = sharedPreferences.getString(LATEST_LIST + menuName + "description" + i, null);
+            final String transaction = sharedPreferences.getString(LATEST_LIST + menuName + "transaction" + i, null);
             if (description != null && transaction != null) {
                 list.add(new Pair<String, String>(description, transaction));
             }
         }
         return list;
+    }
+
+    public void setLatestListElement(final String menuName, final String description, final String transaction) {
+        if (description == null || transaction == null) {
+            return;
+        }
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        final List<Pair<String, String>> savedList = getLatestList(menuName);
+        if (savedList.contains(new Pair<String, String>(description, transaction))) {
+            return;
+        }
+        editor.putString(LATEST_LIST + menuName + "description" + 0, description);
+        editor.putString(LATEST_LIST + menuName + "transaction" + 0, transaction);
+        for (int i = 0; i < savedList.size(); i++) {
+            final Pair<String, String> pair = savedList.get(i);
+            editor.putString(LATEST_LIST + menuName + "description" + (i + 1), pair.first);
+            editor.putString(LATEST_LIST + menuName + "transaction" + (i + 1), pair.second);
+        }
+        editor.commit();
     }
 }
