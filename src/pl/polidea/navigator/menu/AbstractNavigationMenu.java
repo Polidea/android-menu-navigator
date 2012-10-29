@@ -20,6 +20,7 @@ public abstract class AbstractNavigationMenu implements Serializable {
     private static final long serialVersionUID = 1L;
     public final String name;
     public String description;
+    public final String help;
     public final String iconFile;
     public final String breadCrumbIconFile;
     public final File directory;
@@ -36,6 +37,7 @@ public abstract class AbstractNavigationMenu implements Serializable {
         this.iconFile = null;
         this.breadCrumbIconFile = null;
         this.parameters = null;
+        this.help = null;
 
         this.name = name;
         this.menuType = menuType;
@@ -57,6 +59,7 @@ public abstract class AbstractNavigationMenu implements Serializable {
         description = JsonMenuReader.getStringOrNull(jsonMenu, "description");
         iconFile = JsonMenuReader.getStringOrNull(jsonMenu, "icon");
         breadCrumbIconFile = JsonMenuReader.getStringOrNull(jsonMenu, "breadcrumb_icon");
+        help = JsonMenuReader.getStringOrNull(jsonMenu, "help");
         JsonMenuReader.readParameters(this.parameters, jsonMenu, "parameters");
         this.parent = parent;
     }

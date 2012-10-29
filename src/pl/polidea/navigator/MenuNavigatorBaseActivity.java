@@ -189,6 +189,10 @@ public class MenuNavigatorBaseActivity extends FragmentActivity implements OnTra
         return navigationMenu;
     }
 
+    protected AbstractNavigationMenu getNavigationMenu() {
+        return navigationMenu;
+    }
+
     @Override
     protected void onDestroy() {
         fragmentManager.removeOnBackStackChangedListener(backStackChangedListener);
