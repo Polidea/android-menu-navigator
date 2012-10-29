@@ -8,7 +8,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         style="@style/FragmentLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:fadeScrollbars="false" >
 
         <TableLayout
             android:id="@+id/tableIconsLayout"
