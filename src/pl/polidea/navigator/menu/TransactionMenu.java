@@ -27,6 +27,10 @@ public class TransactionMenu extends AbstractNavigationMenu {
         return super.isDisabled() || transaction == null;
     }
 
+    public boolean superIsDisabled() {
+        return super.isDisabled();
+    }
+
     @Override
     public String toString() {
         return "TransactionMenu [transaction=" + transaction + ", " + super.toString() + "]";

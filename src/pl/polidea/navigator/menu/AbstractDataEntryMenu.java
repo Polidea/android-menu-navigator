@@ -34,7 +34,7 @@ public abstract class AbstractDataEntryMenu extends TransactionMenu {
 
     @Override
     public boolean isDisabled() {
-        return super.isDisabled() || (link == null && transaction == null);
+        return super.superIsDisabled() || (link == null && transaction == null);
     }
 
     @Override
