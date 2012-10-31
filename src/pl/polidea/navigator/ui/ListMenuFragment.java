@@ -5,8 +5,8 @@ import java.util.List;
 import pl.polidea.navigator.Persistence;
 import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
+import pl.polidea.navigator.menu.AbstractTransactionMenu;
 import pl.polidea.navigator.menu.ListMenu;
-import pl.polidea.navigator.menu.TransactionMenu;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -91,7 +91,7 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
     private class LatestListAdapter extends BaseAdapter {
 
         // first = description, second = transaction
-        private final List<TransactionMenu> latestList;
+        private final List<AbstractTransactionMenu> latestList;
         private final LayoutInflater inflater;
 
         /**
@@ -128,8 +128,8 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
 
         @Override
         public View getView(final int position, final View convertView, final ViewGroup parent) {
-            final TransactionMenu menu = latestList.get(position);
-            String shortcut = menu.shortcut;
+            final AbstractTransactionMenu menu = latestList.get(position);
+            String shortcut = null;// menu.shortcut;
             if (shortcut == null) {
                 shortcut = menu.description;
             }

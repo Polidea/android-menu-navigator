@@ -3,8 +3,7 @@ package pl.polidea.navigator;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.polidea.navigator.menu.AbstractDataEntryMenu;
-import pl.polidea.navigator.menu.TransactionMenu;
+import pl.polidea.navigator.menu.AbstractTransactionMenu;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -47,8 +46,8 @@ public class Persistence {
 
     private static int LATEST_LIST_MAX_LENGTH = 3;
 
-    public List<TransactionMenu> getLatestList(final String menuName) {
-        final List<TransactionMenu> list = new ArrayList<TransactionMenu>();
+    public List<AbstractTransactionMenu> getLatestList(final String menuName) {
+        final List<AbstractTransactionMenu> list = new ArrayList<AbstractTransactionMenu>();
         for (int i = 0; i < LATEST_LIST_MAX_LENGTH; i++) {
             final String name = sharedPreferences.getString(LATEST_LIST + menuName + "name" + i, null);
             final String description = sharedPreferences.getString(LATEST_LIST + menuName + "description" + i, null);
@@ -79,11 +78,11 @@ public class Persistence {
         return list;
     }
 
-    public void setLatestListElement(final String menuName, final TransactionMenu menu) {
+    public void setLatestListElement(final String menuName, final AbstractTransactionMenu menu) {
         if (menu.transaction == null) {
             return;
         }
-        final List<TransactionMenu> savedList = getLatestList(menuName);
+        final List<AbstractTransactionMenu> savedList = getLatestList(menuName);
         if (savedList.contains(menu)) {
             return;
         }
@@ -96,7 +95,7 @@ public class Persistence {
         editor.commit();
     }
 
-    private void setLatestListElementAtPosition(final String menuName, final TransactionMenu menu,
+    private void setLatestListElementAtPosition(final String menuName, final AbstractTransactionMenu menu,
             final SharedPreferences.Editor editor, final int position) {
         if (menu.transaction == null) {
             return;
@@ -111,14 +110,19 @@ public class Persistence {
 
         // TransactionMenu
         editor.putString(LATEST_LIST + menuName + "transaction" + position, menu.transaction);
-        editor.putString(LATEST_LIST + menuName + "shortcut" + position, menu.shortcut);
+        // editor.putString(LATEST_LIST + menuName + "shortcut" + position,
+        // menu.shortcut);
 
         // AbstractDataEntryMenu
-        if (menu instanceof AbstractDataEntryMenu) {
-            editor.putString(LATEST_LIST + menuName + "variable" + position, ((AbstractDataEntryMenu) menu).variable);
-            editor.putInt(LATEST_LIST + menuName + "minLength" + position, ((AbstractDataEntryMenu) menu).minLength);
-            editor.putInt(LATEST_LIST + menuName + "maxLength" + position, ((AbstractDataEntryMenu) menu).maxLength);
-            editor.putString(LATEST_LIST + menuName + "hint" + position, ((AbstractDataEntryMenu) menu).hint);
-        }
+        // if (menu instanceof AbstractDataEntryMenu) {
+        // editor.putString(LATEST_LIST + menuName + "variable" + position,
+        // ((AbstractDataEntryMenu) menu).variable);
+        // editor.putInt(LATEST_LIST + menuName + "minLength" + position,
+        // ((AbstractDataEntryMenu) menu).minLength);
+        // editor.putInt(LATEST_LIST + menuName + "maxLength" + position,
+        // ((AbstractDataEntryMenu) menu).maxLength);
+        // editor.putString(LATEST_LIST + menuName + "hint" + position,
+        // ((AbstractDataEntryMenu) menu).hint);
+        // }
     }
 }

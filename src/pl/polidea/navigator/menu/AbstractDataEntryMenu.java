@@ -10,7 +10,7 @@ import android.content.Context;
  * Base class for all number menu types.
  * 
  */
-public abstract class AbstractDataEntryMenu extends TransactionMenu {
+public abstract class AbstractDataEntryMenu extends AbstractTransactionMenu {
 
     private static final long serialVersionUID = 1L;
     public final String variable;
@@ -18,6 +18,7 @@ public abstract class AbstractDataEntryMenu extends TransactionMenu {
     public final Integer minLength;
     public final Integer maxLength;
     public final String hint;
+    public String transaction;
 
     public AbstractDataEntryMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent, final Context context) throws JSONException {
@@ -34,7 +35,7 @@ public abstract class AbstractDataEntryMenu extends TransactionMenu {
 
     @Override
     public boolean isDisabled() {
-        return super.superIsDisabled() || (link == null && transaction == null);
+        return super.isDisabled() || (link == null && transaction == null);
     }
 
     @Override
