@@ -18,7 +18,7 @@ import android.content.Context;
  */
 public abstract class AbstractNavigationMenu implements Serializable {
     private static final long serialVersionUID = 1L;
-    public final String name;
+    public String name;
     public String description;
     public final String help;
     public final String iconFile;
@@ -31,18 +31,19 @@ public abstract class AbstractNavigationMenu implements Serializable {
 
     private transient Persistence persistence;
 
-    public AbstractNavigationMenu(final String name, final String menuType, final Context context) {
-        this.directory = null;
-        this.menuContext = null;
-        this.iconFile = null;
-        this.breadCrumbIconFile = null;
-        this.parameters = null;
-        this.help = null;
-
-        this.name = name;
-        this.menuType = menuType;
-        this.persistence = new Persistence(context);
-    }
+    // public AbstractNavigationMenu(final String name, final String menuType,
+    // final Context context) {
+    // this.directory = null;
+    // this.menuContext = null;
+    // this.iconFile = null;
+    // this.breadCrumbIconFile = null;
+    // this.parameters = null;
+    // this.help = null;
+    //
+    // this.name = name;
+    // this.menuType = menuType;
+    // this.persistence = new Persistence(context);
+    // }
 
     public AbstractNavigationMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent, final Context context) throws JSONException {

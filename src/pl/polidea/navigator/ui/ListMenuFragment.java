@@ -11,7 +11,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,7 +91,7 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
     private class LatestListAdapter extends BaseAdapter {
 
         // first = description, second = transaction
-        private final List<Pair<String, String>> dTList;
+        private final List<TransactionMenu> latestList;
         private final LayoutInflater inflater;
 
         /**
@@ -104,21 +103,21 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
 
             final Persistence persistence = new Persistence(context);
 
-            dTList = persistence.getLatestList(name);
+            latestList = persistence.getLatestList(name);
 
-            if (dTList.isEmpty()) {
+            if (latestList.isEmpty()) {
                 latestText.setVisibility(View.GONE);
             }
         }
 
         @Override
         public int getCount() {
-            return dTList.size();
+            return latestList.size();
         }
 
         @Override
         public Object getItem(final int position) {
-            return dTList.get(position);
+            return latestList.get(position);
         }
 
         @Override
@@ -129,15 +128,21 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
 
         @Override
         public View getView(final int position, final View convertView, final ViewGroup parent) {
-            final String description = dTList.get(position).first;
-            final String transaction = dTList.get(position).second;
+            final TransactionMenu menu = latestList.get(position);
+            String shortcut = menu.shortcut;
+            if (shortcut == null) {
+                shortcut = menu.description;
+            }
+            if (shortcut == null) {
+                shortcut = menu.name;
+            }
+
             final View listItemView = inflater.inflate(R.layout.single_list_item_layout, null);
             final ImageView imageView = (ImageView) listItemView.findViewById(R.id.list_item_image);
             final TextView textView = (TextView) listItemView.findViewById(R.id.list_item_text);
             imageView.setVisibility(View.GONE);
-            textView.setText(description);
-            listItemView.setOnClickListener(new MenuNavigatorOnClickListener(new TransactionMenu(description,
-                    transaction, context)));
+            textView.setText(shortcut);
+            listItemView.setOnClickListener(new MenuNavigatorOnClickListener(menu));
             return listItemView;
         }
     }

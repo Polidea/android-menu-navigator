@@ -10,14 +10,13 @@ import android.content.Context;
  * Base class for all number menu types.
  * 
  */
-public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
+public abstract class AbstractDataEntryMenu extends TransactionMenu {
 
     private static final long serialVersionUID = 1L;
     public final String variable;
     public final AbstractNavigationMenu link;
     public final Integer minLength;
     public final Integer maxLength;
-    public final String transaction;
     public final String hint;
 
     public AbstractDataEntryMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
@@ -26,7 +25,6 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
         minLength = JsonMenuReader.getIntOrNull(jsonMenu, "minLength");
         maxLength = JsonMenuReader.getIntOrNull(jsonMenu, "maxLength");
         variable = jsonMenu.getString("variable");
-        transaction = JsonMenuReader.getStringOrNull(jsonMenu, "transaction");
         hint = JsonMenuReader.getStringOrNull(jsonMenu, "hint");
         link = reader.readLink(jsonMenu, directory, this);
         if (link != null && transaction != null) {

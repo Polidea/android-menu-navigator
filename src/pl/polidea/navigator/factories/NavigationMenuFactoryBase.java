@@ -26,7 +26,7 @@ public class NavigationMenuFactoryBase implements NavigationMenuFactoryInterface
             final AbstractNavigationMenu parent, final Context context) throws JSONException {
         final String type = JsonMenuReader.getStringOrNull(jsonMenu, "type");
         if (type == null || BasicMenuTypes.TRANSACTION.equals(type)) {
-            return new TransactionMenu(reader, jsonMenu, parent, context);
+            return new TransactionMenu(reader, jsonMenu, BasicMenuTypes.TRANSACTION, parent, context);
         } else if (BasicMenuTypes.ICONS.equals(type)) {
             return new IconsMenu(reader, jsonMenu, parent, context);
         } else if (BasicMenuTypes.LIST.equals(type)) {

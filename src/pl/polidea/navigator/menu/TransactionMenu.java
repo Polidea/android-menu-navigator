@@ -12,17 +12,14 @@ import android.content.Context;
 public class TransactionMenu extends AbstractNavigationMenu {
 
     private static final long serialVersionUID = 1L;
-    public String transaction;
+    public final String transaction;
+    public final String shortcut;
 
-    public TransactionMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent,
-            final Context context) throws JSONException {
-        super(reader, jsonMenu, BasicMenuTypes.TRANSACTION, parent, context);
+    public TransactionMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
+            final AbstractNavigationMenu parent, final Context context) throws JSONException {
+        super(reader, jsonMenu, menuType != null ? menuType : BasicMenuTypes.TRANSACTION, parent, context);
         transaction = jsonMenu.getString("transaction");
-    }
-
-    public TransactionMenu(final String name, final String transaction, final Context context) {
-        super(name, BasicMenuTypes.TRANSACTION, context);
-        this.transaction = transaction;
+        shortcut = jsonMenu.getString("shortcut");
     }
 
     @Override
