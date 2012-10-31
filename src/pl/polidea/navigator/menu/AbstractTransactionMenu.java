@@ -24,7 +24,7 @@ public abstract class AbstractTransactionMenu extends AbstractNavigationMenu {
     public AbstractTransactionMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent, final Context context) throws JSONException {
         super(reader, jsonMenu, menuType, parent, context);
-        transaction = jsonMenu.getString("transaction");
+        transaction = JsonMenuReader.getStringOrNull(jsonMenu, "transaction");
         // shortcut = JsonMenuReader.getStringOrNull(jsonMenu, "shortcut");
     }
 
