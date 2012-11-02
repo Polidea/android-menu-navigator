@@ -31,19 +31,20 @@ public abstract class AbstractNavigationMenu implements Serializable {
 
     private transient Persistence persistence;
 
-    // public AbstractNavigationMenu(final String name, final String menuType,
-    // final Context context) {
-    // this.directory = null;
-    // this.menuContext = null;
-    // this.iconFile = null;
-    // this.breadCrumbIconFile = null;
-    // this.parameters = null;
-    // this.help = null;
-    //
-    // this.name = name;
-    // this.menuType = menuType;
-    // this.persistence = new Persistence(context);
-    // }
+    public AbstractNavigationMenu(final String name, final String description, final String help,
+            final String iconFile, final String breadCrumbIconFile, final String menuType, final Context context) {
+        this.name = name;
+        this.description = description;
+        this.help = help;
+        this.iconFile = iconFile;
+        this.breadCrumbIconFile = breadCrumbIconFile;
+        this.menuType = menuType;
+        this.persistence = new Persistence(context);
+
+        this.parameters = null;
+        this.directory = null;
+
+    }
 
     public AbstractNavigationMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent, final Context context) throws JSONException {

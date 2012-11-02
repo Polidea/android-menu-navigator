@@ -18,7 +18,6 @@ public abstract class AbstractDataEntryMenu extends AbstractTransactionMenu {
     public final Integer minLength;
     public final Integer maxLength;
     public final String hint;
-    public String transaction;
 
     public AbstractDataEntryMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
             final AbstractNavigationMenu parent, final Context context) throws JSONException {
@@ -31,6 +30,18 @@ public abstract class AbstractDataEntryMenu extends AbstractTransactionMenu {
         if (link != null && transaction != null) {
             throw new JSONException("Exactly one of \"link\" and \"transaction\" can be defined in " + jsonMenu);
         }
+    }
+
+    public AbstractDataEntryMenu(final String name, final String description, final String help, final String iconFile,
+            final String breadCrumbIconFile, final String menuType, final String transaction, final String shortcut,
+            final String variable, final Integer minLength, final Integer maxLength, final String hint,
+            final Context context) {
+        super(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction, shortcut, context);
+        this.variable = variable;
+        this.minLength = minLength;
+        this.maxLength = maxLength;
+        this.hint = hint;
+        this.link = null;
     }
 
     @Override

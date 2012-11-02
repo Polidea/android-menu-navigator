@@ -3,7 +3,14 @@ package pl.polidea.navigator;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.polidea.navigator.menu.AbstractDataEntryMenu;
 import pl.polidea.navigator.menu.AbstractTransactionMenu;
+import pl.polidea.navigator.menu.BasicMenuTypes;
+import pl.polidea.navigator.menu.FloatNumberMenu;
+import pl.polidea.navigator.menu.NumberMenu;
+import pl.polidea.navigator.menu.PhoneNumberMenu;
+import pl.polidea.navigator.menu.StringMenu;
+import pl.polidea.navigator.menu.TransactionMenu;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -13,8 +20,10 @@ public class Persistence {
     private static final String LATEST_LIST = "Latest_list";
 
     protected final SharedPreferences sharedPreferences;
+    private final Context context;
 
     public Persistence(final Context context) {
+        this.context = context;
         sharedPreferences = context.getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
     }
 
@@ -49,6 +58,8 @@ public class Persistence {
     public List<AbstractTransactionMenu> getLatestList(final String menuName) {
         final List<AbstractTransactionMenu> list = new ArrayList<AbstractTransactionMenu>();
         for (int i = 0; i < LATEST_LIST_MAX_LENGTH; i++) {
+            AbstractTransactionMenu menu = null;
+
             final String name = sharedPreferences.getString(LATEST_LIST + menuName + "name" + i, null);
             final String description = sharedPreferences.getString(LATEST_LIST + menuName + "description" + i, null);
             final String help = sharedPreferences.getString(LATEST_LIST + menuName + "help" + i, null);
@@ -60,20 +71,58 @@ public class Persistence {
             final String transaction = sharedPreferences.getString(LATEST_LIST + menuName + "transaction" + i, null);
             final String shortcut = sharedPreferences.getString(LATEST_LIST + menuName + "shortcut" + i, null);
 
-            final boolean isAbstractDataEntryMenu = sharedPreferences.getBoolean(LATEST_LIST + menuName
-                    + "isAbstractDataEntryMenu" + i, false);
+            // All classes that extends AbstractDataEntryMenu
+            if (BasicMenuTypes.extendsAbstractDataEntryMenu(menuType)) {
 
-            final String variable = sharedPreferences.getString(LATEST_LIST + menuName + "variable" + i, null);
-            final String minLength = sharedPreferences.getString(LATEST_LIST + menuName + "minLength" + i, null);
-            final String maxlength = sharedPreferences.getString(LATEST_LIST + menuName + "maxLength" + i, null);
-            final String hint = sharedPreferences.getString(LATEST_LIST + menuName + "hint" + i, null);
+                final String variable = sharedPreferences.getString(LATEST_LIST + menuName + "variable" + i, null);
+                Integer minLength = null;
+                minLength = Integer.valueOf(sharedPreferences.getInt(LATEST_LIST + menuName + "minLength" + i,
+                        Integer.MAX_VALUE));
+                if (minLength != null && minLength == Integer.MAX_VALUE) {
+                    minLength = null;
+                }
+                Integer maxLength = null;
+                maxLength = Integer.valueOf(sharedPreferences.getInt(LATEST_LIST + menuName + "maxLength" + i,
+                        Integer.MIN_VALUE));
+                if (maxLength != null && maxLength == Integer.MAX_VALUE) {
+                    maxLength = null;
+                }
+                final String hint = sharedPreferences.getString(LATEST_LIST + menuName + "hint" + i, null);
 
-            // final String transaction =
-            // sharedPreferences.getString(LATEST_LIST +
-            // menuName + "transaction" + i, null);
-            // if (description != null && transaction != null) {
-            // list.add(new Pair<String, String>(description, transaction));
-            // }
+                if (BasicMenuTypes.NUMBER.equals(menuType)) {
+                    menu = new NumberMenu(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction,
+                            shortcut, variable, minLength, maxLength, hint, context);
+                    list.add(menu);
+                } else if (BasicMenuTypes.STRING.equals(menuType)) {
+                    menu = new StringMenu(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction,
+                            shortcut, variable, minLength, maxLength, hint, context);
+                    list.add(menu);
+                } else if (BasicMenuTypes.PHONE_NUMBER.equals(menuType)) {
+                    menu = new PhoneNumberMenu(name, description, help, iconFile, breadCrumbIconFile, menuType,
+                            transaction, shortcut, variable, minLength, maxLength, hint, context);
+                    list.add(menu);
+                } else if (BasicMenuTypes.FLOAT_NUMBER.equals(menuType)) {
+                    Integer minVal = null;
+                    minVal = Integer.valueOf(sharedPreferences.getInt(LATEST_LIST + menuName + "minVal" + i,
+                            Integer.MAX_VALUE));
+                    if (minVal != null && minVal == Integer.MAX_VALUE) {
+                        minVal = null;
+                    }
+                    Integer maxVal = null;
+                    maxVal = Integer.valueOf(sharedPreferences.getInt(LATEST_LIST + menuName + "maxVal" + i,
+                            Integer.MIN_VALUE));
+                    if (maxVal != null && maxVal == Integer.MAX_VALUE) {
+                        maxVal = null;
+                    }
+                    menu = new FloatNumberMenu(name, description, help, iconFile, breadCrumbIconFile, menuType,
+                            transaction, shortcut, variable, minLength, maxLength, hint, minVal, maxVal, context);
+                    list.add(menu);
+                }
+            } else if (BasicMenuTypes.TRANSACTION.equals(menuType)) {
+                menu = new TransactionMenu(name, description, help, iconFile, breadCrumbIconFile, menuType,
+                        transaction, shortcut, context);
+                list.add(menu);
+            }
         }
         return list;
     }
@@ -108,21 +157,21 @@ public class Persistence {
         editor.putString(LATEST_LIST + menuName + "breadCrumbIconFile" + position, menu.breadCrumbIconFile);
         editor.putString(LATEST_LIST + menuName + "menuType" + position, menu.menuType);
 
-        // TransactionMenu
+        // AbstractTransactionMenu
         editor.putString(LATEST_LIST + menuName + "transaction" + position, menu.transaction);
-        // editor.putString(LATEST_LIST + menuName + "shortcut" + position,
-        // menu.shortcut);
+        editor.putString(LATEST_LIST + menuName + "shortcut" + position, menu.shortcut);
 
         // AbstractDataEntryMenu
-        // if (menu instanceof AbstractDataEntryMenu) {
-        // editor.putString(LATEST_LIST + menuName + "variable" + position,
-        // ((AbstractDataEntryMenu) menu).variable);
-        // editor.putInt(LATEST_LIST + menuName + "minLength" + position,
-        // ((AbstractDataEntryMenu) menu).minLength);
-        // editor.putInt(LATEST_LIST + menuName + "maxLength" + position,
-        // ((AbstractDataEntryMenu) menu).maxLength);
-        // editor.putString(LATEST_LIST + menuName + "hint" + position,
-        // ((AbstractDataEntryMenu) menu).hint);
-        // }
+        if (menu instanceof AbstractDataEntryMenu) {
+            editor.putString(LATEST_LIST + menuName + "variable" + position, ((AbstractDataEntryMenu) menu).variable);
+            editor.putInt(LATEST_LIST + menuName + "minLength" + position, ((AbstractDataEntryMenu) menu).minLength);
+            editor.putInt(LATEST_LIST + menuName + "maxLength" + position, ((AbstractDataEntryMenu) menu).maxLength);
+            editor.putString(LATEST_LIST + menuName + "hint" + position, ((AbstractDataEntryMenu) menu).hint);
+
+            if (menu instanceof FloatNumberMenu) {
+                editor.putInt(LATEST_LIST + menuName + "minVal" + position, ((FloatNumberMenu) menu).minVal);
+                editor.putInt(LATEST_LIST + menuName + "maxVal" + position, ((FloatNumberMenu) menu).maxVal);
+            }
+        }
     }
 }

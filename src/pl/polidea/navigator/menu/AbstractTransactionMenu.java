@@ -18,6 +18,7 @@ public abstract class AbstractTransactionMenu extends AbstractNavigationMenu {
 
     private static final long serialVersionUID = 1154798706565678846L;
     public final String transaction;
+    public final String shortcut;
 
     // public final String shortcut;
 
@@ -25,7 +26,15 @@ public abstract class AbstractTransactionMenu extends AbstractNavigationMenu {
             final AbstractNavigationMenu parent, final Context context) throws JSONException {
         super(reader, jsonMenu, menuType, parent, context);
         transaction = JsonMenuReader.getStringOrNull(jsonMenu, "transaction");
-        // shortcut = JsonMenuReader.getStringOrNull(jsonMenu, "shortcut");
+        shortcut = JsonMenuReader.getStringOrNull(jsonMenu, "shortcut");
+    }
+
+    public AbstractTransactionMenu(final String name, final String description, final String help,
+            final String iconFile, final String breadCrumbIconFile, final String menuType, final String transaction,
+            final String shortcut, final Context context) {
+        super(name, description, help, iconFile, breadCrumbIconFile, menuType, context);
+        this.transaction = transaction;
+        this.shortcut = shortcut;
     }
 
 }

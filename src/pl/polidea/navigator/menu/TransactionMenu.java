@@ -16,16 +16,17 @@ public class TransactionMenu extends AbstractTransactionMenu {
     public TransactionMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent,
             final Context context) throws JSONException {
         super(reader, jsonMenu, BasicMenuTypes.TRANSACTION, parent, context);
-        ;
+    }
+
+    public TransactionMenu(final String name, final String description, final String help, final String iconFile,
+            final String breadCrumbIconFile, final String menuType, final String transaction, final String shortcut,
+            final Context context) {
+        super(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction, shortcut, context);
     }
 
     @Override
     public boolean isDisabled() {
         return super.isDisabled() || transaction == null;
-    }
-
-    public boolean superIsDisabled() {
-        return super.isDisabled();
     }
 
     @Override

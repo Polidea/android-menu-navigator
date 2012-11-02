@@ -16,4 +16,12 @@ public final class BasicMenuTypes {
     public static final String FLOAT_NUMBER = "FLOAT_NUMBER";
     public static final String PHONE_NUMBER = "PHONE_NUMBER";
     public static final String TRANSACTION = "TRANSACTION";
+
+    public static boolean extendsAbstractDataEntryMenu(final String menuType) {
+        if (BasicMenuTypes.NUMBER.equals(menuType) || BasicMenuTypes.STRING.equals(menuType)
+                || BasicMenuTypes.PHONE_NUMBER.equals(menuType) || BasicMenuTypes.FLOAT_NUMBER.equals(menuType)) {
+            return true;
+        }
+        return false;
+    }
 }
