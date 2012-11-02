@@ -129,7 +129,7 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
         @Override
         public View getView(final int position, final View convertView, final ViewGroup parent) {
             final AbstractTransactionMenu menu = latestList.get(position);
-            String shortcut = null;// menu.shortcut;
+            String shortcut = menu.shortcut;
             if (shortcut == null) {
                 shortcut = menu.description;
             }

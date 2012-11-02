@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/single_icon_wrapper_layout"
-	android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical" android:gravity="center"
-	style="@style/IconLayout" android:clickable="true">
-	<ImageView android:src="@drawable/icon" android:id="@+id/icon_layout_image" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:scaleType="center" style="@style/IconsImageViewLayout"></ImageView>
-	<TextView android:id="@+id/icon_layout_text" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:text="Some long text maybe" style="@style/IconsTextViewLayout" android:gravity="center_horizontal"
-		android:layout_gravity="center_horizontal"></TextView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/single_icon_wrapper_layout"
+    style="@style/IconLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/icon_layout_image"
+        style="@style/IconsImageViewLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:src="@drawable/icon" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/icon_layout_text"
+        style="@style/IconsTextViewLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="Some long text maybe" >
+    </TextView>
+
 </LinearLayout>
