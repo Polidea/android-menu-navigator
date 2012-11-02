@@ -9,20 +9,19 @@ import android.content.Context;
 /**
  * Menu firing a transaction.
  */
-public class TransactionMenu extends AbstractNavigationMenu {
+public class TransactionMenu extends AbstractTransactionMenu {
 
     private static final long serialVersionUID = 1L;
-    public String transaction;
 
     public TransactionMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final AbstractNavigationMenu parent,
             final Context context) throws JSONException {
         super(reader, jsonMenu, BasicMenuTypes.TRANSACTION, parent, context);
-        transaction = jsonMenu.getString("transaction");
     }
 
-    public TransactionMenu(final String name, final String transaction, final Context context) {
-        super(name, BasicMenuTypes.TRANSACTION, context);
-        this.transaction = transaction;
+    public TransactionMenu(final String name, final String description, final String help, final String iconFile,
+            final String breadCrumbIconFile, final String menuType, final String transaction, final String shortcut,
+            final Context context) {
+        super(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction, shortcut, context);
     }
 
     @Override

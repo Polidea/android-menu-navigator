@@ -23,6 +23,16 @@ public class FloatNumberMenu extends AbstractDataEntryMenu {
         maxVal = JsonMenuReader.getIntOrNull(jsonMenu, "maxValue");
     }
 
+    public FloatNumberMenu(final String name, final String description, final String help, final String iconFile,
+            final String breadCrumbIconFile, final String menuType, final String transaction, final String shortcut,
+            final String variable, final Integer minLength, final Integer maxLength, final String hint,
+            final Integer minVal, final Integer maxVal, final Context context) {
+        super(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction, shortcut, variable,
+                minLength, maxLength, hint, context);
+        this.minVal = minVal;
+        this.maxVal = maxVal;
+    }
+
     @Override
     public String toString() {
         return "FloatNumberMenu [" + super.toString() + "]";

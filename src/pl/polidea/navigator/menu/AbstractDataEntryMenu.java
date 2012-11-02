@@ -10,14 +10,13 @@ import android.content.Context;
  * Base class for all number menu types.
  * 
  */
-public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
+public abstract class AbstractDataEntryMenu extends AbstractTransactionMenu {
 
     private static final long serialVersionUID = 1L;
     public final String variable;
     public final AbstractNavigationMenu link;
     public final Integer minLength;
     public final Integer maxLength;
-    public final String transaction;
     public final String hint;
 
     public AbstractDataEntryMenu(final JsonMenuReader reader, final JSONObject jsonMenu, final String menuType,
@@ -26,12 +25,23 @@ public abstract class AbstractDataEntryMenu extends AbstractNavigationMenu {
         minLength = JsonMenuReader.getIntOrNull(jsonMenu, "minLength");
         maxLength = JsonMenuReader.getIntOrNull(jsonMenu, "maxLength");
         variable = jsonMenu.getString("variable");
-        transaction = JsonMenuReader.getStringOrNull(jsonMenu, "transaction");
         hint = JsonMenuReader.getStringOrNull(jsonMenu, "hint");
         link = reader.readLink(jsonMenu, directory, this);
         if (link != null && transaction != null) {
             throw new JSONException("Exactly one of \"link\" and \"transaction\" can be defined in " + jsonMenu);
         }
+    }
+
+    public AbstractDataEntryMenu(final String name, final String description, final String help, final String iconFile,
+            final String breadCrumbIconFile, final String menuType, final String transaction, final String shortcut,
+            final String variable, final Integer minLength, final Integer maxLength, final String hint,
+            final Context context) {
+        super(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction, shortcut, context);
+        this.variable = variable;
+        this.minLength = minLength;
+        this.maxLength = maxLength;
+        this.hint = hint;
+        this.link = null;
     }
 
     @Override
