@@ -132,8 +132,10 @@ public class Persistence {
             return;
         }
         final List<AbstractTransactionMenu> savedList = getLatestList(menuName);
-        if (savedList.contains(menu)) {
-            return;
+        for (final AbstractTransactionMenu savedMenu : savedList) {
+            if (savedMenu.transaction == menu.transaction) {
+                return;
+            }
         }
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         setLatestListElementAtPosition(menuName, menu, editor, 0);
