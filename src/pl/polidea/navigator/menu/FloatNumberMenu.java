@@ -24,11 +24,12 @@ public class FloatNumberMenu extends AbstractDataEntryMenu {
     }
 
     public FloatNumberMenu(final String name, final String description, final String help, final String iconFile,
-            final String breadCrumbIconFile, final String menuType, final String transaction, final String shortcut,
-            final String variable, final Integer minLength, final Integer maxLength, final String hint,
-            final Integer minVal, final Integer maxVal, final Context context) {
-        super(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction, shortcut, variable,
-                minLength, maxLength, hint, context);
+            final String breadCrumbIconFile, final String rightIconFile, final String menuType,
+            final String transaction, final String shortcut, final String variable, final Integer minLength,
+            final Integer maxLength, final String hint, final Integer minVal, final Integer maxVal,
+            final Context context) {
+        super(name, description, help, iconFile, breadCrumbIconFile, rightIconFile, menuType, transaction, shortcut,
+                variable, minLength, maxLength, hint, context);
         this.minVal = minVal;
         this.maxVal = maxVal;
     }

@@ -23,6 +23,7 @@ public abstract class AbstractNavigationMenu implements Serializable {
     public final String help;
     public final String iconFile;
     public final String breadCrumbIconFile;
+    public final String breadCrumbRightIconFile;
     public final File directory;
     public final String menuType;
     public final Map<String, String> parameters;
@@ -32,12 +33,14 @@ public abstract class AbstractNavigationMenu implements Serializable {
     private transient Persistence persistence;
 
     public AbstractNavigationMenu(final String name, final String description, final String help,
-            final String iconFile, final String breadCrumbIconFile, final String menuType, final Context context) {
+            final String iconFile, final String breadCrumbIconFile, final String breadCrumbRightIconFile,
+            final String menuType, final Context context) {
         this.name = name;
         this.description = description;
         this.help = help;
         this.iconFile = iconFile;
         this.breadCrumbIconFile = breadCrumbIconFile;
+        this.breadCrumbRightIconFile = breadCrumbRightIconFile;
         this.menuType = menuType;
         this.persistence = new Persistence(context);
 
@@ -61,6 +64,7 @@ public abstract class AbstractNavigationMenu implements Serializable {
         description = JsonMenuReader.getStringOrNull(jsonMenu, "description");
         iconFile = JsonMenuReader.getStringOrNull(jsonMenu, "icon");
         breadCrumbIconFile = JsonMenuReader.getStringOrNull(jsonMenu, "breadcrumb_icon");
+        breadCrumbRightIconFile = JsonMenuReader.getStringOrNull(jsonMenu, "breadcrumb_right_icon");
         help = JsonMenuReader.getStringOrNull(jsonMenu, "help");
         JsonMenuReader.readParameters(this.parameters, jsonMenu, "parameters");
         this.parent = parent;

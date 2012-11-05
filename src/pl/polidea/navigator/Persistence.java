@@ -66,6 +66,8 @@ public class Persistence {
             final String iconFile = sharedPreferences.getString(LATEST_LIST + menuName + "iconFile" + i, null);
             final String breadCrumbIconFile = sharedPreferences.getString(LATEST_LIST + menuName + "breadCrumbIconFile"
                     + i, null);
+            final String rightIconFile = sharedPreferences
+                    .getString(LATEST_LIST + menuName + "rightIconFile" + i, null);
             final String menuType = sharedPreferences.getString(LATEST_LIST + menuName + "menuType" + i, null);
 
             final String transaction = sharedPreferences.getString(LATEST_LIST + menuName + "transaction" + i, null);
@@ -90,16 +92,16 @@ public class Persistence {
                 final String hint = sharedPreferences.getString(LATEST_LIST + menuName + "hint" + i, null);
 
                 if (BasicMenuTypes.NUMBER.equals(menuType)) {
-                    menu = new NumberMenu(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction,
-                            shortcut, variable, minLength, maxLength, hint, context);
+                    menu = new NumberMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
+                            menuType, transaction, shortcut, variable, minLength, maxLength, hint, context);
                     list.add(menu);
                 } else if (BasicMenuTypes.STRING.equals(menuType)) {
-                    menu = new StringMenu(name, description, help, iconFile, breadCrumbIconFile, menuType, transaction,
-                            shortcut, variable, minLength, maxLength, hint, context);
+                    menu = new StringMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
+                            menuType, transaction, shortcut, variable, minLength, maxLength, hint, context);
                     list.add(menu);
                 } else if (BasicMenuTypes.PHONE_NUMBER.equals(menuType)) {
-                    menu = new PhoneNumberMenu(name, description, help, iconFile, breadCrumbIconFile, menuType,
-                            transaction, shortcut, variable, minLength, maxLength, hint, context);
+                    menu = new PhoneNumberMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
+                            menuType, transaction, shortcut, variable, minLength, maxLength, hint, context);
                     list.add(menu);
                 } else if (BasicMenuTypes.FLOAT_NUMBER.equals(menuType)) {
                     Integer minVal = null;
@@ -114,13 +116,14 @@ public class Persistence {
                     if (maxVal != null && maxVal == Integer.MAX_VALUE) {
                         maxVal = null;
                     }
-                    menu = new FloatNumberMenu(name, description, help, iconFile, breadCrumbIconFile, menuType,
-                            transaction, shortcut, variable, minLength, maxLength, hint, minVal, maxVal, context);
+                    menu = new FloatNumberMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
+                            menuType, transaction, shortcut, variable, minLength, maxLength, hint, minVal, maxVal,
+                            context);
                     list.add(menu);
                 }
             } else if (BasicMenuTypes.TRANSACTION.equals(menuType)) {
-                menu = new TransactionMenu(name, description, help, iconFile, breadCrumbIconFile, menuType,
-                        transaction, shortcut, context);
+                menu = new TransactionMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
+                        menuType, transaction, shortcut, context);
                 list.add(menu);
             }
         }
@@ -157,6 +160,7 @@ public class Persistence {
         editor.putString(LATEST_LIST + menuName + "help" + position, menu.help);
         editor.putString(LATEST_LIST + menuName + "iconFile" + position, menu.iconFile);
         editor.putString(LATEST_LIST + menuName + "breadCrumbIconFile" + position, menu.breadCrumbIconFile);
+        editor.putString(LATEST_LIST + menuName + "rightIconFile" + position, menu.breadCrumbRightIconFile);
         editor.putString(LATEST_LIST + menuName + "menuType" + position, menu.menuType);
 
         // AbstractTransactionMenu

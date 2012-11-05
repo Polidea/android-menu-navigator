@@ -18,6 +18,7 @@ import android.widget.TextView;
  */
 public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements OnBackStackChangedListener {
     private LinearLayout breadcrumbLayout;
+    private ImageView rightImageView;
     private LayoutInflater inflater;
     private int currentLevel;
     private OnLevelChangeListener levelChangeListener;
@@ -27,6 +28,7 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
         this.inflater = inflater;
         final View view = inflater.inflate(R.layout.breadcrumb_fragment_layout, container, false);
         breadcrumbLayout = (LinearLayout) view.findViewById(R.id.breadCrumbLayout);
+        rightImageView = (ImageView) view.findViewById(R.id.rightIcon);
         updateMenu();
         return view;
     }
@@ -68,6 +70,9 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
             if (!last) {
                 final View separator = createSeparator();
                 breadcrumbLayout.addView(separator);
+            }
+            if (navigationMenu.breadCrumbRightIconFile != null) {
+                rightImageView.setImageBitmap(bitmapReader.getBitmap(navigationMenu.breadCrumbRightIconFile));
             }
             currentLevel++;
         }

@@ -30,9 +30,9 @@ public abstract class AbstractTransactionMenu extends AbstractNavigationMenu {
     }
 
     public AbstractTransactionMenu(final String name, final String description, final String help,
-            final String iconFile, final String breadCrumbIconFile, final String menuType, final String transaction,
-            final String shortcut, final Context context) {
-        super(name, description, help, iconFile, breadCrumbIconFile, menuType, context);
+            final String iconFile, final String rightIconFile, final String breadCrumbIconFile, final String menuType,
+            final String transaction, final String shortcut, final Context context) {
+        super(name, description, help, iconFile, rightIconFile, breadCrumbIconFile, menuType, context);
         this.transaction = transaction;
         this.shortcut = shortcut;
     }
