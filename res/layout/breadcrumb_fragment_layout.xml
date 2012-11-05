@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:scaleType="center"
-        android:src="@drawable/icon" />
+        android:scaleType="center" />
 
     <HorizontalScrollView
         style="@style/BreadCrumbLayout"
