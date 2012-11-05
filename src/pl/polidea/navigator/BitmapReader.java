@@ -55,10 +55,13 @@ public class BitmapReader {
         Log.d(TAG, "Retrieving bitmap " + fileName + " from " + iconPrefix);
         final Options options = new BitmapFactory.Options();
         options.inDensity = displayMetrics.densityDpi;
-        final File file = new File(new File(menuRetriever.getBaseDirectory(), iconPrefix), fileName);
-        Log.d(TAG, "File to read from " + file);
-        final Bitmap bitmap = BitmapFactory.decodeFile(file.getPath(), options);
-        Log.d(TAG, "Retrieving bitmap " + fileName);
+        Bitmap bitmap = null;
+        if (menuRetriever != null) {
+            final File file = new File(new File(menuRetriever.getBaseDirectory(), iconPrefix), fileName);
+            Log.d(TAG, "File to read from " + file);
+            bitmap = BitmapFactory.decodeFile(file.getPath(), options);
+            Log.d(TAG, "Retrieving bitmap " + fileName);
+        }
         if (bitmap == null) {
             Log.d(TAG, "Retrieving bitmap " + fileName);
             return BitmapFactory.decodeResource(resources, warningResource);

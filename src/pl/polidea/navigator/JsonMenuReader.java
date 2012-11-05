@@ -115,13 +115,13 @@ public class JsonMenuReader {
             inputStream = new ObjectInputStream(new FileInputStream(new File(directory, CACHE_FILE_NAME)));
             try {
                 myMenu = (AbstractNavigationMenu) inputStream.readObject();
+                myMenu.updateTransientAttributes(new MenuContext(), null, context);
             } catch (final ClassNotFoundException e) {
                 Log.w(TAG, "Error reading from cache. Deleting the cache and fallback to normal reading.", e);
                 return false;
             } finally {
                 inputStream.close();
             }
-            myMenu.updateTransientAttributes(new MenuContext(), null, context);
         } catch (final IOException e) {
             Log.w(TAG, "Error reading from cache. Deleting the cache and fallback to normal reading.", e);
             return false;
