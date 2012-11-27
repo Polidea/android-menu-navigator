@@ -170,13 +170,19 @@ public class Persistence {
         // AbstractDataEntryMenu
         if (menu instanceof AbstractDataEntryMenu) {
             editor.putString(LATEST_LIST + menuName + "variable" + position, ((AbstractDataEntryMenu) menu).variable);
-            editor.putInt(LATEST_LIST + menuName + "minLength" + position, ((AbstractDataEntryMenu) menu).minLength);
-            editor.putInt(LATEST_LIST + menuName + "maxLength" + position, ((AbstractDataEntryMenu) menu).maxLength);
+            final Integer minLength = ((AbstractDataEntryMenu) menu).minLength;
+            editor.putInt(LATEST_LIST + menuName + "minLength" + position, minLength != null ? minLength
+                    : Integer.MIN_VALUE);
+            final Integer maxLength = ((AbstractDataEntryMenu) menu).maxLength;
+            editor.putInt(LATEST_LIST + menuName + "maxLength" + position, maxLength != null ? maxLength
+                    : Integer.MAX_VALUE);
             editor.putString(LATEST_LIST + menuName + "hint" + position, ((AbstractDataEntryMenu) menu).hint);
 
             if (menu instanceof FloatNumberMenu) {
-                editor.putInt(LATEST_LIST + menuName + "minVal" + position, ((FloatNumberMenu) menu).minVal);
-                editor.putInt(LATEST_LIST + menuName + "maxVal" + position, ((FloatNumberMenu) menu).maxVal);
+                final Integer minVal = ((FloatNumberMenu) menu).minVal;
+                editor.putInt(LATEST_LIST + menuName + "minVal" + position, minVal != null ? minVal : Integer.MIN_VALUE);
+                final Integer maxVal = ((FloatNumberMenu) menu).maxVal;
+                editor.putInt(LATEST_LIST + menuName + "maxVal" + position, maxVal != null ? maxVal : Integer.MAX_VALUE);
             }
         }
     }
