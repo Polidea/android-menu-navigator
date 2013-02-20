@@ -71,7 +71,10 @@ public abstract class AbstractNavigationMenu implements Serializable {
     }
 
     public boolean isDisabled() {
-        return !persistence.getMenuVisibility(name);
+        if (persistence != null) {
+            return !persistence.getMenuVisibility(name);
+        }
+        return true;
     }
 
     public void setDescription(final String decription) {

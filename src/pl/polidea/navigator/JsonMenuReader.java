@@ -119,6 +119,9 @@ public class JsonMenuReader {
             } catch (final ClassNotFoundException e) {
                 Log.w(TAG, "Error reading from cache. Deleting the cache and fallback to normal reading.", e);
                 return false;
+            } catch (final NullPointerException e) {
+                Log.w(TAG, "Error reading from cache. Deleting the cache and fallback to normal reading.", e);
+                return false;
             } finally {
                 inputStream.close();
             }
