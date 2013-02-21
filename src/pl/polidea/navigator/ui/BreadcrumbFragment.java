@@ -23,6 +23,10 @@ public class BreadcrumbFragment extends AbstractMenuNavigatorFragment implements
     private int currentLevel;
     private OnLevelChangeListener levelChangeListener;
 
+    public BreadcrumbFragment() {
+        super();
+    }
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         this.inflater = inflater;

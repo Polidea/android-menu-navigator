@@ -26,6 +26,10 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
 
     Context context;
 
+    public ListMenuFragment() {
+        super();
+    }
+
     public ListMenuFragment(final Context context) {
         this.context = context;
     }

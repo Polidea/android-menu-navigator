@@ -25,6 +25,10 @@ public class IconsFragment extends AbstractMenuNavigatorFragment {
     private int iconWidth;
     private int noOfColumns;
 
+    public IconsFragment() {
+        super();
+    }
+
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
