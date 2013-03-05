@@ -7,7 +7,6 @@ import pl.polidea.navigator.R;
 import pl.polidea.navigator.menu.AbstractNavigationMenu;
 import pl.polidea.navigator.menu.AbstractTransactionMenu;
 import pl.polidea.navigator.menu.ListMenu;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,14 +23,8 @@ import android.widget.TextView;
  */
 public class ListMenuFragment extends AbstractMenuNavigatorFragment {
 
-    Context context;
-
     public ListMenuFragment() {
         super();
-    }
-
-    public ListMenuFragment(final Context context) {
-        this.context = context;
     }
 
     private class ListMenuAdapter extends BaseAdapter {
@@ -105,7 +98,7 @@ public class ListMenuFragment extends AbstractMenuNavigatorFragment {
         public LatestListAdapter(final String name, final TextView latestText, final LayoutInflater inflater) {
             this.inflater = inflater;
 
-            final Persistence persistence = new Persistence(context);
+            final Persistence persistence = new Persistence(getActivity());
 
             latestList = persistence.getLatestList(name);
 

@@ -10,7 +10,6 @@ import pl.polidea.navigator.ui.ListMenuFragment;
 import pl.polidea.navigator.ui.NumberFragment;
 import pl.polidea.navigator.ui.PhoneNumberFragment;
 import pl.polidea.navigator.ui.StringFragment;
-import android.content.Context;
 import android.util.Log;
 
 /**
@@ -20,11 +19,6 @@ import android.util.Log;
 public class FragmentFactoryBase implements FragmentFactoryInterface {
 
     private static final String TAG = FragmentFactoryBase.class.getSimpleName();
-    private final Context context;
-
-    public FragmentFactoryBase(final Context context) {
-        this.context = context;
-    }
 
     @Override
     public AbstractMenuNavigatorFragment createFragment(final AbstractNavigationMenu navigationMenu) {
@@ -33,7 +27,7 @@ public class FragmentFactoryBase implements FragmentFactoryInterface {
         if (BasicMenuTypes.ICONS.equals(menuType)) {
             fragment = new IconsFragment();
         } else if (BasicMenuTypes.LIST.equals(menuType)) {
-            fragment = new ListMenuFragment(context);
+            fragment = new ListMenuFragment();
         } else if (BasicMenuTypes.NUMBER.equals(menuType)) {
             fragment = new NumberFragment();
         } else if (BasicMenuTypes.STRING.equals(menuType)) {
