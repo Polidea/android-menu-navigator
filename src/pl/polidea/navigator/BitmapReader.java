@@ -33,21 +33,15 @@ public class BitmapReader {
         this.menuRetriever = menuRetriever;
         this.displayMetrics = displayMetrics;
         this.resources = context.getResources();
-        switch (displayMetrics.densityDpi) {
-        case DisplayMetrics.DENSITY_HIGH:
-            iconPrefix = "drawable-hdpi";
-            break;
-        case DisplayMetrics.DENSITY_MEDIUM:
-            iconPrefix = "drawable-mdpi";
-            break;
-        case DisplayMetrics.DENSITY_LOW:
+
+        if (displayMetrics.densityDpi < 140) {
             iconPrefix = "drawable-ldpi";
-            break;
-        case 320:
+        } else if (displayMetrics.densityDpi < 200) {
+            iconPrefix = "drawable-mdpi";
+        } else if (displayMetrics.densityDpi < 300) {
+            iconPrefix = "drawable-hdpi";
+        } else {
             iconPrefix = "drawable-xhdpi";
-            break;
-        default:
-            throw new IllegalArgumentException("Unsupported density: " + displayMetrics.densityDpi);
         }
     }
 
