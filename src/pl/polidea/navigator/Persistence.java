@@ -7,6 +7,7 @@ import pl.polidea.navigator.menu.AbstractDataEntryMenu;
 import pl.polidea.navigator.menu.AbstractTransactionMenu;
 import pl.polidea.navigator.menu.BasicMenuTypes;
 import pl.polidea.navigator.menu.FloatNumberMenu;
+import pl.polidea.navigator.menu.MenuContext;
 import pl.polidea.navigator.menu.NumberMenu;
 import pl.polidea.navigator.menu.PhoneNumberMenu;
 import pl.polidea.navigator.menu.StringMenu;
@@ -94,14 +95,17 @@ public class Persistence {
                 if (BasicMenuTypes.NUMBER.equals(menuType)) {
                     menu = new NumberMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
                             menuType, transaction, shortcut, variable, minLength, maxLength, hint, context);
+                    menu.updateTransientAttributes(new MenuContext(), null, context);
                     list.add(menu);
                 } else if (BasicMenuTypes.STRING.equals(menuType)) {
                     menu = new StringMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
                             menuType, transaction, shortcut, variable, minLength, maxLength, hint, context);
+                    menu.updateTransientAttributes(new MenuContext(), null, context);
                     list.add(menu);
                 } else if (BasicMenuTypes.PHONE_NUMBER.equals(menuType)) {
                     menu = new PhoneNumberMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
                             menuType, transaction, shortcut, variable, minLength, maxLength, hint, context);
+                    menu.updateTransientAttributes(new MenuContext(), null, context);
                     list.add(menu);
                 } else if (BasicMenuTypes.FLOAT_NUMBER.equals(menuType)) {
                     Integer minVal = null;
@@ -119,11 +123,13 @@ public class Persistence {
                     menu = new FloatNumberMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
                             menuType, transaction, shortcut, variable, minLength, maxLength, hint, minVal, maxVal,
                             context);
+                    menu.updateTransientAttributes(new MenuContext(), null, context);
                     list.add(menu);
                 }
             } else if (BasicMenuTypes.TRANSACTION.equals(menuType)) {
                 menu = new TransactionMenu(name, description, help, iconFile, breadCrumbIconFile, rightIconFile,
                         menuType, transaction, shortcut, context);
+                menu.updateTransientAttributes(new MenuContext(), null, context);
                 list.add(menu);
             }
         }
