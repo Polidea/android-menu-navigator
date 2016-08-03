@@ -1,3 +1,9 @@
+---
+
+__This repository is no longer maintained. Issue reports and pull requests will not be attended.__
+
+---
+
 This library makes possible to quickly create simple android prototype. The prototype might contain many screens connected together in form of a menu screens. The screens can take one of the following form:
   * icon grid
   * list to choose from
